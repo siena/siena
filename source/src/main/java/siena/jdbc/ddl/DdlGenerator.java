@@ -1,6 +1,8 @@
 package siena.jdbc.ddl;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.math.BigDecimal;
 import java.sql.Types;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,6 +29,7 @@ import siena.SimpleDate;
 import siena.Text;
 import siena.Time;
 import siena.Unique;
+import siena.core.DecimalPrecision;
 import siena.core.Polymorphic;
 import siena.embed.Embedded;
 
@@ -52,10 +55,13 @@ public class DdlGenerator {
 	}
 	
 	public Table addTable(Class<?> clazz) {
+		if(Modifier.isAbstract(clazz.getModifiers())){
+			return null;
+		}
 		Table table = new Table();
-		
 		ClassInfo info = ClassInfo.getClassInfo(clazz);
 		table.setName(info.tableName);
+		table.setType("MyISAM");
 		database.addTable(table);
 		
 		Map<String, UniqueIndex> uniques = new HashMap<String, UniqueIndex>();
@@ -214,7 +220,28 @@ public class DdlGenerator {
 			if(max == null)
 				column.setSize(""+255); // fixes by default to this value in order to prevent alter tables every time
 			else column.setSize(""+max.value());
-		}						
+		} else if(type == BigDecimal.class){						
+			DecimalPrecision an = field.getAnnotation(DecimalPrecision.class);
+			if(an == null) {
+				columnType = Types.DECIMAL;
+				column.setSizeAndScale(19, 2);
+			}
+			else {
+				if(an.storageType() == DecimalPrecision.StorageType.NATIVE){
+					columnType = Types.DECIMAL;
+					column.setSizeAndScale(an.size(), an.scale());
+				}else if(an.storageType() == DecimalPrecision.StorageType.STRING) {
+					columnType = Types.VARCHAR;
+					// should be an.size+"."+sign
+					column.setSize((an.size()+2)+"");
+				}else if(an.storageType() == DecimalPrecision.StorageType.DOUBLE) {
+					columnType = Types.DOUBLE;					
+				}else {
+					columnType = Types.DECIMAL;
+					column.setSizeAndScale(19, 2);
+				}
+			}
+		}
 		else {
 			Embedded embedded = field.getAnnotation(Embedded.class);
 			if(embedded != null) {
@@ -233,7 +260,6 @@ public class DdlGenerator {
 		}
 
 		column.setTypeCode(columnType);
-		
 		return column;
 	}
 

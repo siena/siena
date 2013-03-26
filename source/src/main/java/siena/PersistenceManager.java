@@ -19,8 +19,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import siena.core.Many4PM;
+import siena.core.One4PM;
 import siena.core.async.PersistenceManagerAsync;
 import siena.core.batch.Batch;
+import siena.core.options.PmOption;
 
 /**
  * This is the core interface to implement on <code>Siena</code>.
@@ -50,6 +53,12 @@ public interface PersistenceManager {
 	 */
 	void init(Properties p);
 
+	
+	PersistenceManager option(PmOption opt);
+	PmOption option(int type);
+	Map<Integer, PmOption> options();
+	void resetOptions();
+
 	/**
 	 * Method for obtaining <code>Query</code> implementations.
 	 * 
@@ -68,6 +77,20 @@ public interface PersistenceManager {
 	 */
 	<T> Batch<T> createBatch(Class<T> clazz);
  
+	/**
+	 * Method for obtaining <code>Many</code> implementations.
+	 * 
+	 * @return A <code>Many4PM</code> object that lets make batch operations
+	 */
+	<T> Many4PM<T> createMany(Class<T> clazz);
+	
+	/**
+	 * Method for obtaining <code>One</code> implementations.
+	 * 
+	 * @return A <code>One</code> object that lets make batch operations
+	 */
+	<T> One4PM<T> createOne(Class<T> clazz);
+	
 	/**
 	 * This method fills all the fields of the given object using its primary key value
 	 * to extract the entity from DB.
@@ -175,6 +198,7 @@ public interface PersistenceManager {
 
 	
 	void beginTransaction(int isolationLevel);
+	void beginTransaction();
 
 	void commitTransaction();
 

@@ -1,10 +1,17 @@
 package siena;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
 import siena.core.async.QueryAsync;
 import siena.core.options.QueryOption;
+import siena.embed.JsonSerializer;
 
 /**
  * The base implementation of Query<T> where T is the model being queried (not necessarily inheriting siena.Model)
@@ -14,12 +21,16 @@ import siena.core.options.QueryOption;
  * @param <T>
  */
 public class BaseQuery<T> extends BaseQueryData<T> implements Query<T> {
-	
-	private PersistenceManager pm;
+	private static final long serialVersionUID = 3533080111146350262L;
+
+	transient protected PersistenceManager pm;
 
 	@Deprecated
-	private Object nextOffset;
+	transient protected Object nextOffset;
 
+	
+	public BaseQuery() {
+	}
 	
 	public BaseQuery(PersistenceManager pm, Class<T> clazz) {
 		super(clazz);
@@ -73,6 +84,26 @@ public class BaseQuery<T> extends BaseQueryData<T> implements Query<T> {
 
 	public Query<T> join(String fieldName, String... sortFields) {
 		addJoin(fieldName, sortFields);
+		return this;
+	}
+	
+	public Query<T> aggregated(Object aggregator, String fieldName) {
+		addAggregated(aggregator, fieldName);
+		return this;
+	}
+	
+	public Query<T> aggregated(Object aggregator, Field field) {
+		addAggregated(aggregator, field);
+		return this;
+	}
+
+	public Query<T> owned(Object owner, String fieldName) {
+		addOwned(owner, fieldName);
+		return this;
+	}
+	
+	public Query<T> owned(Object owner, Field field) {
+		addOwned(owner, field);
 		return this;
 	}
 	
@@ -141,18 +172,13 @@ public class BaseQuery<T> extends BaseQueryData<T> implements Query<T> {
 	}
 	
 	
-	public Query<T> clone() {
+	public Query<T> copy() {
 		// TODO code a real deep clone function
 		return new BaseQuery<T>(this);
 	}
 	
 	public Class<T> getQueriedClass() {
 		return clazz;
-	}
-
-	public Object raw(String request) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Deprecated
@@ -215,7 +241,7 @@ public class BaseQuery<T> extends BaseQueryData<T> implements Query<T> {
 	}
 
 	public Query<T> release() {
-		super.reset();
+		//super.reset();
 		pm.release(this);
 		return this;
 	}
@@ -230,22 +256,50 @@ public class BaseQuery<T> extends BaseQueryData<T> implements Query<T> {
 		return pm.update(this, fieldValues);
 	}
 
-	public String dump() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Query<T> restore(String dump) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public QueryAsync<T> async() {
 		return pm.async().createQuery(this);
 	}
 
 	public T getByKey(Object key) {
 		return pm.getByKey(clazz, key);
+	}
+
+	public String dump(QueryOption... options) {
+		// TODO manage Java object serialization
+		return JsonSerializer.serialize(this).toString();
+	}
+
+	public void dump(OutputStream os, QueryOption... options) {		
+		// TODO manage Java object serialization
+		OutputStreamWriter st = new OutputStreamWriter(os);
+		try {
+			st.write(JsonSerializer.serialize(this).toString());
+		} catch (IOException e) {
+			throw new SienaException(e);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public Query<T> restore(String dump, QueryOption... options) {
+		// TODO manage Java object serialization
+		return (Query<T>)JsonSerializer.deserialize(BaseQuery.class, Json.loads(dump));
+	}
+
+	@SuppressWarnings("unchecked")
+	public Query<T> restore(InputStream is, QueryOption... options) {
+		// TODO manage Java object serialization
+		InputStreamReader st = new InputStreamReader(is);
+		StringBuilder sb = new StringBuilder();
+		char[] buffer = new char[1024];
+		try {
+			while( st.read(buffer) != -1){
+				sb.append(buffer);
+			}
+		} catch (IOException e) {
+			throw new SienaException(e);
+		}
+		
+		return (Query<T>)JsonSerializer.deserialize(BaseQuery.class, Json.loads(sb.toString()));
 	}
 		
 }

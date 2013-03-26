@@ -5,7 +5,7 @@
 	<groupId>siena</groupId>
 	<artifactId>siena</artifactId>
 	<name>siena</name>
-	<version>1.0.0-b3</version>
+	<version>1.0.0-b6</version>
 	<url>http://www.sienaproject.com</url>
 	<description>
 		Siena is a persistence abstraction layer made in Java with various implementations:
@@ -71,6 +71,16 @@
 			<email>jsanca at gmail.com</email>
 			<organization>Google Code</organization>
 			<organizationUrl>http://code.google.com/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>ZiglioNZ</id>
+			<name>Emanuele Ziglioli</name>
+			<email>zigliolie at sirtrack dot com</email>
+			<organization>Sirtrack</organization>
+			<organizationUrl>http://www.sirtrack.com/</organizationUrl>
 			<roles>
 				<role>Developer</role>
 			</roles>
@@ -159,10 +169,12 @@
 
 	<properties>
 		<mysql.version>5.1.6</mysql.version>
-		<gae.version>1.4.2</gae.version>
+		<gae.version>1.7.1</gae.version>
 		<hbase.version>0.21.0-SNAPSHOT</hbase.version>
 		<postgres.version>8.4-702.jdbc4</postgres.version>
 		<drizzle.version>1.0</drizzle.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
 	<build>
@@ -221,6 +233,10 @@
 			<url>https://repository.apache.org/content/repositories/snapshots</url>
 			<snapshots><enabled>true</enabled></snapshots>
 		</repository>
+		<repository>
+            <id>objectify-appengine</id>
+            <url>http://objectify-appengine.googlecode.com/svn/maven</url>
+        </repository>
 	</repositories>
 
 
@@ -334,6 +350,32 @@
 			<scope>compile</scope>
 		</dependency>
 
+
+		<!-- Fusion dependencies -->
+		<dependency>
+		    <groupId>com.google.api.client</groupId>
+		    <artifactId>google-api-client</artifactId>
+		    <version>1.4.1-beta</version>
+		</dependency>
+
+		<!-- SDB dependencies -->
+		<dependency>
+    		<groupId>com.amazonaws</groupId>
+    		<artifactId>aws-java-sdk</artifactId>
+    		<version>1.2.4</version>
+		</dependency>		
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+		
+		<!-- Objectify dependencies -->
+        <dependency>
+            <groupId>com.googlecode.objectify</groupId>
+            <artifactId>objectify</artifactId>
+            <version>3.1</version>
+        </dependency>
 	</dependencies>
 
 	<profiles>
@@ -350,6 +392,9 @@
 								<exclude>**/BaseAsyncTest.java</exclude>
 								<exclude>**/BaseModelTest.java</exclude>
 								<exclude>**/BaseMassTest.java</exclude>
+								<exclude>**/BaseEmbeddedTest.java</exclude>
+								<exclude>**/BaseAggregatedTest.java</exclude>
+								<exclude>**/BaseRelatedTest.java</exclude>
 								<exclude>**/TestAll.java</exclude>
 								<exclude>**/Person.java</exclude>
 								<exclude>**/Message.java</exclude>
@@ -357,12 +402,14 @@
 							</excludes>
 							<includes>
 								<include>**/GaeTest.java</include>
+								<exclude>**/GaeAggregatedTest.java</exclude>
+								<exclude>**/GaeRelatedTest.java</exclude>
 								<include>**/GaeAsyncTest.java</include>
 								<include>**/GaeModelTest.java</include>
 								<include>**/JdbcModelTest.java</include>
-								<include>**/JdbcTest.java</include>
+								<include>**/JdbcTest*.java</include>
 								<include>**/H2Test.java</include>
-								<include>**/PostgresTest.java</include>
+								<include>**/PostgresTest*.java</include>
 								<include>**/ClassInfoTest.java</include>
 								<include>**/ModelTest.java</include>
 								<include>**/JsonSerializerTest.java</include>
@@ -387,6 +434,9 @@
 								<exclude>**/BaseAsyncTest.java</exclude>
 								<exclude>**/BaseModelTest.java</exclude>
 								<exclude>**/BaseMassTest.java</exclude>
+								<exclude>**/BaseEmbeddedTest.java</exclude>
+								<exclude>**/BaseAggregatedTest.java</exclude>
+								<exclude>**/BaseRelatedTest.java</exclude>
 								<exclude>**/TestAll.java</exclude>
 								<exclude>**/Person.java</exclude>
 								<exclude>**/Message.java</exclude>
@@ -396,6 +446,9 @@
 								<include>**/GaeTest.java</include>
 								<include>**/GaeAsyncTest.java</include>
 								<include>**/GaeModelTest.java</include>
+								<include>**/GaeEmbeddedTest.java</include>
+								<exclude>**/GaeAggregatedTest.java</exclude>
+								<exclude>**/GaeRelatedTest.java</exclude>
 								<!--include>**/GaeMassTest.java</include-->
 							</includes>
 						</configuration>
@@ -416,6 +469,9 @@
 								<exclude>**/BaseAsyncTest.java</exclude>
 								<exclude>**/BaseModelTest.java</exclude>
 								<exclude>**/BaseMassTest.java</exclude>
+								<exclude>**/BaseEmbeddedTest.java</exclude>
+								<exclude>**/BaseAggregatedTest.java</exclude>
+								<exclude>**/BaseRelatedTest.java</exclude>
 								<exclude>**/DrizzleTest.java</exclude>
 								<exclude>**/TestAll.java</exclude>
 								<exclude>**/Person.java</exclude>
@@ -424,7 +480,8 @@
 							</excludes>
 							<includes>
 								<include>**/JdbcTest.java</include>
-								<include>**/JdbcModelTest.java</include>
+								<include>**/JdbcModelTest*.java</include>
+								<include>**/JdbcMultiThreadTest.java</include>
 							</includes>
 						</configuration>
 					</plugin>
@@ -444,13 +501,17 @@
 								<exclude>**/BaseAsyncTest.java</exclude>
 								<exclude>**/BaseModelTest.java</exclude>
 								<exclude>**/BaseMassTest.java</exclude>
+								<exclude>**/BaseEmbeddedTest.java</exclude>
+								<exclude>**/BaseAggregatedTest.java</exclude>
+								<exclude>**/BaseRelatedTest.java</exclude>
 								<exclude>**/TestAll.java</exclude>
 								<exclude>**/Person.java</exclude>
 								<exclude>**/Message.java</exclude>
 								<exclude>**/Discovery.java</exclude>
 							</excludes>
 							<includes>
-								<include>**/PostgresTest.java</include>
+								<include>**/PostgresTest*.java</include>
+								<include>**/PostgresMultiThreadTest.java</include>
 							</includes>
 						</configuration>
 					</plugin>
@@ -470,13 +531,73 @@
 								<exclude>**/BaseAsyncTest.java</exclude>
 								<exclude>**/BaseModelTest.java</exclude>
 								<exclude>**/BaseMassTest.java</exclude>
+								<exclude>**/BaseEmbeddedTest.java</exclude>
+								<exclude>**/BaseAggregatedTest.java</exclude>
+								<exclude>**/BaseRelatedTest.java</exclude>
 								<exclude>**/TestAll.java</exclude>
 								<exclude>**/Person.java</exclude>
 								<exclude>**/Message.java</exclude>
 								<exclude>**/Discovery.java</exclude>
 							</excludes>
 							<includes>
-								<include>**/H2Test.java</include>
+								<include>**/H2Test*.java</include>
+								<include>**/H2MultiThreadTest.java</include>
+							</includes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>FUSION</id>
+			<build>
+				<plugins>
+					<!-- Test cases -->
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<excludes>
+								<exclude>**/BaseTest.java</exclude>
+								<exclude>**/BaseAsyncTest.java</exclude>
+								<exclude>**/BaseModelTest.java</exclude>
+								<exclude>**/BaseMassTest.java</exclude>
+								<exclude>**/TestAll.java</exclude>
+								<exclude>**/Person.java</exclude>
+								<exclude>**/Message.java</exclude>
+								<exclude>**/Discovery.java</exclude>
+							</excludes>
+							<includes>
+								<include>**/FusionTest.java</include>
+							</includes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>SDB</id>
+			<build>
+				<plugins>
+					<!-- Test cases -->
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<excludes>
+								<exclude>**/AbstractTest.java</exclude>
+								<exclude>**/BaseTest*.java</exclude>
+								<exclude>**/BaseAsyncTest.java</exclude>
+								<exclude>**/BaseModelTest.java</exclude>
+								<exclude>**/BaseMassTest.java</exclude>
+								<exclude>**/BaseEmbeddedTest.java</exclude>
+								<exclude>**/BaseAggregatedTest.java</exclude>
+								<exclude>**/BaseRelatedTest.java</exclude>
+								<exclude>**/TestAll.java</exclude>
+								<exclude>**/Person.java</exclude>
+								<exclude>**/Message.java</exclude>
+								<exclude>**/Discovery.java</exclude>
+							</excludes>
+							<includes>
+								<include>**/SDBTest*.java</include>
 							</includes>
 						</configuration>
 					</plugin>

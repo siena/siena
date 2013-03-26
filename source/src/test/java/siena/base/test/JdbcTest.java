@@ -9,7 +9,9 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.ddlutils.Platform;
 import org.apache.ddlutils.PlatformFactory;
 import org.apache.ddlutils.model.Database;
+import org.apache.ddlutils.platform.CreationParameters;
 
+import siena.ClassInfo;
 import siena.PersistenceManager;
 import siena.Query;
 import siena.SienaRestrictedApiException;
@@ -52,13 +54,19 @@ public class JdbcTest extends BaseTest {
 			Database database = generator.getDatabase();
 	
 			Platform platform = PlatformFactory.createNewPlatformInstance("mysql");
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			Connection connection = DriverManager.getConnection(url, username, password);
 			
 			System.out.println(platform.getAlterTablesSql(connection, database));
 			
 			// this will perform the database changes
-			platform.alterTables(connection, database, true);
+			CreationParameters cp = new CreationParameters();
+			// to search, it requires MyISAM
+			cp.addParameter(database.findTable("discoveries_search"), "ENGINE", "MyISAM");
+			cp.addParameter(database.findTable("discoveries_search2"), "ENGINE", "MyISAM");
+
+			platform.alterTables(connection, database, cp, true);
+			
 	
 			connection.close();
 			
@@ -1366,15 +1374,15 @@ public class JdbcTest extends BaseTest {
 	}
 
 	@Override
-	public void testDump() {
+	public void testDumpQueryOption() {
 		// TODO Auto-generated method stub
-		super.testDump();
+		super.testDumpQueryOption();
 	}
 
 	@Override
-	public void testRestore() {
+	public void testRestoreQueryOption() {
 		// TODO Auto-generated method stub
-		super.testRestore();
+		super.testRestoreQueryOption();
 	}
 
 	@Override
@@ -1568,7 +1576,178 @@ public class JdbcTest extends BaseTest {
 		// TODO Auto-generated method stub
 		super.testLifeCycleSave();
 	}
-	
 
+	@Override
+	public void testDumpRestoreQueryFilterSimple() {
+		// TODO Auto-generated method stub
+		super.testDumpRestoreQueryFilterSimple();
+	}
+
+	@Override
+	public void testDumpRestoreQueryFilterSearch() {
+		// TODO Auto-generated method stub
+		super.testDumpRestoreQueryFilterSearch();
+	}
+
+	@Override
+	public void testDumpRestoreQueryOrder() {
+		// TODO Auto-generated method stub
+		super.testDumpRestoreQueryOrder();
+	}
+
+	@Override
+	public void testDumpRestoreQueryJoin() {
+		// TODO Auto-generated method stub
+		super.testDumpRestoreQueryJoin();
+	}
+
+	@Override
+	public void testDumpRestoreQueryData() {
+		// TODO Auto-generated method stub
+		super.testDumpRestoreQueryData();
+	}
+
+	@Override
+	public void testSerializeEmbeddedModel() {
+		// TODO Auto-generated method stub
+		super.testSerializeEmbeddedModel();
+	}
+
+	@Override
+	public void testBigDecimal() {
+		// TODO Auto-generated method stub
+		super.testBigDecimal();
+	}
+
+	@Override
+	public void testBigDecimalNoPrecision() {
+		// TODO Auto-generated method stub
+		super.testBigDecimalNoPrecision();
+	}
+
+	@Override
+	public void testBigDecimalString() {
+		// TODO Auto-generated method stub
+		super.testBigDecimalString();
+	}
+
+	@Override
+	public void testBigDecimalDouble() {
+		// TODO Auto-generated method stub
+		super.testBigDecimalDouble();
+	}
+
+	@Override
+	public void testTransactionUpdate() {
+		// TODO Auto-generated method stub
+		super.testTransactionUpdate();
+	}
+
+	@Override
+	public void testTransactionUpdateFailure() {
+		// TODO Auto-generated method stub
+		super.testTransactionUpdateFailure();
+	}
+
+	@Override
+	public void testTransactionInsert() {
+		// TODO Auto-generated method stub
+		super.testTransactionInsert();
+	}
+
+	@Override
+	public void testTransactionInsertFailure() {
+		// TODO Auto-generated method stub
+		super.testTransactionInsertFailure();
+	}
+
+	@Override
+	public void testTransactionSave() {
+		// TODO Auto-generated method stub
+		super.testTransactionSave();
+	}
+
+	@Override
+	public void testTransactionSaveFailure() {
+		// TODO Auto-generated method stub
+		super.testTransactionSaveFailure();
+	}
+
+	@Override
+	public void testTransactionDelete() {
+		// TODO Auto-generated method stub
+		super.testTransactionDelete();
+	}
+
+	@Override
+	public void testTransactionDeleteFailure() {
+		// TODO Auto-generated method stub
+		super.testTransactionDeleteFailure();
+	}
+
+	@Override
+	public void testTransactionInsertBatch() {
+		// TODO Auto-generated method stub
+		super.testTransactionInsertBatch();
+	}
+
+	@Override
+	public void testTransactionInsertBatchFailure() {
+		// TODO Auto-generated method stub
+		super.testTransactionInsertBatchFailure();
+	}
+
+	@Override
+	public void testTransactionDeleteBatch() {
+		// TODO Auto-generated method stub
+		super.testTransactionDeleteBatch();
+	}
+
+	@Override
+	public void testTransactionDeleteBatchFailure() {
+		// TODO Auto-generated method stub
+		super.testTransactionDeleteBatchFailure();
+	}
+
+	@Override
+	public void testTransactionUpdateBatch() {
+		// TODO Auto-generated method stub
+		super.testTransactionUpdateBatch();
+	}
+
+	@Override
+	public void testTransactionUpdateBatchFailure() {
+		// TODO Auto-generated method stub
+		super.testTransactionUpdateBatchFailure();
+	}
+
+	@Override
+	public void testTransactionSaveBatch() {
+		// TODO Auto-generated method stub
+		super.testTransactionSaveBatch();
+	}
+
+	@Override
+	public void testTransactionSaveBatchFailure() {
+		// TODO Auto-generated method stub
+		super.testTransactionSaveBatchFailure();
+	}
+
+	@Override
+	public void testBatchGetByKeysNonExisting() {
+		// TODO Auto-generated method stub
+		super.testBatchGetByKeysNonExisting();
+	}
 	
+	@Override
+	public void testGetNonExisting() {
+		// TODO Auto-generated method stub
+		super.testGetNonExisting();
+	}
+
+	public void testGetByKeyNonExisting() {
+		// TODO Auto-generated method stub
+		super.testGetByKeyNonExisting();
+	}
+
 }

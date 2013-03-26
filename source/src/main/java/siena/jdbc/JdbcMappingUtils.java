@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import siena.Query;
 import siena.QueryJoin;
 import siena.SienaException;
 import siena.Util;
+import siena.core.DecimalPrecision;
 import siena.core.Polymorphic;
 import siena.embed.Embedded;
 import siena.embed.JsonSerializer;
@@ -214,7 +216,7 @@ public class JdbcMappingUtils {
 				throw new SienaException(e);
 			}
 		} 
-		
+
 		if(field.getAnnotation(Embedded.class) != null && value != null && java.sql.Clob.class.isAssignableFrom(value.getClass())) {
 			java.sql.Clob clob = (java.sql.Clob)value;
 			try {
@@ -223,7 +225,19 @@ public class JdbcMappingUtils {
 			} catch (SQLException e) {
 				throw new SienaException(e);
 			}
-		} 
+		}
+
+        // issue https://github.com/mandubian/siena/issues/5
+        if (value != null && java.sql.Clob.class.isAssignableFrom(value.getClass())) {
+            java.sql.Clob clob = (java.sql.Clob) value;
+            try {
+                // @see http://osdir.com/ml/h2-database/2011-06/msg00170.html
+                return clob.getSubString(1, (int) clob.length());
+            } catch (SQLException e) {
+                throw new SienaException(e);
+            }
+        }
+
 		
 		if(field.isAnnotationPresent(Polymorphic.class)){
 			try {
@@ -255,7 +269,21 @@ public class JdbcMappingUtils {
 				throw new SienaException(e);
 			}
 		}
-		
+		if(BigDecimal.class == type){
+			DecimalPrecision ann = field.getAnnotation(DecimalPrecision.class);
+			if(ann==null){
+				return (BigDecimal)value;
+			}else {
+				switch(ann.storageType()){
+				case DOUBLE:
+					return BigDecimal.valueOf((Double)value);
+				case STRING:
+					return new BigDecimal((String)value);
+				case NATIVE:
+					return (BigDecimal)value;
+				}
+			}
+		}
 		return Util.fromObject(field, value);
 	}
 }

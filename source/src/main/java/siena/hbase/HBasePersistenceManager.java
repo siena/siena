@@ -1,5 +1,7 @@
 package siena.hbase;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,21 +19,24 @@ import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.util.Bytes;
 
-import siena.BaseQueryData;
+import siena.AbstractPersistenceManager;
 import siena.ClassInfo;
 import siena.PersistenceManager;
 import siena.Query;
+import siena.QueryAggregated;
 import siena.QueryFilter;
 import siena.QueryFilterSearch;
 import siena.QueryJoin;
 import siena.QueryOrder;
+import siena.QueryOwned;
 import siena.SienaException;
+import siena.core.Many4PM;
+import siena.core.One4PM;
 import siena.core.async.PersistenceManagerAsync;
 import siena.core.async.QueryAsync;
-import siena.core.batch.Batch;
 import siena.core.options.QueryOption;
 
-public class HBasePersistenceManager implements PersistenceManager {
+public class HBasePersistenceManager extends AbstractPersistenceManager {
 	
 	private Configuration config;
 	
@@ -40,6 +45,11 @@ public class HBasePersistenceManager implements PersistenceManager {
 	}
 
 	public void beginTransaction(int isolationLevel) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void beginTransaction() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -431,14 +441,28 @@ public class HBasePersistenceManager implements PersistenceManager {
 			return null;
 		}
 
+		
+
 		@Override
-		public String dump() {
+		public String dump(QueryOption... options) {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
 		@Override
-		public Query<T> restore(String dump) {
+		public void dump(OutputStream os, QueryOption... options) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public Query<T> restore(String dump, QueryOption... options) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Query<T> restore(InputStream dump, QueryOption... options) {
 			// TODO Auto-generated method stub
 			return null;
 		}
@@ -479,167 +503,56 @@ public class HBasePersistenceManager implements PersistenceManager {
 			return null;
 		}
 
+		@Override
+		public Query<T> copy() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<QueryAggregated> getAggregatees() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Query<T> aggregated(Object aggregator, String fieldName) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Query<T> owned(Object owner, String fieldName) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<QueryOwned> getOwnees() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 
 
 	}
 
 	@Override
-	public <T> T get(Query<T> query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> List<T> fetch(Query<T> query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> List<T> fetch(Query<T> query, int limit) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> List<T> fetch(Query<T> query, int limit, Object offset) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> int count(Query<T> query) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public <T> int count(Query<T> query, int limit) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public <T> int count(Query<T> query, int limit, Object offset) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public <T> int delete(Query<T> query) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public <T> List<T> fetchKeys(Query<T> query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> List<T> fetchKeys(Query<T> query, int limit) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> List<T> fetchKeys(Query<T> query, int limit, Object offset) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	@Override
-	public <T> Iterable<T> iter(Query<T> query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> Iterable<T> iter(Query<T> query, int limit) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> Iterable<T> iter(Query<T> query, int limit, Object offset) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String[] supportedOperators() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> void release(Query<T> query) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public <T> Query<T> createQuery(BaseQueryData<T> query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> Batch<T> createBatch(Class<T> clazz) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int get(Object... models) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public <T> int get(Iterable<T> models) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public <T> List<T> getByKeys(Class<T> clazz, Object... keys) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> int update(Object... models) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public <T> int update(Iterable<T> models) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public <T> void nextPage(Query<T> query) {
+	public void save(Object obj) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public <T> void previousPage(Query<T> query) {
+	public int save(Object... objects) {
 		// TODO Auto-generated method stub
-		
+		return 0;
 	}
 
 	@Override
-	public <T> PersistenceManagerAsync async() {
+	public int save(Iterable<?> objects) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 	@Override
@@ -672,18 +585,22 @@ public class HBasePersistenceManager implements PersistenceManager {
 		return 0;
 	}
 
-
 	@Override
-	public <T> void paginate(Query<T> query) {
+	public <T> int deleteByKeys(Class<T> clazz, Iterable<?> keys) {
 		// TODO Auto-generated method stub
-		
+		return 0;
 	}
 
+	@Override
+	public int get(Object... models) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
-	public <T> Iterable<T> iterPerPage(Query<T> query, int pageSize) {
+	public <T> int get(Iterable<T> models) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 	@Override
@@ -693,27 +610,9 @@ public class HBasePersistenceManager implements PersistenceManager {
 	}
 
 	@Override
-	public void save(Object obj) {
+	public <T> List<T> getByKeys(Class<T> clazz, Object... keys) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int save(Object... objects) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int save(Iterable<?> objects) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public <T> int deleteByKeys(Class<T> clazz, Iterable<?> keys) {
-		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override
@@ -723,10 +622,131 @@ public class HBasePersistenceManager implements PersistenceManager {
 	}
 
 	@Override
+	public <T> int update(Object... models) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public <T> int update(Iterable<T> models) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public <T> int delete(Query<T> query) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
 	public <T> int update(Query<T> query, Map<String, ?> fieldValues) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public <T> Many4PM<T> createMany(Class<T> clazz) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> One4PM<T> createOne(Class<T> clazz) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> int count(Query<T> query) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public <T> List<T> fetch(Query<T> query) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> List<T> fetch(Query<T> query, int limit) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> List<T> fetch(Query<T> query, int limit, Object offset) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> List<T> fetchKeys(Query<T> query) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> List<T> fetchKeys(Query<T> query, int limit) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> List<T> fetchKeys(Query<T> query, int limit, Object offset) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> Iterable<T> iter(Query<T> query) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> Iterable<T> iter(Query<T> query, int limit) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> Iterable<T> iter(Query<T> query, int limit, Object offset) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> void paginate(Query<T> query) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public <T> void nextPage(Query<T> query) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public <T> void previousPage(Query<T> query) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public <T> PersistenceManagerAsync async() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String[] supportedOperators() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 

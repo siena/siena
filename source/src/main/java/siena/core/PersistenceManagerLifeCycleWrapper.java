@@ -12,6 +12,7 @@ import siena.core.async.PersistenceManagerAsync;
 import siena.core.batch.Batch;
 import siena.core.lifecycle.LifeCyclePhase;
 import siena.core.lifecycle.LifeCycleUtils;
+import siena.core.options.PmOption;
 
 public class PersistenceManagerLifeCycleWrapper implements PersistenceManager{
 	PersistenceManager pm;
@@ -23,6 +24,26 @@ public class PersistenceManagerLifeCycleWrapper implements PersistenceManager{
 	@Override
 	public void init(Properties p) {
 		pm.init(p);
+	}
+
+	@Override
+	public PersistenceManager option(PmOption opt) {
+		return pm.option(opt);
+	}
+
+	@Override
+	public PmOption option(int type) {
+		return pm.option(type);
+	}
+
+	@Override
+	public Map<Integer, PmOption> options() {
+		return pm.options();
+	}
+
+	@Override
+	public void resetOptions() {
+		pm.resetOptions();
 	}
 
 	@Override
@@ -38,6 +59,16 @@ public class PersistenceManagerLifeCycleWrapper implements PersistenceManager{
 	@Override
 	public <T> Batch<T> createBatch(Class<T> clazz) {
 		return pm.createBatch(clazz);
+	}
+	
+	@Override
+	public <T> Many4PM<T> createMany(Class<T> clazz) {
+		return pm.createMany(clazz);
+	}
+	
+	@Override
+	public <T> One4PM<T> createOne(Class<T> clazz) {
+		return pm.createOne(clazz);
 	}
 
 	@Override
@@ -233,6 +264,11 @@ public class PersistenceManagerLifeCycleWrapper implements PersistenceManager{
 		pm.beginTransaction(isolationLevel);
 	}
 
+	@Override
+	public void beginTransaction() {
+		pm.beginTransaction();
+	}
+	
 	@Override
 	public void commitTransaction() {
 		pm.commitTransaction();

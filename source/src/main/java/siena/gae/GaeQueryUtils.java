@@ -18,8 +18,11 @@ import siena.QueryFilterSearch;
 import siena.QueryFilterSimple;
 import siena.QueryJoin;
 import siena.QueryOrder;
+import siena.QueryOwned;
 import siena.SienaException;
 import siena.SienaRestrictedApiException;
+import siena.Util;
+import siena.core.QueryFilterEmbedded;
 import siena.core.options.QueryOptionOffset;
 import siena.core.options.QueryOptionPage;
 import siena.core.options.QueryOptionState;
@@ -44,11 +47,18 @@ public class GaeQueryUtils {
 		}
 	};
 
+	public static <T> com.google.appengine.api.datastore.Query 
+	addFiltersOrders(
+			QueryData<T> query, 
+			com.google.appengine.api.datastore.Query q) 
+	{
+		return addFiltersOrders(query, q, null);
+	}
 	
 	public static <T> com.google.appengine.api.datastore.Query 
 			addFiltersOrders(
 					QueryData<T> query, 
-					com.google.appengine.api.datastore.Query q) 
+					com.google.appengine.api.datastore.Query q, Key parentKey) 
 	{
 		List<QueryFilter> filters = query.getFilters();
 		for (QueryFilter filter : filters) {
@@ -62,6 +72,10 @@ public class GaeQueryUtils {
 				// IN and NOT_EQUAL doesn't allow to use cursors
 				if(op == FilterOperator.IN || op == FilterOperator.NOT_EQUAL){
 					QueryOptionGaeContext gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
+					if(gaeCtx==null){
+						gaeCtx = new QueryOptionGaeContext();
+						query.options().put(gaeCtx.type, gaeCtx);
+					}
 					gaeCtx.useCursor = false;
 					query.option(QueryOptionOffset.ID).activate();					
 				}
@@ -77,14 +91,26 @@ public class GaeQueryUtils {
 							if(value != null){
 								if(!Collection.class.isAssignableFrom(value.getClass())){
 									// long or string goes toString
-									Key key = KeyFactory.createKey(
+									Key key;
+									if(parentKey == null){
+										key = KeyFactory.createKey(
 											q.getKind(),
 											value.toString());
+									}else {
+										key = KeyFactory.createKey(
+												parentKey,
+												q.getKind(),
+												value.toString());
+									}
 									q.addFilter(Entity.KEY_RESERVED_PROPERTY, op, key);
 								}else {
 									List<Key> keys = new ArrayList<Key>();
 									for(Object val: (Collection<?>)value) {
-										keys.add(KeyFactory.createKey(q.getKind(), val.toString()));
+										if(parentKey == null){
+											keys.add(KeyFactory.createKey(q.getKind(), val.toString()));
+										}else {
+											keys.add(KeyFactory.createKey(parentKey, q.getKind(), val.toString()));
+										}
 									}
 									q.addFilter(Entity.KEY_RESERVED_PROPERTY, op, keys);
 								}
@@ -97,13 +123,27 @@ public class GaeQueryUtils {
 									Class<?> type = f.getType();
 	
 									if(Long.TYPE == type || Long.class.isAssignableFrom(type)){
-										key = KeyFactory.createKey(
-												q.getKind(),
-												(Long)value);
+										if(parentKey == null){
+											key = KeyFactory.createKey(
+													q.getKind(),
+													(Long)value);
+										}else {
+											key = KeyFactory.createKey(
+													parentKey,
+													q.getKind(),
+													(Long)value);
+										}
 									} else {
-										key = KeyFactory.createKey(
+										if(parentKey == null){
+											key = KeyFactory.createKey(
 												q.getKind(),
-												value.toString());									
+												value.toString());
+										}else {
+											key = KeyFactory.createKey(
+													parentKey,
+													q.getKind(),
+													value.toString());
+										}
 									}
 									
 									q.addFilter(Entity.KEY_RESERVED_PROPERTY, op, key);
@@ -112,7 +152,11 @@ public class GaeQueryUtils {
 									for(Object val: (Collection<?>)value) {
 										if (value instanceof String)
 											val = Long.parseLong((String) val);
-										keys.add(KeyFactory.createKey(q.getKind(), (Long)val));
+										if(parentKey == null){
+											keys.add(KeyFactory.createKey(q.getKind(), (Long)val));
+										}else {
+											keys.add(KeyFactory.createKey(parentKey, q.getKind(), (Long)val));
+										}
 									}
 									q.addFilter(Entity.KEY_RESERVED_PROPERTY, op, keys);
 								}
@@ -122,9 +166,17 @@ public class GaeQueryUtils {
 							if(value != null) {
 								if(!Collection.class.isAssignableFrom(value.getClass())){
 									// long or string goes toString
-									Key key = KeyFactory.createKey(
-											q.getKind(),
-											value.toString());
+									Key key;
+									if(parentKey == null){
+										key = KeyFactory.createKey(
+												q.getKind(),
+												value.toString());
+									}else {
+										key = KeyFactory.createKey(
+												parentKey, 
+												q.getKind(),
+												value.toString());
+									}
 									q.addFilter(Entity.KEY_RESERVED_PROPERTY, op, key);
 								}else {
 									List<Key> keys = new ArrayList<Key>();
@@ -152,7 +204,7 @@ public class GaeQueryUtils {
 				if(qf.fields.length>1)
 					throw new SienaException("Search not possible for several fields in GAE: only one field");
 				try {
-					Field field = clazz.getDeclaredField(qf.fields[0]);
+					Field field = Util.getField(clazz, qf.fields[0]);
 					if(field.isAnnotationPresent(Unindexed.class)){
 						throw new SienaException("Cannot search the @Unindexed field "+field.getName());
 					}
@@ -199,7 +251,43 @@ public class GaeQueryUtils {
 					throw new SienaException(e);
 				}
 				break;
+			}else if(QueryFilterEmbedded.class.isAssignableFrom(filter.getClass())){
+				QueryFilterEmbedded qf = (QueryFilterEmbedded)filter;
+				
+				String propName = "";
+				int sz = qf.fields.size();
+				for(int i=0; i<sz; i++){
+					propName += ClassInfo.getSingleColumnName(qf.fields.get(i));
+					if(i < sz-1){
+						propName += qf.fieldSeparator;
+					}
+				}
+				
+				Object value = qf.value;
+				FilterOperator op = operators.get(qf.operator);
+				
+				// IN and NOT_EQUAL doesn't allow to use cursors
+				if(op == FilterOperator.IN || op == FilterOperator.NOT_EQUAL){
+					QueryOptionGaeContext gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
+					if(gaeCtx==null){
+						gaeCtx = new QueryOptionGaeContext();
+						query.options().put(gaeCtx.type, gaeCtx);
+					}
+					gaeCtx.useCursor = false;
+					query.option(QueryOptionOffset.ID).activate();					
+				}
+				
+				q.addFilter(propName, op, value);
 			}
+		}
+		
+		// adds filter on owners
+		List<QueryOwned> ownees = query.getOwnees();
+		for (QueryOwned ownee : ownees) {
+			String propertyName = ClassInfo.getSimplestColumnName(ownee.field);
+			FilterOperator op = operators.get("=");
+			Key key = GaeMappingUtils.getKey(ownee.owner);
+			q.addFilter(propertyName, op, key);
 		}
 		
 		List<QueryOrder> orders = query.getOrders();
@@ -217,7 +305,7 @@ public class GaeQueryUtils {
 		}
 		
 		return q;
-		}
+	}
 
 	public static void addSearchFilterBeginsWith(com.google.appengine.api.datastore.Query q, Field field, String match) 
 	{
@@ -270,6 +358,20 @@ public class GaeQueryUtils {
 		return fieldMap;
 	}
 	
+	public static <T> Map<Field, ArrayList<Key>> buildJoinFieldKeysMap(T model){
+		// join queries
+		Map<Field, ArrayList<Key>> fieldMap = new HashMap<Field, ArrayList<Key>>();
+				
+		// join annotations
+		for(Field field: 
+			ClassInfo.getClassInfo(model.getClass()).joinFields)
+		{
+			fieldMap.put(field, new ArrayList<Key>());
+		}
+		
+		return fieldMap;
+	}
+
 	public static <T> void paginate(QueryData<T> query) {
 		QueryOptionGaeContext gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		QueryOptionState state = (QueryOptionState)query.option(QueryOptionState.ID);
@@ -484,4 +586,6 @@ public class GaeQueryUtils {
 		return result;
 	}
 	*/
+	
+
 }
