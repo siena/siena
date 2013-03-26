@@ -2,6 +2,9 @@ package siena.base.test;
 
 import static siena.Json.map;
 
+import java.lang.reflect.Modifier;
+import java.math.BigDecimal;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,13 +15,24 @@ import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.TestCase;
+import siena.BaseQuery;
+import siena.Json;
 import siena.PersistenceManager;
 import siena.Query;
+import siena.QueryFilter;
+import siena.QueryFilterSearch;
+import siena.QueryFilterSimple;
+import siena.QueryJoin;
+import siena.QueryOrder;
 import siena.SienaException;
 import siena.base.test.model.Address;
 import siena.base.test.model.AutoInc;
+import siena.base.test.model.BigDecimalDoubleModel;
+import siena.base.test.model.BigDecimalModel;
+import siena.base.test.model.BigDecimalModelNoPrecision;
+import siena.base.test.model.BigDecimalStringModel;
 import siena.base.test.model.Contact;
-import siena.base.test.model.ContainerModel;
+import siena.base.test.model.EmbeddedContainerModel;
 import siena.base.test.model.DataTypes;
 import siena.base.test.model.DataTypes.EnumLong;
 import siena.base.test.model.Discovery;
@@ -32,6 +46,7 @@ import siena.base.test.model.DiscoveryNoColumn;
 import siena.base.test.model.DiscoveryNoColumnMultipleKeys;
 import siena.base.test.model.DiscoveryPrivate;
 import siena.base.test.model.EmbeddedModel;
+import siena.base.test.model.EmbeddedSubModel;
 import siena.base.test.model.MultipleKeys;
 import siena.base.test.model.PersonLongAutoID;
 import siena.base.test.model.PersonLongManualID;
@@ -39,10 +54,12 @@ import siena.base.test.model.PersonStringAutoIncID;
 import siena.base.test.model.PersonStringID;
 import siena.base.test.model.PersonUUID;
 import siena.base.test.model.PolymorphicModel;
+import siena.base.test.model.TextModel;
+import siena.base.test.model.TransactionAccountFrom;
+import siena.base.test.model.TransactionAccountTo;
 import siena.core.PersistenceManagerLifeCycleWrapper;
 import siena.core.lifecycle.LifeCyclePhase;
 import siena.core.options.QueryOption;
-import siena.core.options.QueryOption.QueryOptionJson;
 import siena.core.options.QueryOptionPage;
 import siena.embed.JsonSerializer;
 
@@ -98,38 +115,30 @@ public abstract class BaseTest extends TestCase {
 		classes.add(DataTypes.class);
 		classes.add(PolymorphicModel.class);
 		classes.add(EmbeddedModel.class);
-		classes.add(ContainerModel.class);
+		classes.add(EmbeddedSubModel.class);
+		classes.add(EmbeddedContainerModel.class);
 		classes.add(DiscoveryNoColumn.class);
 		classes.add(DiscoveryNoColumnMultipleKeys.class);
 		classes.add(DiscoveryLifeCycle.class);
 		classes.add(DiscoveryLifeCycleMulti.class);
+		classes.add(BigDecimalModel.class);
+		classes.add(BigDecimalModelNoPrecision.class);
+		classes.add(BigDecimalStringModel.class);
+		classes.add(BigDecimalDoubleModel.class);
+		classes.add(TransactionAccountFrom.class);
+		classes.add(TransactionAccountTo.class);
+        classes.add(TextModel.class);
+
 		pm = createPersistenceManager(classes);
 		
 		for (Class<?> clazz : classes) {
-			pm.createQuery(clazz).delete();			
+			if(!Modifier.isAbstract(clazz.getModifiers())){
+				pm.createQuery(clazz).delete();			
+			}
 		}
-		
-//		pm.insert(UUID_TESLA);
-//		pm.insert(UUID_CURIE);
-//		pm.insert(UUID_EINSTEIN);
-//
-//		pm.insert(LongAutoID_TESLA);
-//		pm.insert(LongAutoID_CURIE);
-//		pm.insert(LongAutoID_EINSTEIN);
-//
-//		pm.insert(LongManualID_TESLA);
-//		pm.insert(LongManualID_CURIE);
-//		pm.insert(LongManualID_EINSTEIN);
-//
-//		pm.insert(StringID_TESLA);
-//		pm.insert(StringID_CURIE);
-//		pm.insert(StringID_EINSTEIN);
 
 		pm.insert(UUID_TESLA, UUID_CURIE, UUID_EINSTEIN);
 		pm.insert(LongAutoID_TESLA, LongAutoID_CURIE, LongAutoID_EINSTEIN);
-		//pm.insert(LongAutoID_TESLA);
-		//pm.insert(LongAutoID_CURIE);
-		//pm.insert(LongAutoID_EINSTEIN);
 		pm.insert(LongManualID_TESLA, LongManualID_CURIE, LongManualID_EINSTEIN);
 		pm.insert(StringID_TESLA, StringID_CURIE, StringID_EINSTEIN);
 	}
@@ -777,6 +786,14 @@ public abstract class BaseTest extends TestCase {
 		assertEquals(2, pm.createQuery(PersonUUID.class).filter("n<", 3).count());
 	}
 
+	public void testCountFilterNotEqual() {
+		assertEquals(2, pm.createQuery(PersonUUID.class).filter("n!=", 3).count());
+	}
+
+	public void testCountFilterIn() {
+		assertEquals(2, pm.createQuery(PersonUUID.class).filter("n IN", Arrays.asList(1, 2)).count());
+	}
+
 	public void testCountFilterUUID() {
 		List<PersonUUID> l = getOrderedPersonUUIDs();
 		assertEquals(2, pm.createQuery(PersonUUID.class).filter("id<", l.get(2).id).count());
@@ -979,6 +996,16 @@ public abstract class BaseTest extends TestCase {
 		assertEquals(UUID_CURIE, curie);
 	}
 
+	public void testGetNonExisting() {
+		try {
+		PersonLongAutoID pers = getPersonLongAutoID(1234567L);
+		}catch(SienaException e){
+			return;
+		}
+		
+		fail();
+	}
+	
 	public void testGetLongAutoID() {
 		PersonLongAutoID curie = getPersonLongAutoID(LongAutoID_CURIE.id);
 		assertEquals(LongAutoID_CURIE, curie);
@@ -1418,7 +1445,7 @@ public abstract class BaseTest extends TestCase {
 		assertEqualsDataTypes(dataTypes, same);
 	}
 	
-	private void assertEqualsDataTypes(DataTypes dataTypes, DataTypes same) {
+	protected void assertEqualsDataTypes(DataTypes dataTypes, DataTypes same) {
 		assertEquals(dataTypes.id, same.id);
 		assertEquals(dataTypes.typeByte, same.typeByte);
 		assertEquals(dataTypes.typeShort, same.typeShort);
@@ -3287,6 +3314,15 @@ public abstract class BaseTest extends TestCase {
 		}		
 	}
 	
+	public void testBatchGetByKeysNonExisting() {
+		List<PersonStringID> res = pm.getByKeys(PersonStringID.class, "TESLA", "CURIE", "CHBOING");
+		
+		assertEquals(3, res.size());
+		assertEquals(StringID_TESLA, res.get(0));
+		assertEquals(StringID_CURIE, res.get(1));
+		assertNull(res.get(2));
+	}
+	
 	private PersonUUID getPersonUUID(String id) {
 		PersonUUID p = new PersonUUID();
 		p.id = id;
@@ -4800,25 +4836,101 @@ public abstract class BaseTest extends TestCase {
 		assertEquals(person, l.get(0));
 	}
 	
-	public void testDump() {
+	public void testDumpQueryOption() {
 		Query<PersonLongAutoID> query = pm.createQuery(PersonLongAutoID.class);
 		
 		QueryOption opt = query.option(QueryOptionPage.ID);
-		QueryOptionJson dump = opt.dump();
-		assertEquals(dump.type, QueryOptionPage.class.getName());
-		assertEquals(dump.value.toString(), "{\"pageType\": \"TEMPORARY\", \"state\": \"PASSIVE\", \"pageSize\": 0, \"type\": 1}");
+		Json dump = opt.dump();
 		String str = JsonSerializer.serialize(dump).toString();
 		assertNotNull(str);
+		assertEquals("{\"value\": {\"pageType\": \"TEMPORARY\", \"state\": \"PASSIVE\", \"pageSize\": 0, \"type\": 1}, \"type\": \""+QueryOptionPage.class.getName()+"\"}", str);
 	}
 	
-	public void testRestore() {
-		QueryOption optRestored = QueryOption.restore(
-				"{\"type\":\""+QueryOptionPage.class.getName()+"\", \"value\": {\"pageType\": \"TEMPORARY\", \"state\": \"PASSIVE\", \"pageSize\": 0, \"type\": 1} }");
+	public void testRestoreQueryOption() {
+		QueryOption optRestored = (QueryOption)JsonSerializer.deserialize(QueryOption.class, Json.loads(
+			"{\"type\":\""+QueryOptionPage.class.getName()+"\", \"value\": {\"pageType\": \"TEMPORARY\", \"state\": \"PASSIVE\", \"pageSize\": 0, \"type\": 1} }"
+		));
 		Query<PersonLongAutoID> query = pm.createQuery(PersonLongAutoID.class);
 		
 		QueryOption opt = query.option(QueryOptionPage.ID);
 		
 		assertEquals(opt, optRestored);
+	}
+	
+	public void testDumpRestoreQueryFilterSimple() {
+		Query<PersonLongAutoID> query = pm.createQuery(PersonLongAutoID.class).filter("firstName", "abcde");
+		QueryFilterSimple qf = (QueryFilterSimple)query.getFilters().get(0);
+		String str = JsonSerializer.serialize(qf).toString();
+		assertNotNull(str);
+		
+		QueryFilterSimple qfRes = (QueryFilterSimple)JsonSerializer.deserialize(QueryFilter.class, Json.loads(str));
+		assertNotNull(qfRes);
+		assertEquals(qf.operator, qfRes.operator);
+		assertEquals(qf.value, qfRes.value);
+		assertEquals(qf.field.getName(), qfRes.field.getName());
+	}
+	
+	public void testDumpRestoreQueryFilterSearch() {
+		Query<PersonLongAutoID> query = pm.createQuery(PersonLongAutoID.class).search("test", "firstName", "lastName");
+		QueryFilterSearch qf = (QueryFilterSearch)query.getFilters().get(0);
+		String str = JsonSerializer.serialize(qf).toString();
+		assertNotNull(str);
+		
+		QueryFilterSearch qfRes = (QueryFilterSearch)JsonSerializer.deserialize(QueryFilter.class, Json.loads(str));
+		assertNotNull(qfRes);
+		assertEquals(qf.match, qfRes.match);
+		for(int i=0; i<qfRes.fields.length; i++){
+			assertEquals(qf.fields[i], qfRes.fields[i]);
+		}
+	}
+	
+	public void testDumpRestoreQueryOrder() {
+		Query<PersonLongAutoID> query = pm.createQuery(PersonLongAutoID.class).order("firstName");
+		QueryOrder qo = (QueryOrder)query.getOrders().get(0);
+		String str = JsonSerializer.serialize(qo).toString();
+		assertNotNull(str);
+		
+		QueryOrder qoRes = (QueryOrder)JsonSerializer.deserialize(QueryOrder.class, Json.loads(str));
+		assertNotNull(qoRes);
+		assertEquals(qo.ascending, qoRes.ascending);
+		assertEquals(qo.field.getName(), qoRes.field.getName());
+	}
+	
+	public void testDumpRestoreQueryJoin() {
+		Query<Discovery> query = pm.createQuery(Discovery.class).join("discoverer", "firstName");
+		QueryJoin qj = (QueryJoin)query.getJoins().get(0);
+		String str = JsonSerializer.serialize(qj).toString();
+		assertNotNull(str);
+		
+		QueryJoin qjRes = (QueryJoin)JsonSerializer.deserialize(QueryJoin.class, Json.loads(str));
+		assertNotNull(qjRes);
+		assertEquals(qj.field.getName(), qjRes.field.getName());
+		for(int i=0; i<qjRes.sortFields.length; i++){
+			assertEquals(qj.sortFields[i], qjRes.sortFields[i]);
+		}
+	}
+	
+	public void testDumpRestoreQueryData() {
+		Query<Discovery> query = 
+			pm.createQuery(Discovery.class)
+				.filter("name", "test").order("name").join("discoverer", "firstName");
+		String str = JsonSerializer.serialize(query).toString();
+		assertNotNull(str);
+		
+		Query<Discovery> qjRes = (Query<Discovery>)JsonSerializer.deserialize(BaseQuery.class, Json.loads(str));
+		assertNotNull(qjRes);
+		for(int i=0; i<qjRes.getFilters().size(); i++){
+			assertEquals(query.getFilters().get(i), qjRes.getFilters().get(i));
+		}
+		for(int i=0; i<qjRes.getJoins().size(); i++){
+			assertEquals(query.getJoins().get(i), qjRes.getJoins().get(i));
+		}
+		for(int i=0; i<qjRes.getOrders().size(); i++){
+			assertEquals(query.getOrders().get(i), qjRes.getOrders().get(i));
+		}
+		for(int i=0; i<qjRes.getSearches().size(); i++){
+			assertEquals(query.getSearches().get(i), qjRes.getSearches().get(i));
+		}
 	}
 	
 	public void testIterPerPageStateless(){
@@ -5028,6 +5140,11 @@ public abstract class BaseTest extends TestCase {
 			assertEquals(discs.get(i++), disc);
 		}
 		
+	}
+	
+	public void testGetByKeyNonExisting() {
+		PersonLongAutoID pers = getByKeyPersonLongAutoID(12345678L);
+		assertNull(pers);
 	}
 	
 	public void testGetByKeyUUID() {
@@ -5282,20 +5399,36 @@ public abstract class BaseTest extends TestCase {
 		embed.id = "embed";
 		embed.alpha = "test";
 		embed.beta = 123;
+		embed.setGamma(true);
 		pm.insert(embed);
 		
-		ContainerModel container = new ContainerModel();
+		EmbeddedModel embed2 = new EmbeddedModel();
+		embed2.id = "embed2";
+		embed2.alpha = "test2";
+		embed2.beta = 1234;
+		embed2.setGamma(true);
+		pm.insert(embed2);
+		
+		EmbeddedContainerModel container = new EmbeddedContainerModel();
 		container.id = "container";
 		container.embed = embed;
+		container.embeds = new ArrayList<EmbeddedModel>();
+		container.embeds.add(embed);
+		container.embeds.add(embed2);
 		pm.insert(container);
 
-		ContainerModel afterContainer = pm.getByKey(ContainerModel.class, container.id);
+		EmbeddedContainerModel afterContainer = pm.getByKey(EmbeddedContainerModel.class, container.id);
 		assertNotNull(afterContainer);
 		assertEquals(container.id, afterContainer.id);
 		assertNotNull(afterContainer.embed);
 		assertEquals(embed.id, afterContainer.embed.id);
-		assertEquals(embed.alpha, afterContainer.embed.alpha);
+		assertEquals(null, afterContainer.embed.alpha);
 		assertEquals(embed.beta, afterContainer.embed.beta);
+		int i=0;
+		for(EmbeddedModel mod: afterContainer.embeds){
+			assertEquals(container.embeds.get(i++).id, mod.id);
+		}
+		assertEquals(embed.isGamma(), afterContainer.embed.isGamma());
 	}
 
 	public void testNoColumn() {
@@ -5435,5 +5568,502 @@ public abstract class BaseTest extends TestCase {
 		pml.save(before);
 		
 		assertEquals(LifeCyclePhase.PRE_SAVE.toString()+" "+LifeCyclePhase.POST_SAVE.toString()+" ", lifeCyclePhase);
+	}
+	
+	public void testSerializeEmbeddedModel() {
+		EmbeddedModel embed = new EmbeddedModel();
+		embed.id = "embed";
+		embed.alpha = "test";
+		embed.beta = 123;
+		pm.insert(embed);
+
+		EmbeddedSubModel subEmbed = new EmbeddedSubModel();
+		subEmbed.id = "subembed";
+		subEmbed.parent = embed;
+		
+		EmbeddedContainerModel container = new EmbeddedContainerModel();
+		container.id = "container";
+		container.embed = embed;
+		pm.insert(container);
+		
+		EmbeddedContainerModel afterContainer = pm.getByKey(EmbeddedContainerModel.class, container.id);
+		assertNotNull(afterContainer);
+		assertEquals(container.id, afterContainer.id);
+		assertNotNull(afterContainer.embed);
+		assertEquals(embed.id, afterContainer.embed.id);
+		assertEquals(null, afterContainer.embed.alpha);
+		assertEquals(embed.beta, afterContainer.embed.beta);
+		assertEquals(null, afterContainer.embed.subs);
+	}
+	
+	public void testBigDecimal() {
+		BigDecimalModel bigdec = 
+			new BigDecimalModel(new BigDecimal("123456789.0123456890"));
+		pm.insert(bigdec);
+		
+		BigDecimalModel bigdec2 = pm.getByKey(BigDecimalModel.class, bigdec.id);
+		assertEquals(bigdec, bigdec2);
+		
+		bigdec = 
+			new BigDecimalModel(
+					new BigDecimal("999999999.9999999999"));
+		pm.insert(bigdec);
+		
+		bigdec2 = pm.getByKey(BigDecimalModel.class, bigdec.id);
+		assertEquals(bigdec, bigdec2);
+		
+		//-100.5
+		bigdec = 
+			new BigDecimalModel(new BigDecimal("-100.5000000000"));
+		pm.insert(bigdec);
+		
+		bigdec2 = pm.getByKey(BigDecimalModel.class, bigdec.id);
+		assertEquals(bigdec, bigdec2);
+	}
+	
+	public void testBigDecimalNoPrecision() {
+		BigDecimalModelNoPrecision bigdec = 
+			new BigDecimalModelNoPrecision(new BigDecimal("123456789.01"));
+		pm.insert(bigdec);
+		
+		BigDecimalModelNoPrecision bigdec2 = pm.getByKey(BigDecimalModelNoPrecision.class, bigdec.id);
+		assertEquals(bigdec, bigdec2);
+		
+		bigdec = 
+			new BigDecimalModelNoPrecision(
+					new BigDecimal("999999999.99"));
+		pm.insert(bigdec);
+		
+		bigdec2 = pm.getByKey(BigDecimalModelNoPrecision.class, bigdec.id);
+		assertEquals(bigdec, bigdec2);
+		
+		//-100.5
+		bigdec = 
+			new BigDecimalModelNoPrecision(new BigDecimal("-100.50"));
+		pm.insert(bigdec);
+		
+		bigdec2 = pm.getByKey(BigDecimalModelNoPrecision.class, bigdec.id);
+		assertEquals(bigdec, bigdec2);
+	}
+	
+	public void testBigDecimalString() {
+		BigDecimalStringModel bigdec = 
+			new BigDecimalStringModel(new BigDecimal("123456789.0123456890"));
+		pm.insert(bigdec);
+		
+		BigDecimalStringModel bigdec2 = pm.getByKey(BigDecimalStringModel.class, bigdec.id);
+		assertEquals(bigdec, bigdec2);
+		
+		bigdec = 
+			new BigDecimalStringModel(
+					new BigDecimal("999999999.9999999999"));
+		pm.insert(bigdec);
+		
+		bigdec2 = pm.getByKey(BigDecimalStringModel.class, bigdec.id);
+		assertEquals(bigdec, bigdec2);
+		
+		//-100.5
+		bigdec = 
+			new BigDecimalStringModel(new BigDecimal("-100.5000000000"));
+		pm.insert(bigdec);
+		
+		bigdec2 = pm.getByKey(BigDecimalStringModel.class, bigdec.id);
+		assertEquals(bigdec, bigdec2);
+	}
+	
+	public void testBigDecimalDouble() {
+		BigDecimalDoubleModel bigdec = 
+			new BigDecimalDoubleModel(new BigDecimal("123456789.012345"));
+		pm.insert(bigdec);
+		
+		BigDecimalDoubleModel bigdec2 = pm.getByKey(BigDecimalDoubleModel.class, bigdec.id);
+		assertEquals(bigdec, bigdec2);
+		
+		bigdec = 
+			new BigDecimalDoubleModel(
+					new BigDecimal("999999999.9999999999"));
+		pm.insert(bigdec);
+		
+		bigdec2 = pm.getByKey(BigDecimalDoubleModel.class, bigdec.id);
+		assertEquals(bigdec, bigdec2);
+		
+		//-100.5
+		bigdec = 
+			new BigDecimalDoubleModel(new BigDecimal("-100.5000000000"));
+		pm.insert(bigdec);
+		
+		bigdec2 = pm.getByKey(BigDecimalDoubleModel.class, bigdec.id);
+		assertEquals(bigdec, bigdec2);
+	}
+	
+	public void testTransactionUpdate() {
+		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
+		TransactionAccountTo accTo = new TransactionAccountTo(1000L);
+		pm.insert(accFrom, accTo);
+	
+		try {
+			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
+			accFrom.amount-=100L;
+			pm.update(accFrom);
+			accTo.amount+=100L;
+			pm.update(accTo);
+			pm.commitTransaction();
+		}catch(SienaException e){
+			pm.rollbackTransaction();
+			fail();
+		}finally{
+			pm.closeConnection();
+		}
+		
+		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
+		assertTrue(900L == accFromAfter.amount);
+		TransactionAccountTo accToAfter = pm.getByKey(TransactionAccountTo.class, accTo.id);
+		assertTrue(1100L == accToAfter.amount);
+	}
+	
+	public void testTransactionUpdateFailure() {
+		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
+		TransactionAccountTo accTo = new TransactionAccountTo(1000L);
+		pm.insert(accFrom, accTo);
+	
+		try {
+			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
+			accFrom.amount-=100L;
+			pm.update(accFrom);
+			accTo.amount+=100L;
+			pm.update(accTo);
+			throw new SienaException("test");
+		}catch(SienaException e){
+			pm.rollbackTransaction();
+		}finally{
+			pm.closeConnection();
+		}
+		
+		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
+		assertTrue(1000L == accFromAfter.amount);
+		TransactionAccountTo accToAfter = pm.getByKey(TransactionAccountTo.class, accTo.id);
+		assertTrue(1000L == accToAfter.amount);
+	}
+	
+	public void testTransactionInsert() {
+		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
+		TransactionAccountTo accTo = new TransactionAccountTo(1000L);
+	
+		try {
+			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
+			accFrom.amount=1000L;
+			accTo.amount=100L;
+			pm.insert(accFrom);
+			pm.insert(accTo);
+			pm.commitTransaction();
+		}catch(SienaException e){
+			pm.rollbackTransaction();
+			fail();
+		}finally{
+			pm.closeConnection();
+		}
+		
+		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
+		assertTrue(1000L == accFromAfter.amount);
+		TransactionAccountTo accToAfter = pm.getByKey(TransactionAccountTo.class, accTo.id);
+		assertTrue(100L == accToAfter.amount);
+	}
+	
+	public void testTransactionInsertFailure() {
+		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
+		TransactionAccountTo accTo = new TransactionAccountTo(1000L);
+	
+		try {
+			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
+			accFrom.amount=1000L;
+			accTo.amount=100L;
+			pm.insert(accFrom, accTo);
+			throw new SienaException("test");
+		}catch(SienaException e){
+			pm.rollbackTransaction();
+		}finally{
+			pm.closeConnection();
+		}
+		
+		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
+		assertNull(accFromAfter);
+		TransactionAccountTo accToAfter = pm.getByKey(TransactionAccountTo.class, accTo.id);
+		assertNull(accToAfter);
+	}
+	
+	public void testTransactionSave() {
+		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
+		TransactionAccountTo accTo = new TransactionAccountTo(1000L);
+		pm.insert(accFrom, accTo);
+	
+		try {
+			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
+			accFrom.amount-=100L;
+			pm.save(accFrom);
+			accTo.amount+=100L;
+			pm.save(accTo);
+			pm.commitTransaction();
+		}catch(SienaException e){
+			pm.rollbackTransaction();
+			fail();
+		}finally{
+			pm.closeConnection();
+		}
+		
+		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
+		assertTrue(900L == accFromAfter.amount);
+		TransactionAccountTo accToAfter = pm.getByKey(TransactionAccountTo.class, accTo.id);
+		assertTrue(1100L == accToAfter.amount);
+	}
+	
+	public void testTransactionSaveFailure() {
+		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
+		TransactionAccountTo accTo = new TransactionAccountTo(1000L);
+		pm.insert(accFrom, accTo);
+	
+		try {
+			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
+			accFrom.amount-=100L;
+			pm.save(accFrom);
+			accTo.amount+=100L;
+			pm.save(accTo);
+			throw new SienaException("test");
+		}catch(SienaException e){
+			pm.rollbackTransaction();
+		}finally{
+			pm.closeConnection();
+		}
+		
+		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
+		assertTrue(1000L == accFromAfter.amount);
+		TransactionAccountTo accToAfter = pm.getByKey(TransactionAccountTo.class, accTo.id);
+		assertTrue(1000L == accToAfter.amount);
+	}
+	
+	public void testTransactionDelete() {
+		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
+		TransactionAccountTo accTo = new TransactionAccountTo(1000L);
+		pm.insert(accFrom, accTo);
+	
+		try {
+			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
+			pm.delete(accFrom);
+			pm.delete(accTo);
+			pm.commitTransaction();
+		}catch(SienaException e){
+			pm.rollbackTransaction();
+			fail();
+		}finally{
+			pm.closeConnection();
+		}
+		
+		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
+		assertNull(accFromAfter);
+		TransactionAccountTo accToAfter = pm.getByKey(TransactionAccountTo.class, accTo.id);
+		assertNull(accToAfter);
+	}
+	
+	public void testTransactionDeleteFailure() {
+		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
+		TransactionAccountTo accTo = new TransactionAccountTo(100L);
+		pm.insert(accFrom, accTo);
+	
+		try {
+			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
+			pm.delete(accFrom);
+			pm.delete(accTo);
+			throw new SienaException("test");
+		}catch(SienaException e){
+			pm.rollbackTransaction();
+		}finally{
+			pm.closeConnection();
+		}
+		
+		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
+		assertTrue(1000L == accFromAfter.amount);
+		TransactionAccountTo accToAfter = pm.getByKey(TransactionAccountTo.class, accTo.id);
+		assertTrue(100L == accToAfter.amount);
+	}
+	
+	public void testTransactionInsertBatch() {
+		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
+		TransactionAccountTo accTo = new TransactionAccountTo(1000L);
+	
+		try {
+			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
+			accFrom.amount=1000L;
+			accTo.amount=100L;
+			pm.insert(accFrom, accTo);
+			pm.commitTransaction();
+		}catch(SienaException e){
+			pm.rollbackTransaction();
+			fail();
+		}finally{
+			pm.closeConnection();
+		}
+		
+		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
+		assertTrue(1000L == accFromAfter.amount);
+		TransactionAccountTo accToAfter = pm.getByKey(TransactionAccountTo.class, accTo.id);
+		assertTrue(100L == accToAfter.amount);
+	}
+	
+	public void testTransactionInsertBatchFailure() {
+		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
+		TransactionAccountTo accTo = new TransactionAccountTo(1000L);
+	
+		try {
+			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
+			accFrom.amount=1000L;
+			accTo.amount=100L;
+			pm.insert(accFrom, accTo);
+			throw new SienaException("test");
+		}catch(SienaException e){
+			pm.rollbackTransaction();
+		}finally{
+			pm.closeConnection();
+		}
+		
+		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
+		assertNull(accFromAfter);
+		TransactionAccountTo accToAfter = pm.getByKey(TransactionAccountTo.class, accTo.id);
+		assertNull(accToAfter);
+	}
+	
+	public void testTransactionDeleteBatch() {
+		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
+		TransactionAccountTo accTo = new TransactionAccountTo(1000L);
+		pm.insert(accFrom, accTo);
+
+		try {
+			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
+			pm.delete(accFrom, accTo);
+			pm.commitTransaction();
+		}catch(SienaException e){
+			pm.rollbackTransaction();
+			fail();
+		}finally{
+			pm.closeConnection();
+		}
+		
+		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
+		assertNull(accFromAfter);
+		TransactionAccountTo accToAfter = pm.getByKey(TransactionAccountTo.class, accTo.id);
+		assertNull(accToAfter);
+	}
+	
+	public void testTransactionDeleteBatchFailure() {
+		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
+		TransactionAccountTo accTo = new TransactionAccountTo(100L);
+		pm.insert(accFrom, accTo);
+	
+		try {
+			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
+			pm.delete(accFrom, accTo);
+			throw new SienaException("test");
+		}catch(SienaException e){
+			pm.rollbackTransaction();
+		}finally{
+			pm.closeConnection();
+		}
+		
+		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
+		assertTrue(1000L == accFromAfter.amount);
+		TransactionAccountTo accToAfter = pm.getByKey(TransactionAccountTo.class, accTo.id);
+		assertTrue(100L == accToAfter.amount);
+	}
+	
+	public void testTransactionUpdateBatch() {
+		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
+		TransactionAccountTo accTo = new TransactionAccountTo(1000L);
+		pm.insert(accFrom, accTo);
+	
+		try {
+			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
+			accFrom.amount-=100L;
+			accTo.amount+=100L;
+			pm.update(accFrom, accTo);
+			pm.commitTransaction();
+		}catch(SienaException e){
+			pm.rollbackTransaction();
+			fail();
+		}finally{
+			pm.closeConnection();
+		}
+		
+		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
+		assertTrue(900L == accFromAfter.amount);
+		TransactionAccountTo accToAfter = pm.getByKey(TransactionAccountTo.class, accTo.id);
+		assertTrue(1100L == accToAfter.amount);
+	}
+	
+	public void testTransactionUpdateBatchFailure() {
+		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
+		TransactionAccountTo accTo = new TransactionAccountTo(1000L);
+		pm.insert(accFrom, accTo);
+	
+		try {
+			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
+			accFrom.amount-=100L;
+			accTo.amount+=100L;
+			pm.update(accFrom, accTo);
+			throw new SienaException("test");
+		}catch(SienaException e){
+			pm.rollbackTransaction();
+		}finally{
+			pm.closeConnection();
+		}
+		
+		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
+		assertTrue(1000L == accFromAfter.amount);
+		TransactionAccountTo accToAfter = pm.getByKey(TransactionAccountTo.class, accTo.id);
+		assertTrue(1000L == accToAfter.amount);
+	}
+	
+	public void testTransactionSaveBatch() {
+		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
+		TransactionAccountTo accTo = new TransactionAccountTo(1000L);
+		pm.insert(accFrom, accTo);
+	
+		try {
+			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
+			accFrom.amount-=100L;
+			accTo.amount+=100L;
+			pm.save(accFrom, accTo);
+			pm.commitTransaction();
+		}catch(SienaException e){
+			pm.rollbackTransaction();
+			fail();
+		}finally{
+			pm.closeConnection();
+		}
+		
+		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
+		assertTrue(900L == accFromAfter.amount);
+		TransactionAccountTo accToAfter = pm.getByKey(TransactionAccountTo.class, accTo.id);
+		assertTrue(1100L == accToAfter.amount);
+	}
+	
+	public void testTransactionSaveBatchFailure() {
+		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
+		TransactionAccountTo accTo = new TransactionAccountTo(1000L);
+		pm.insert(accFrom, accTo);
+	
+		try {
+			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
+			accFrom.amount-=100L;
+			accTo.amount+=100L;
+			pm.save(accFrom, accTo);
+			throw new SienaException("test");
+		}catch(SienaException e){
+			pm.rollbackTransaction();
+		}finally{
+			pm.closeConnection();
+		}
+		
+		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
+		assertTrue(1000L == accFromAfter.amount);
+		TransactionAccountTo accToAfter = pm.getByKey(TransactionAccountTo.class, accTo.id);
+		assertTrue(1000L == accToAfter.amount);
 	}
 }

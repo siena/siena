@@ -21,8 +21,10 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -47,7 +49,8 @@ public class Json implements Iterable<Json> {
 				|| clazz.isPrimitive()
 				|| Number.class.isAssignableFrom(clazz)
 				|| String.class.isAssignableFrom(clazz)
-				|| Boolean.class.isAssignableFrom(clazz)){
+				|| Boolean.class.isAssignableFrom(clazz)
+				|| Date.class.isAssignableFrom(clazz)){
 			this.object = object;			
 		}
 		
@@ -82,7 +85,19 @@ public class Json implements Iterable<Json> {
 			add((Object[]) object);
 			this.object = null;
 		}		
-
+		else if(Field.class.isAssignableFrom(clazz)){
+			Field f = (Field)object;
+			map = new HashMap<String, Json>();
+			put("fieldName", f.getName());
+			put("parentClass", f.getDeclaringClass().getName());
+			this.object = null;
+		}
+		else if(clazz == Class.class){
+			Class<?> cl = (Class<?>)object;
+			map = new HashMap<String, Json>();
+			put("className", cl.getName());
+			this.object = null;
+		}
 		else {
 			throw new IllegalArgumentException("Unsupported type: " + object.getClass().getName());
 		}
@@ -439,6 +454,11 @@ public class Json implements Iterable<Json> {
 		return object.toString();
 	}
 	
+	public Date asDate() {
+		if(object == null) return null;
+		return (Date)object;
+	}
+	
 	public boolean bool() {
 		return asBoolean();
 	}
@@ -492,6 +512,10 @@ public class Json implements Iterable<Json> {
 	
 	public boolean isString() {
 		return object != null && object instanceof String;
+	}
+
+	public boolean isDate() {
+		return object != null && object instanceof Date;
 	}
 	
 	public boolean isMap() {

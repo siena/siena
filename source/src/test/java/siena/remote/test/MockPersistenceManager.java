@@ -15,6 +15,8 @@
  */
 package siena.remote.test;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,13 +26,18 @@ import java.util.Properties;
 import siena.BaseQueryData;
 import siena.PersistenceManager;
 import siena.Query;
+import siena.QueryAggregated;
 import siena.QueryFilter;
 import siena.QueryFilterSearch;
 import siena.QueryJoin;
 import siena.QueryOrder;
+import siena.QueryOwned;
+import siena.core.Many4PM;
+import siena.core.One4PM;
 import siena.core.async.PersistenceManagerAsync;
 import siena.core.async.QueryAsync;
 import siena.core.batch.Batch;
+import siena.core.options.PmOption;
 import siena.core.options.QueryOption;
 
 public class MockPersistenceManager implements PersistenceManager {
@@ -43,6 +50,9 @@ public class MockPersistenceManager implements PersistenceManager {
 	}
 
 	public void beginTransaction(int isolationLevel) {
+	}
+	
+	public void beginTransaction() {
 	}
 
 	public void closeConnection() {
@@ -321,14 +331,28 @@ public class MockPersistenceManager implements PersistenceManager {
 			return null;
 		}
 
+		
+
 		@Override
-		public String dump() {
+		public String dump(QueryOption... options) {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
 		@Override
-		public Query<T> restore(String dump) {
+		public void dump(OutputStream os, QueryOption... options) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public Query<T> restore(String dump, QueryOption... options) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Query<T> restore(InputStream dump, QueryOption... options) {
 			// TODO Auto-generated method stub
 			return null;
 		}
@@ -365,6 +389,36 @@ public class MockPersistenceManager implements PersistenceManager {
 
 		@Override
 		public T getByKey(Object key) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Query<T> copy() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<QueryAggregated> getAggregatees() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Query<T> aggregated(Object aggregator, String fieldName) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Query<T> owned(Object owner, String fieldName) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<QueryOwned> getOwnees() {
 			// TODO Auto-generated method stub
 			return null;
 		}
@@ -620,5 +674,42 @@ public class MockPersistenceManager implements PersistenceManager {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public PersistenceManager option(PmOption opt) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PmOption option(int type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<Integer, PmOption> options() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void resetOptions() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public <T> Many4PM<T> createMany(Class<T> clazz) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> One4PM<T> createOne(Class<T> clazz) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

@@ -2,8 +2,7 @@ package siena.base.test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.ddlutils.Platform;
@@ -13,11 +12,12 @@ import org.h2.jdbcx.JdbcDataSource;
 
 import siena.PersistenceManager;
 import siena.Query;
-import siena.base.test.model.Discovery4Search;
-import siena.base.test.model.Discovery4Search2;
+import siena.base.test.model.*;
 import siena.jdbc.H2PersistenceManager;
 import siena.jdbc.PostgresqlPersistenceManager;
 import siena.jdbc.ddl.DdlGenerator;
+
+import static siena.Json.map;
 
 public class H2Test extends BaseTest {
 	private static H2PersistenceManager pm;
@@ -810,6 +810,19 @@ public class H2Test extends BaseTest {
 		super.testDataTypesNotNull();
 	}
 
+    public void testDataTypesNotNullWithANotherBoolean() {
+        DataTypes dataTypes = new DataTypes();
+        dataTypes.boolBool = Boolean.FALSE;
+
+        pm.insert(dataTypes);
+
+        // to test that fields are read back correctly
+        pm.createQuery(DataTypes.class).filter("id", dataTypes.id).get();
+
+        DataTypes same = pm.createQuery(DataTypes.class).get();
+        assertEqualsDataTypes(dataTypes, same);
+    }
+
 	@Override
 	public void testQueryDelete() {
 		// TODO Auto-generated method stub
@@ -1369,15 +1382,15 @@ public class H2Test extends BaseTest {
 	}
 
 	@Override
-	public void testDump() {
+	public void testDumpQueryOption() {
 		// TODO Auto-generated method stub
-		super.testDump();
+		super.testDumpQueryOption();
 	}
 
 	@Override
-	public void testRestore() {
+	public void testRestoreQueryOption() {
 		// TODO Auto-generated method stub
-		super.testRestore();
+		super.testRestoreQueryOption();
 	}
 
 	@Override
@@ -1572,4 +1585,172 @@ public class H2Test extends BaseTest {
 		super.testLifeCycleSave();
 	}
 
+	@Override
+	public void testDumpRestoreQueryFilterSimple() {
+		// TODO Auto-generated method stub
+		super.testDumpRestoreQueryFilterSimple();
+	}
+
+	@Override
+	public void testDumpRestoreQueryFilterSearch() {
+		// TODO Auto-generated method stub
+		super.testDumpRestoreQueryFilterSearch();
+	}
+
+	@Override
+	public void testDumpRestoreQueryOrder() {
+		// TODO Auto-generated method stub
+		super.testDumpRestoreQueryOrder();
+	}
+
+	@Override
+	public void testDumpRestoreQueryJoin() {
+		// TODO Auto-generated method stub
+		super.testDumpRestoreQueryJoin();
+	}
+
+	@Override
+	public void testDumpRestoreQueryData() {
+		// TODO Auto-generated method stub
+		super.testDumpRestoreQueryData();
+	}
+
+	@Override
+	public void testSerializeEmbeddedModel() {
+		// TODO Auto-generated method stub
+		super.testSerializeEmbeddedModel();
+	}
+
+	@Override
+	public void testBigDecimal() {
+		// TODO Auto-generated method stub
+		super.testBigDecimal();
+	}
+
+	@Override
+	public void testBigDecimalNoPrecision() {
+		// TODO Auto-generated method stub
+		super.testBigDecimalNoPrecision();
+	}
+
+	@Override
+	public void testBigDecimalString() {
+		// TODO Auto-generated method stub
+		super.testBigDecimalString();
+	}
+
+	@Override
+	public void testBigDecimalDouble() {
+		// TODO Auto-generated method stub
+		super.testBigDecimalDouble();
+	}
+
+	@Override
+	public void testTransactionUpdate() {
+		// TODO Auto-generated method stub
+		super.testTransactionUpdate();
+	}
+
+	@Override
+	public void testTransactionUpdateFailure() {
+		// TODO Auto-generated method stub
+		super.testTransactionUpdateFailure();
+	}
+
+	@Override
+	public void testTransactionInsert() {
+		// TODO Auto-generated method stub
+		super.testTransactionInsert();
+	}
+
+	@Override
+	public void testTransactionInsertFailure() {
+		// TODO Auto-generated method stub
+		super.testTransactionInsertFailure();
+	}
+
+	@Override
+	public void testTransactionSave() {
+		// TODO Auto-generated method stub
+		super.testTransactionSave();
+	}
+
+	@Override
+	public void testTransactionSaveFailure() {
+		// TODO Auto-generated method stub
+		super.testTransactionSaveFailure();
+	}
+
+	@Override
+	public void testTransactionDelete() {
+		// TODO Auto-generated method stub
+		super.testTransactionDelete();
+	}
+
+	@Override
+	public void testTransactionDeleteFailure() {
+		// TODO Auto-generated method stub
+		super.testTransactionDeleteFailure();
+	}
+
+	@Override
+	public void testTransactionInsertBatch() {
+		// TODO Auto-generated method stub
+		super.testTransactionInsertBatch();
+	}
+
+	@Override
+	public void testTransactionInsertBatchFailure() {
+		// TODO Auto-generated method stub
+		super.testTransactionInsertBatchFailure();
+	}
+
+	@Override
+	public void testTransactionDeleteBatch() {
+		// TODO Auto-generated method stub
+		super.testTransactionDeleteBatch();
+	}
+
+	@Override
+	public void testTransactionDeleteBatchFailure() {
+		// TODO Auto-generated method stub
+		super.testTransactionDeleteBatchFailure();
+	}
+
+	@Override
+	public void testTransactionUpdateBatch() {
+		// TODO Auto-generated method stub
+		super.testTransactionUpdateBatch();
+	}
+
+	@Override
+	public void testTransactionUpdateBatchFailure() {
+		// TODO Auto-generated method stub
+		super.testTransactionUpdateBatchFailure();
+	}
+
+	@Override
+	public void testTransactionSaveBatch() {
+		// TODO Auto-generated method stub
+		super.testTransactionSaveBatch();
+	}
+
+	@Override
+	public void testTransactionSaveBatchFailure() {
+		// TODO Auto-generated method stub
+		super.testTransactionSaveBatchFailure();
+	}
+
+    public void testTextModel() {
+        TextModel model = new TextModel();
+        model.text = "Lorum Ipsum";
+
+        pm.insert(model);
+
+        Query<TextModel> query = pm.createQuery(TextModel.class);
+
+        List<TextModel> models = pm.fetch(query);
+        assertEquals(1, models.size());
+        assertEquals("Lorum Ipsum", models.get(0).text);
+    }
 }

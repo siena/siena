@@ -213,6 +213,42 @@ public class JdbcModelTest extends BaseModelTest {
 		// TODO Auto-generated method stub
 	}
 
-	
+	@Override
+	public void testSimpleInheritance() {
+		// TODO Auto-generated method stub
+		super.testSimpleInheritance();
+	}
+
+	@Override
+	public void testDoubleInheritance() {
+		// TODO Auto-generated method stub
+		super.testDoubleInheritance();
+	}
+
+	@Override
+	public void testAbstractInheritance() {
+		// TODO Auto-generated method stub
+		super.testAbstractInheritance();
+	}
+
+	@Override
+	public void testFilterInheritance() {
+		// TODO Auto-generated method stub
+		super.testFilterInheritance();
+	}
+
+	@Override
+	public void testTransactionSave() {
+		// TODO Auto-generated method stub
+		super.testTransactionSave();
+	}
+
+	@Override
+	public void testTransactionSaveFailure() {
+		// TODO Auto-generated method stub
+		super.testTransactionSaveFailure();
+	}
+
+
 	
 }

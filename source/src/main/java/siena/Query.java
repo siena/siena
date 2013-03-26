@@ -15,6 +15,8 @@
  */
 package siena;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +27,7 @@ import siena.core.options.QueryOption;
  * The Siena interface for performing queries.
  *
  * @author gimenete
- * @author mandubian
+ * @author mandubian <pascal.voitot@mandubian.org>
  *
  */
 
@@ -35,7 +37,10 @@ public interface Query<T> extends QueryData<T>{
 	Query<T> join(String field, String... sortFields);	
 	Query<T> search(String match, String... fields);
 	Query<T> search(String match, QueryOption opt, String... fields);
-	
+
+	Query<T> aggregated(Object aggregator, String fieldName);	
+	Query<T> owned(Object owner, String fieldName);	
+
 	T get();
 	int delete();
 	int update(Map<String, ?> fieldValues);
@@ -57,7 +62,7 @@ public interface Query<T> extends QueryData<T>{
 	
 	Iterable<T> iterPerPage(int limit);
 		
-	Query<T> clone();
+	Query<T> copy();
 	
 	/**
 	 * sets the limit number of entities to fetch
@@ -131,14 +136,16 @@ public interface Query<T> extends QueryData<T>{
      * 
      * @return the safe String representation
      */
-    String dump();
+    String dump(QueryOption... options);
+    void dump(OutputStream os, QueryOption... options);
 
     /**
      * restores a query from a safe String
      * 
      * @return the restored Query
      */
-    Query<T> restore(String dump);
+    Query<T> restore(String dump, QueryOption... options);
+    Query<T> restore(InputStream dump, QueryOption... options);
 
     /**
      * accesses the asynchronous mechanism
