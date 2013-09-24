@@ -290,6 +290,29 @@ public class JsonSerializer {
 					return ret;
 				}
 			}
+	    else if(Collection.class.isAssignableFrom(clazz)) {
+	      if(!data.isList()) {
+//          throw new SienaException("Error while deserializating class "+clazz
+//              +". A Json list is needed but found: "+data);
+	        return null;
+	      }
+	      Collection<Object> collection = null;
+	      if(clazz == List.class) {
+	        collection = new ArrayList<Object>(data.size());
+	      } else {
+	        collection = new HashSet<Object>();
+	      }
+	      for (Json value : data) {
+	        if( value.isString()){
+	          collection.add(deserializePlain(String.class, value));
+	        }
+	        else
+	          // TODO other types
+	         continue;
+	      }
+	      return collection;
+	    }
+			
 			return deserializePlain(clazz, data);
 		} catch(Exception e) {
 			throw new SienaException(e);
