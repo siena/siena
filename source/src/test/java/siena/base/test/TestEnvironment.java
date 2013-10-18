@@ -53,4 +53,9 @@ public class TestEnvironment implements Environment {
 		return 0;
 	}
 
+  @Override
+  public String getModuleId() {
+    return "1";
+  }
+
 }
