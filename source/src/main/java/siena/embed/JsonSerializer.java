@@ -386,7 +386,8 @@ public class JsonSerializer {
 			Object arr = Array.newInstance(arrClazz, data.size());
 			int i=0;
 			for (Json value : data) {
-				Array.set(arr, i++, deserialize(arrClazz, value));
+			  Object deserialized = deserialize(arrClazz, value);
+				Array.set(arr, i++, deserialized );
 			}
 			
 			return arr;
@@ -436,7 +437,8 @@ public class JsonSerializer {
 			return data!=null ? data.asShort() : 0;
 		}
 		else if(type == Integer.class || type == Integer.TYPE) {
-			return data!=null ? data.asInt() : 0;
+		  Object val = data!=null ? data.asInt() : null;
+			return val;
 		}
 		else if(type == Long.class || type == Long.TYPE)    {
 			return data!=null ? data.asLong() : 0;
