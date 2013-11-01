@@ -63,17 +63,17 @@ public class JsonTest extends TestCase {
 	public void testBuildComplex() {
 		Json json = Json.list(1, 2, 3, 4, true, false, null, Json.map().put("foo", 1).put("bar", 2));
 
-		assertEquals(1, json.at(0).asInt());
-		assertEquals(2, json.at(1).asInt());
-		assertEquals(3, json.at(2).asInt());
-		assertEquals(4, json.at(3).asInt());
+		assertTrue(1 == json.at(0).asInt());
+		assertTrue(2 == json.at(1).asInt());
+		assertTrue(3 == json.at(2).asInt());
+		assertTrue(4 == json.at(3).asInt());
 		assertTrue(json.at(4).asBoolean());
 		assertFalse(json.at(5).asBoolean());
 		assertTrue(json.at(6).isNull());
 		assertTrue(json.at(7).isMap());
-		assertEquals(2, json.at(7).size());
-		assertEquals(1, json.at(7).get("foo").asInt());
-		assertEquals(2, json.at(7).get("bar").asInt());
+		assertTrue(2 == json.at(7).size());
+		assertTrue(1 == json.at(7).get("foo").asInt());
+		assertTrue(2 == json.at(7).get("bar").asInt());
 	}
 	
 	public void testParseList() {
@@ -87,7 +87,7 @@ public class JsonTest extends TestCase {
 		assertFalse(json.at(1).asBoolean());
 		assertTrue(json.at(2).isNull());
 		assertTrue(json.at(3).isNumber());
-		assertEquals(1234, json.at(3).asInt());
+		assertTrue(1234 == json.at(3).asInt());
 		assertTrue(json.at(4).isString());
 		assertEquals("foobar", json.at(4).asString());
 	}
@@ -110,7 +110,7 @@ public class JsonTest extends TestCase {
 		
 		Json foo = json.get("foo");
 		assertTrue(foo.isNumber());
-		assertEquals(1234, foo.asInt());
+		assertTrue(1234 == foo.asInt());
 		
 		Json bar = json.get("bar");
 		assertTrue(bar.isBoolean());
@@ -136,14 +136,14 @@ public class JsonTest extends TestCase {
 		
 		assertTrue(json.isMap());
 		assertEquals(2, json.size());
-		assertEquals(1234, json.get("foo").asInt());
+		assertTrue(1234 == json.get("foo").asInt());
 		
 		Json list = json.get("bar");
 		assertTrue(list.isList());
-		assertEquals(8, list.size());
-		assertEquals(1, list.at(0).asInt());
-		assertEquals(2, list.at(1).asInt());
-		assertEquals(3, list.at(2).asInt());
+		assertEquals( 8, list.size());
+		assertTrue(1 == list.at(0).asInt());
+		assertTrue(2 == list.at(1).asInt());
+		assertTrue(3 == list.at(2).asInt());
 		
 		assertTrue(list.at(3).isList());
 		assertEquals(1, list.at(3).size());
@@ -164,26 +164,26 @@ public class JsonTest extends TestCase {
 		other.putAll(map);
 		
 		assertEquals(3, other.size());
-		assertEquals(3, other.get("baz").asInt());
-		assertEquals(2, other.get("bar").asInt());
-		assertEquals(1, other.get("foo").asInt());
+		assertTrue(3 == other.get("baz").asInt());
+		assertTrue(2 == other.get("bar").asInt());
+		assertTrue(1 == other.get("foo").asInt());
 	}
 	
 	public void testArray() {
 		Json list = new Json(new Object[]{1, 2, 3});
 		assertEquals(3, list.size());
-		assertEquals(1, list.at(0).asInt());
-		assertEquals(2, list.at(1).asInt());
-		assertEquals(3, list.at(2).asInt());
+		assertTrue(1 == list.at(0).asInt());
+		assertTrue(2 == list.at(1).asInt());
+		assertTrue(3 == list.at(2).asInt());
 		assertEquals("[1, 2, 3]", list.toString());
 	}
 	
 	public void testCollection() {
 		Json list = new Json(Arrays.asList(new Object[]{1, 2, 3}));
 		assertEquals(3, list.size());
-		assertEquals(1, list.at(0).asInt());
-		assertEquals(2, list.at(1).asInt());
-		assertEquals(3, list.at(2).asInt());
+		assertTrue(1 == list.at(0).asInt());
+		assertTrue(2 == list.at(1).asInt());
+		assertTrue(3 == list.at(2).asInt());
 		assertEquals("[1, 2, 3]", list.toString());
 	}
 	
@@ -194,7 +194,7 @@ public class JsonTest extends TestCase {
 		Json map = new Json(m);
 		assertTrue(map.isMap());
 		assertEquals(1, map.size());
-		assertEquals(1, map.get("foo").asInt());
+		assertTrue(1 == map.get("foo").asInt());
 		assertEquals("{\"foo\": 1}", map.toString());
 	}
 	
@@ -212,9 +212,9 @@ public class JsonTest extends TestCase {
 		assertEquals(2, list.size());
 		
 		assertEquals(3, list.at(0).size());
-		assertEquals(1, list.at(0).at(0).asInt());
-		assertEquals(2, list.at(0).at(1).asInt());
-		assertEquals(3, list.at(0).at(2).asInt());
+		assertTrue(1 == list.at(0).at(0).asInt());
+		assertTrue(2 == list.at(0).at(1).asInt());
+		assertTrue(3 == list.at(0).at(2).asInt());
 
 		assertEquals(3, list.at(1).size());
 		assertEquals("foo", list.at(1).at(0).str());
@@ -234,9 +234,9 @@ public class JsonTest extends TestCase {
 		json.addAt(1, 2);
 		
 		assertEquals(3, json.size());
-		assertEquals(1, json.at(0).asInt());
-		assertEquals(2, json.at(1).asInt());
-		assertEquals(3, json.at(2).asInt());
+		assertTrue(1 == json.at(0).asInt());
+		assertTrue(2 == json.at(1).asInt());
+		assertTrue(3 == json.at(2).asInt());
 	}
 	
 	public void testRemoveAt() {
@@ -244,8 +244,8 @@ public class JsonTest extends TestCase {
 		json.removeAt(1);
 
 		assertEquals(2, json.size());
-		assertEquals(1, json.at(0).asInt());
-		assertEquals(3, json.at(1).asInt());
+		assertTrue(1 == json.at(0).asInt());
+		assertTrue(3 == json.at(1).asInt());
 	}
 	
 	public void testIndexOf() {
@@ -308,12 +308,12 @@ public class JsonTest extends TestCase {
 		Json list = Json.list(1, 2, 3);
 		list.removeAll(Json.list(1, 2));
 		assertEquals(1, list.size());
-		assertEquals(3, list.at(0).asInt());
+		assertTrue(3 == list.at(0).asInt());
 		
 		Json map = Json.map().put("foo", 1).put("bar", 2);
 		map.removeAll(Json.map().put("foo", 1));
 		assertEquals(1, map.size());
-		assertEquals(2, map.get("bar").asInt());
+		assertTrue(2 == map.get("bar").asInt());
 	}
 	
 	public void testSumIntegers() {
@@ -322,8 +322,8 @@ public class JsonTest extends TestCase {
 		
 		map1.sumIntegers(map2);
 
-		assertEquals(3, map1.get("a").asInt());
-		assertEquals(5, map1.get("b").asInt());
+		assertTrue(3 == map1.get("a").asInt());
+		assertTrue(5 == map1.get("b").asInt());
 	}
 	
 	public void testSumDoubles() {
@@ -332,36 +332,36 @@ public class JsonTest extends TestCase {
 		
 		map1.sumReals(map2);
 
-		assertEquals(4, map1.get("a").asInt());
-		assertEquals(5, map1.get("b").asInt());
+		assertTrue(4 == map1.get("a").asInt());
+		assertTrue(5 == map1.get("b").asInt());
 	}
 	
 	public void sumInteger() {
 		Json map1 = Json.map().put("a", 1);
 		map1.sumInteger("a", 2);
-		assertEquals(3, map1.get("a").asInt());
+		assertTrue(3 == map1.get("a").asInt());
 		
 		map1 = Json.map();
 		map1.sumInteger("a", 2);
-		assertEquals(2, map1.get("a").asInt());
+		assertTrue(2 == map1.get("a").asInt());
 	}
 	
 	public void sumReal() {
 		Json map1 = Json.map().put("a", 1.5);
 		map1.sumReal("a", 2.5);
-		assertEquals(4, map1.get("a").asInt());
+		assertTrue(4 == map1.get("a").asInt());
 		
 		map1 = Json.map();
 		map1.sumReal("a", 2.5);
-		assertEquals(2.5, map1.get("a").asInt());
+		assertTrue(2.5 == map1.get("a").asInt());
 	}
 	
 	public void testPutDefault() {
 		Json map = Json.map();
 		map.putDefault("a", 2);
-		assertEquals(2, map.get("a").asInt());
+		assertTrue(2 == map.get("a").asInt());
 		map.putDefault("a", 3);
-		assertEquals(2, map.get("a").asInt());
+		assertTrue(2 == map.get("a").asInt());
 	}
 	
 	public void testEqualsTo() {
@@ -442,7 +442,7 @@ public class JsonTest extends TestCase {
 		Json data = map().put("foo", list(1, 2, list(1, 2, map().put("bar", 1))));
 		Json result = data.find("foo", 2, 2, "bar");
 		assertNotNull(result);
-		assertEquals(1, result.asInt());
+		assertTrue(1 == result.asInt());
 		
 		// try to call at() in a map
 		result = data.find(1);

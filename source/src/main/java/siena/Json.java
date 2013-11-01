@@ -468,8 +468,9 @@ public class Json implements Iterable<Json> {
 		return ((Boolean) object).booleanValue();
 	}
 	
-	public int asInt() {
-		if(object == null) return 0;
+	public Integer asInt() {
+		if(object == null) 
+		  return null;
 		return ((Number) object).intValue();
 	}
 	
