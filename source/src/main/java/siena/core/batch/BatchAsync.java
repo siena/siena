@@ -15,6 +15,8 @@
  */
 package siena.core.batch;
 
+import java.util.List;
+
 import siena.core.async.SienaFuture;
 
 
@@ -25,13 +27,20 @@ import siena.core.async.SienaFuture;
  *
  */
 public interface BatchAsync<T> {
-	SienaFuture<Integer> insert(T... models);
-	SienaFuture<Integer> insert(Iterable<T> models);
-	SienaFuture<Integer> update(T... models);
-	SienaFuture<Integer> update(Iterable<T> models);
-	SienaFuture<Integer> delete(T... models);
-	SienaFuture<Integer> delete(Iterable<T> models);
-	SienaFuture<Integer> deleteByKeys(Object... keys);
-	SienaFuture<Integer> deleteByKeys(Iterable<?> keys);
-	Batch<T> sync();
+  SienaFuture<Integer> get(T... models);
+  SienaFuture<Integer> get(Iterable<T> models);
+
+  SienaFuture<T> getByKey(Object key);
+  SienaFuture<List<T>> getByKeys(Object... keys);
+  SienaFuture<List<T>> getByKeys(Iterable<?> keys);
+  
+  SienaFuture<Integer> insert(T... models);
+  SienaFuture<Integer> insert(Iterable<T> models);
+  SienaFuture<Integer> update(T... models);
+  SienaFuture<Integer> update(Iterable<T> models);
+  SienaFuture<Integer> delete(T... models);
+  SienaFuture<Integer> delete(Iterable<T> models);
+  SienaFuture<Integer> deleteByKeys(Object... keys);
+  SienaFuture<Integer> deleteByKeys(Iterable<?> keys);
+  Batch<T> sync();
 }
