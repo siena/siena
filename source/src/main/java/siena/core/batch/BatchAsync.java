@@ -31,8 +31,8 @@ public interface BatchAsync<T> {
   SienaFuture<Integer> get(Iterable<T> models);
 
   SienaFuture<T> getByKey(Object key);
-  SienaFuture<List<T>> getByKeys(Object... keys);
-  SienaFuture<List<T>> getByKeys(Iterable<?> keys);
+  List<T> getByKeys(Object... keys);
+  List<T> getByKeys(Iterable<?> keys);
   
   SienaFuture<Integer> insert(T... models);
   SienaFuture<Integer> insert(Iterable<T> models);

@@ -4,6 +4,7 @@ import java.util.List;
 
 import siena.core.async.SienaFuture;
 import siena.core.async.PersistenceManagerAsync;
+import siena.core.async.SienaFutureProxy;
 
 
 public class BaseBatchAsync<T> implements BatchAsync<T> {
@@ -66,12 +67,12 @@ public class BaseBatchAsync<T> implements BatchAsync<T> {
     return pm.getByKey(clazz, key);
   }
 
-  public SienaFuture<List<T>> getByKeys(Object... keys) {
-    return pm.getByKeys(clazz, keys);
+  public List<T> getByKeys(Object... keys) {
+    return SienaFutureProxy.create(List.class, pm.getByKeys(clazz, keys));
   }
 
-  public SienaFuture<List<T>> getByKeys(Iterable<?> keys) {
-    return pm.getByKeys(clazz, keys);
+  public List<T> getByKeys(Iterable<?> keys) {
+    return SienaFutureProxy.create(List.class, pm.getByKeys(clazz, keys));
   }
   
   public Batch<T> sync() {
