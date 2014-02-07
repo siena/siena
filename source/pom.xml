@@ -242,13 +242,12 @@
 
 
 	<dependencies>
-		<dependency>
+		<!-->dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>1.6.1</version>
 			<scope>compile</scope>
-		</dependency>
-
+		</dependency-->
 
 		<!-- Test -->
 		<dependency>
@@ -364,17 +363,17 @@
     		<artifactId>aws-java-sdk</artifactId>
     		<version>1.2.4</version>
 		</dependency>		
-		<dependency>
+		<!--dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpcore</artifactId>
 			<version>4.2.1</version>
-		</dependency>
+		</dependency-->
 		
 		<!-- Objectify dependencies -->
         <dependency>
             <groupId>com.googlecode.objectify</groupId>
             <artifactId>objectify</artifactId>
-            <version>3.1</version>
+            <version>4.0rc2</version>
         </dependency>
 	</dependencies>
 
