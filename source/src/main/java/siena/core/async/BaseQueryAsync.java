@@ -74,12 +74,12 @@ public class BaseQueryAsync<T> extends BaseQueryData<T> implements QueryAsync<T>
 		return this;
 	}
 
-	public SienaFuture<T> get() {
-		return pm.get(this);
+	public T get() {
+		return pm.get(this).get();
 	}
 
-	public SienaFuture<T> getByKey(Object key) {
-		return pm.getByKey(clazz, key);
+	public T getByKey(Object key) {
+		return pm.getByKey(clazz, key).get();
 	}
 
 	public SienaFuture<Integer> delete() {
@@ -94,44 +94,44 @@ public class BaseQueryAsync<T> extends BaseQueryData<T> implements QueryAsync<T>
 		return pm.count(this);
 	}
 
-	public SienaFuture<List<T>> fetch() {
-		return pm.fetch(this);
+	public List<T> fetch() {
+	   return SienaFutureProxy.create(List.class, pm.fetch(this));
 	}
 
-	public SienaFuture<List<T>> fetch(int limit) {
-		return pm.fetch(this, limit);
+	public List<T> fetch(int limit) {
+		return SienaFutureProxy.create(List.class, pm.fetch(this, limit));
 	}
 
-	public SienaFuture<List<T>> fetch(int limit, Object offset) {
-		return pm.fetch(this, limit, offset);
+	public List<T> fetch(int limit, Object offset) {
+		return SienaFutureProxy.create(List.class, pm.fetch(this, limit, offset));
 	}
 
-	public SienaFuture<List<T>> fetchKeys() {
-		return pm.fetchKeys(this);
+	public List<T> fetchKeys() {
+		return SienaFutureProxy.create(List.class, pm.fetchKeys(this));
 	}
 
-	public SienaFuture<List<T>> fetchKeys(int limit) {
-		return pm.fetchKeys(this, limit);
+	public List<T> fetchKeys(int limit) {
+		return SienaFutureProxy.create(List.class, pm.fetchKeys(this, limit));
 	}
 
-	public SienaFuture<List<T>> fetchKeys(int limit, Object offset) {
-		return pm.fetchKeys(this, limit, offset);
+	public List<T> fetchKeys(int limit, Object offset) {
+		return SienaFutureProxy.create(List.class, pm.fetchKeys(this, limit, offset));
 	}
 
-	public SienaFuture<Iterable<T>> iter() {
-		return pm.iter(this);
+	public Iterable<T> iter() {
+		return SienaFutureProxy.create(Iterable.class, pm.iter(this));
 	}
 
-	public SienaFuture<Iterable<T>> iter(int limit) {
-		return pm.iter(this, limit);
+	public Iterable<T> iter(int limit) {
+		return SienaFutureProxy.create(Iterable.class, pm.iter(this, limit));
 	}
 
-	public SienaFuture<Iterable<T>> iter(int limit, Object offset) {
-		return pm.iter(this, limit, offset);
+	public Iterable<T> iter(int limit, Object offset) {
+		return SienaFutureProxy.create(Iterable.class, pm.iter(this, limit, offset));
 	}
 
-	public SienaFuture<Iterable<T>> iterPerPage(int limit) {
-		return pm.iterPerPage(this, limit);
+	public Iterable<T> iterPerPage(int limit) {
+		return SienaFutureProxy.create(Iterable.class, pm.iterPerPage(this, limit));
 	}
 
 	public SienaFuture<Object> raw(String request) {

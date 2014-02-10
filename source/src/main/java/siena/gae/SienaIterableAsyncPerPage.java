@@ -53,7 +53,7 @@ public class SienaIterableAsyncPerPage<T> implements Iterable<T> {
 				hasNext = true;
 			}
 			else {
-				this.iterator = query.nextPage().iter().get().iterator();
+				this.iterator = query.nextPage().iter().iterator();
 				
 				hasNext = this.iterator.hasNext();
 			}
@@ -65,7 +65,7 @@ public class SienaIterableAsyncPerPage<T> implements Iterable<T> {
 			if(hasNext || iterator.hasNext()){
 				return iterator.next();
 			}else {
-				this.iterator = query.nextPage().iter().get().iterator();
+				this.iterator = query.nextPage().iter().iterator();
 				
 				return this.iterator.next();
 			}

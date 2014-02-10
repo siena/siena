@@ -24,7 +24,7 @@ public class SienaIterableAsyncPerPageWrapper<T> implements SienaFuture<Iterable
     /**
      * The wrapped <code>Iterable</code>.
      */
-    SienaFuture<Iterable<T>> iterable;
+    Iterable<T> iterable;
     
 	public SienaIterableAsyncPerPageWrapper(QueryAsync<T> query, int pageSize) {
 		this.query = query;
@@ -34,7 +34,7 @@ public class SienaIterableAsyncPerPageWrapper<T> implements SienaFuture<Iterable
 	}
 
 	public Iterable<T> get() {
-		return new SienaIterableAsyncPerPage<T>(query, pageSize, iterable.get());
+		return new SienaIterableAsyncPerPage<T>(query, pageSize, iterable);
 	}
 
 }

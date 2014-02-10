@@ -5,6 +5,8 @@ package siena.gae;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -1083,7 +1085,7 @@ public class GaePersistenceManagerAsync extends AbstractPersistenceManagerAsync 
 	}
 	
 	
-	public SienaFuture<Integer> get(final Object... objects) {
+	public <T> SienaFuture<List<T>> get(final T... objects) {
 		List<Key> keys = new ArrayList<Key>();
 		for(Object obj:objects){
 			keys.add(GaeMappingUtils.getKey(obj));
@@ -1091,22 +1093,22 @@ public class GaePersistenceManagerAsync extends AbstractPersistenceManagerAsync 
 		
 		Future<Map<Key, Entity>> future = ds.get(keys);
 		
-		Future<Integer> wrapped = new SienaFutureWrapper<Map<Key, Entity>, Integer>(future) {
+		Future<List<T>> wrapped = new SienaFutureWrapper<Map<Key, Entity>, List<T>>(future) {
             @Override
-            protected Integer wrap(Map<Key, Entity> entityMap) throws Exception
+            protected List<T> wrap(Map<Key, Entity> entityMap) throws Exception
             {
             	for(Object obj:objects){
-        			GaeMappingUtils.fillModel(obj, entityMap.get(GaeMappingUtils.getKey(obj)));
+            	  GaeMappingUtils.fillModel(obj, entityMap.get(GaeMappingUtils.getKey(obj)));
         		}
         		
-        		return entityMap.size();
+        		return Arrays.asList(objects);
             }
 		};
 		
-		return new SienaFutureContainer<Integer>(wrapped);
+    return new SienaFutureContainer<List<T>>(wrapped);
 	}
 
-	public <T> SienaFuture<Integer> get(final Iterable<T> objects) {
+	public <T> SienaFuture<List<T>> get(final Iterable<T> objects) {
 		List<Key> keys = new ArrayList<Key>();
 		for(Object obj:objects){
 			keys.add(GaeMappingUtils.getKey(obj));
@@ -1114,19 +1116,20 @@ public class GaePersistenceManagerAsync extends AbstractPersistenceManagerAsync 
 		
 		Future<Map<Key, Entity>> future = ds.get(keys);
 		
-		Future<Integer> wrapped = new SienaFutureWrapper<Map<Key, Entity>, Integer>(future) {
+		Future<List<T>> wrapped = new SienaFutureWrapper<Map<Key, Entity>, List<T>>(future) {
             @Override
-            protected Integer wrap(Map<Key, Entity> entityMap) throws Exception
+            protected List<T> wrap(Map<Key, Entity> entityMap) throws Exception
             {
-            	for(Object obj:objects){
-        			GaeMappingUtils.fillModel(obj, entityMap.get(GaeMappingUtils.getKey(obj)));
-        		}
+              List<T> models = new ArrayList<T>(entityMap.size());
+            	for(T obj:objects){
+            	  GaeMappingUtils.fillModel(obj, entityMap.get(GaeMappingUtils.getKey(obj)));
+            	  models.add(obj);
+            	}
         		
-        		return entityMap.size();
+        		  return models;
             }
 		};
-		
-		return new SienaFutureContainer<Integer>(wrapped);
+    return new SienaFutureContainer<List<T>>(wrapped);
 	}
 	
 	public <T> SienaFuture<T> getByKey(final Class<T> clazz, final Object key) {

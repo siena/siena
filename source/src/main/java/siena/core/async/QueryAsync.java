@@ -38,24 +38,24 @@ public interface QueryAsync<T> extends QueryData<T>{
 	QueryAsync<T> search(String match, String... fields);
 	QueryAsync<T> search(String match, QueryOption opt, String... fields);
 	
-	SienaFuture<T> get();
-	SienaFuture<T> getByKey(Object key);
+	T get();
+	T getByKey(Object key);
 	SienaFuture<Integer> delete();
 	SienaFuture<Integer> update(Map<String, ?> fieldValues);
 	SienaFuture<Integer> count();
 
-	SienaFuture<List<T>> fetch();
-	SienaFuture<List<T>> fetch(int limit);
-	SienaFuture<List<T>> fetch(int limit, Object offset);
+	List<T> fetch();
+	List<T> fetch(int limit);
+	List<T> fetch(int limit, Object offset);
 
-	SienaFuture<List<T>> fetchKeys();
-	SienaFuture<List<T>> fetchKeys(int limit);
-	SienaFuture<List<T>> fetchKeys(int limit, Object offset);
+	List<T> fetchKeys();
+	List<T> fetchKeys(int limit);
+	List<T> fetchKeys(int limit, Object offset);
 
-	SienaFuture<Iterable<T>> iter();
-	SienaFuture<Iterable<T>> iter(int limit);
-	SienaFuture<Iterable<T>> iter(int limit, Object offset);
-	SienaFuture<Iterable<T>> iterPerPage(int limit);
+	Iterable<T> iter();
+	Iterable<T> iter(int limit);
+	Iterable<T> iter(int limit, Object offset);
+	Iterable<T> iterPerPage(int limit);
 		
 	QueryAsync<T> clone();
 	

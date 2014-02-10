@@ -189,9 +189,9 @@ public interface PersistenceManagerAsync {
 	 * @param objects
 	 *            The objects that will be deleted from the database
 	 */
-	SienaFuture<Integer> get(Object... models);
+	<T> SienaFuture<List<T>> get(T... models);
 
-	<T> SienaFuture<Integer> get(Iterable<T> models);
+	<T> SienaFuture<List<T>> get(Iterable<T> models);
 
 	<T> SienaFuture<T> getByKey(Class<T> clazz, Object key);
 

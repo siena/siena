@@ -1,6 +1,13 @@
 package siena.core.batch;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.googlecode.objectify.Key;
+import com.googlecode.objectify.util.MakeListResult;
+import com.googlecode.objectify.util.ResultCache;
+import com.googlecode.objectify.util.ResultProxy;
 
 import siena.core.async.SienaFuture;
 import siena.core.async.PersistenceManagerAsync;
@@ -55,12 +62,12 @@ public class BaseBatchAsync<T> implements BatchAsync<T> {
   }
   
 
-  public SienaFuture<Integer> get(T... models) {
-    return pm.get(models);
+  public List<T> get(T... models) {
+    return SienaFutureProxy.create(List.class, pm.get(models));
   }
 
-  public SienaFuture<Integer> get(Iterable<T> models) {
-    return pm.get(models);
+  public List<T> get(Iterable<T> models) {
+    return SienaFutureProxy.create(List.class, pm.get(models));
   }
 
   public SienaFuture<T> getByKey(Object key){

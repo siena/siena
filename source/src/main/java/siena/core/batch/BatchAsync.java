@@ -27,8 +27,8 @@ import siena.core.async.SienaFuture;
  *
  */
 public interface BatchAsync<T> {
-  SienaFuture<Integer> get(T... models);
-  SienaFuture<Integer> get(Iterable<T> models);
+  List<T> get(T... models);
+  List<T> get(Iterable<T> models);
 
   SienaFuture<T> getByKey(Object key);
   List<T> getByKeys(Object... keys);

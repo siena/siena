@@ -137,11 +137,11 @@ public class ModelAsync {
 			return createQuery().search(match, opt, fields);
 		}
 
-		public SienaFuture<T> get() {
+		public T get() {
 			return createQuery().get();
 		}
 
-		public SienaFuture<T> getByKey(Object key) {
+		public T getByKey(Object key) {
 			return createQuery().getByKey(key);
 		}
 
@@ -157,43 +157,43 @@ public class ModelAsync {
 			return createQuery().count();
 		}
 
-		public SienaFuture<List<T>> fetch() {
+		public List<T> fetch() {
 			return createQuery().fetch();
 		}
 
-		public SienaFuture<List<T>> fetch(int limit) {
+		public List<T> fetch(int limit) {
 			return createQuery().fetch();
 		}
 
-		public SienaFuture<List<T>> fetch(int limit, Object offset) {
+		public List<T> fetch(int limit, Object offset) {
 			return createQuery().fetch(limit, offset);
 		}
 
-		public SienaFuture<List<T>> fetchKeys() {
+		public List<T> fetchKeys() {
 			return createQuery().fetchKeys();
 		}
 
-		public SienaFuture<List<T>> fetchKeys(int limit) {
+		public List<T> fetchKeys(int limit) {
 			return createQuery().fetchKeys(limit);
 		}
 
-		public SienaFuture<List<T>> fetchKeys(int limit, Object offset) {
+		public List<T> fetchKeys(int limit, Object offset) {
 			return createQuery().fetchKeys(limit, offset);
 		}
 
-		public SienaFuture<Iterable<T>> iter() {
+		public Iterable<T> iter() {
 			return createQuery().iter();
 		}
 
-		public SienaFuture<Iterable<T>> iter(int limit) {
+		public Iterable<T> iter(int limit) {
 			return createQuery().iter(limit);
 		}
 
-		public SienaFuture<Iterable<T>> iter(int limit, Object offset) {
+		public Iterable<T> iter(int limit, Object offset) {
 			return createQuery().iter(limit, offset);
 		}
 
-		public SienaFuture<Iterable<T>> iterPerPage(int limit) {
+		public Iterable<T> iterPerPage(int limit) {
 			return createQuery().iterPerPage(limit);
 		}
 
