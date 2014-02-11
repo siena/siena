@@ -75,11 +75,22 @@ public class BaseQueryAsync<T> extends BaseQueryData<T> implements QueryAsync<T>
 	}
 
 	public T get() {
-		return pm.get(this).get();
+//	   return pm.sync().get();
+	  try{
+	    return pm.get(this).get();
+	  } 
+	  catch( Exception e ){
+	    return null;
+	  }
 	}
 
 	public T getByKey(Object key) {
-		return pm.getByKey(clazz, key).get();
+    try{
+      return pm.getByKey(clazz, key).get();
+    } 
+    catch( Exception e ){
+      return null;
+    }
 	}
 
 	public SienaFuture<Integer> delete() {
