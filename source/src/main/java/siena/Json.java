@@ -494,8 +494,9 @@ public class Json implements Iterable<Json> {
 		return ((Number) object).doubleValue();
 	}
 	
-	public float asFloat() {
-		if(object == null) return 0f;
+	public Float asFloat() {
+		if( object == null ) 
+		  return null;
 		return ((Number) object).floatValue();
 	}
 	

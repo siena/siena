@@ -5,7 +5,7 @@
 	<groupId>siena</groupId>
 	<artifactId>siena</artifactId>
 	<name>siena</name>
-	<version>1.0.0-b7</version>
+	<version>1.0.0-b8</version>
 	<url>http://www.sienaproject.com</url>
 	<description>
 		Siena is a persistence abstraction layer made in Java with various implementations:
@@ -373,7 +373,7 @@
         <dependency>
             <groupId>com.googlecode.objectify</groupId>
             <artifactId>objectify</artifactId>
-            <version>4.0rc2</version>
+            <version>5.0.3</version>
         </dependency>
 	</dependencies>
 
