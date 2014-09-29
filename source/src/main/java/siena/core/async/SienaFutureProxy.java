@@ -20,13 +20,16 @@ public class SienaFutureProxy<T> implements InvocationHandler
 	}
 
 	SienaFuture<T> sienaFuture;
-
+	Object object = null;
+	
 	private SienaFutureProxy(SienaFuture<T> sienaFuture) {
 		this.sienaFuture = sienaFuture;
 	}
 
 	@Override
 	public Object invoke(Object obj, Method meth, Object[] params) throws Throwable {
-		return meth.invoke(sienaFuture.get(), params);
+	  if( object == null )
+	    object = sienaFuture.get();
+    return meth.invoke( object, params);
 	}
 }
