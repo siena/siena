@@ -381,6 +381,11 @@ public class GaeMappingUtils {
 		for (Field field : ClassInfo.getClassInfo(clazz).updateFields) {
 			String property = ClassInfo.getColumnNames(field)[0];
 			Object value = Util.readField(obj, field);
+
+      // don't set null fields, save on Indexes
+      if( value == null )
+        continue;
+			
 			Class<?> fieldClass = field.getType();
 			if (ClassInfo.isModel(fieldClass) 
 					&& !ClassInfo.isEmbedded(field)
