@@ -884,6 +884,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		}
 
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		List<Discovery> res = pm.createQuery(Discovery.class).order("name").fetch(3);
 		
@@ -902,6 +903,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		}
 
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		List<Discovery> res = pm.createQuery(Discovery.class).order("name").fetch(3, 5);
 		
@@ -1653,6 +1655,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		List<Discovery> res = query.fetch();
@@ -1674,6 +1677,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		List<Discovery> res = query.fetch();
@@ -1714,6 +1718,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		List<Discovery> res1 = query.fetch();
@@ -1737,6 +1742,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		List<Discovery> res = query.previousPage().fetch();
@@ -1776,6 +1782,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		List<Discovery> res = query.nextPage().fetch();
@@ -1799,6 +1806,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
 		List<Discovery> res = query.fetch();
@@ -1843,6 +1851,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
 		List<Discovery> res = query.fetch();
@@ -1869,6 +1878,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name").stateful();
 		List<Discovery> res = query.fetch();
@@ -1910,6 +1920,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
 		List<Discovery> res1 = query.fetch();
@@ -1933,6 +1944,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
 		List<Discovery> res = query.previousPage().fetch();
@@ -1972,6 +1984,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
 		List<Discovery> res = query.fetch();
@@ -2002,6 +2015,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
 		List<Discovery> res = query.fetch();
@@ -2046,6 +2060,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		List<Discovery> res = query.fetchKeys();
@@ -2070,6 +2085,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		List<Discovery> res1 = query.fetchKeys();
@@ -2095,6 +2111,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		List<Discovery> res = query.previousPage().fetchKeys();
@@ -2112,6 +2129,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		List<Discovery> res = query.nextPage().fetchKeys();
@@ -2137,7 +2155,9 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
-
+    Arrays.sort(discs);
+		
+		Arrays.sort( discs );
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
 		List<Discovery> res = query.fetchKeys();
 		 
@@ -2186,6 +2206,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
 		List<Discovery> res = query.fetchKeys();
@@ -2210,6 +2231,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
 		List<Discovery> res1 = query.fetchKeys();
@@ -2235,6 +2257,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
 		List<Discovery> res = query.previousPage().fetchKeys();
@@ -2252,6 +2275,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
 		List<Discovery> res = query.fetchKeys();
@@ -2285,6 +2309,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
 		List<Discovery> res = query.fetchKeys();
@@ -2329,6 +2354,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		try {
@@ -2357,6 +2383,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		Iterable<Discovery> future1 = query.iter();
@@ -2383,6 +2410,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		Iterable<Discovery> future = query.previousPage().iter();
@@ -2409,6 +2437,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		Iterable<Discovery> future = query.nextPage().iter();
@@ -2435,6 +2464,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
 		Iterable<Discovery> future = query.iter();
@@ -2483,6 +2513,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
 		Iterable<Discovery> future = query.iter();
@@ -2506,6 +2537,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
 		Iterable<Discovery> future1 = query.iter();
@@ -2532,6 +2564,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
 		Iterable<Discovery> future = query.previousPage().iter();
@@ -2558,6 +2591,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
 		Iterable<Discovery> future = query.iter();
@@ -2593,6 +2627,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
 		Iterable<Discovery> future1 = query.iter();
@@ -2628,6 +2663,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
 		Iterable<Discovery> future = query.iter();
@@ -2680,6 +2716,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
 		Iterable<Discovery> future = query.iter();
@@ -2732,7 +2769,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
-		
+		Arrays.sort(discs);
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		Iterable<Discovery> future = query.iter();
 		Iterator<Discovery> it = future.iterator();
@@ -2750,6 +2787,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> future = query.iter();
@@ -2768,6 +2806,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> future = query.iter(50);
@@ -2803,6 +2842,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> future = query.paginate(50).iter();
@@ -2830,6 +2870,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> future = query.iter(50);
@@ -2874,6 +2915,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.paginate(50).fetch();
@@ -2911,6 +2953,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.fetch(50);
@@ -2948,6 +2991,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.fetch(50);
@@ -3077,6 +3121,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.fetch(50);
@@ -3197,6 +3242,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		SienaFuture<Integer> resf = pm.insert(discs);
 		assertEquals(discs.length, (int)resf.get());
 		
+		Arrays.sort(discs);
+		
 		List<Discovery> res = 
 			pm.createQuery(Discovery.class).fetch();
 		
@@ -3215,6 +3262,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		SienaFuture<Integer> resf = pm.insert(discs);
 		assertEquals(discs.size(), (int)resf.get());
 
+		Collections.sort(discs);
 		List<Discovery> res = 
 			pm.createQuery(Discovery.class).fetch();
 		
@@ -3305,6 +3353,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		Discovery[] discs2Get = new Discovery[100];
 		for(int i=0; i<100; i++){
@@ -3328,6 +3377,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		List<Discovery> discs2Get = new ArrayList<Discovery>();
 		for(int i=0; i<100; i++){
@@ -3361,6 +3411,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		List<Long> discsKeys = new ArrayList<Long>();
 		for(int i=0; i<100; i++){
@@ -3381,6 +3432,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateless().order("id");
 		List<Discovery> res = query.limit(50).fetch();
@@ -3420,6 +3472,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.limit(50).fetch();
@@ -3450,6 +3503,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		List<Discovery> res = query.offset(50).fetch();
@@ -3466,6 +3520,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.offset(50).fetch();
@@ -3482,6 +3537,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		List<Discovery> res = query.offset(50).limit(50).fetch();
@@ -3498,6 +3554,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.offset(50).limit(50).fetch();
@@ -3515,6 +3572,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		List<Discovery> res = query.paginate(50).fetch();
@@ -3560,6 +3618,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id").stateful();
 		List<Discovery> res = query.paginate(50).fetch();
@@ -3610,6 +3669,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		List<Discovery> res = query.limit(50).offset(12).fetch();
@@ -3697,6 +3757,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id").stateful();
 		List<Discovery> res = query.limit(50).offset(12).fetch();
@@ -3780,6 +3841,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
 		List<Discovery> res = query.fetch();
@@ -3817,6 +3879,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().paginate(5).order("id");
 		List<Discovery> res = query.fetch();
@@ -3855,6 +3918,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateless().order("id");
 		List<Discovery> res = query.limit(50).fetchKeys();
@@ -3896,6 +3960,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.limit(50).fetchKeys();
@@ -3929,6 +3994,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		List<Discovery> res = query.offset(50).fetchKeys();
@@ -3946,6 +4012,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.offset(50).fetchKeys();
@@ -3963,6 +4030,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		List<Discovery> res = query.offset(50).limit(50).fetchKeys();
@@ -3980,6 +4048,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.offset(50).limit(50).fetchKeys();
@@ -3998,6 +4067,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		List<Discovery> res = query.paginate(50).fetchKeys();
@@ -4048,6 +4118,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id").stateful();
 		List<Discovery> res = query.paginate(50).fetchKeys();
@@ -4103,6 +4174,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		List<Discovery> res = query.limit(50).offset(12).fetchKeys();
@@ -4195,6 +4267,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id").stateful();
 		List<Discovery> res = query.limit(50).offset(12).fetchKeys();
@@ -4288,6 +4361,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
 		List<Discovery> res = query.fetchKeys();
@@ -4329,6 +4403,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().paginate(5).order("id");
 		List<Discovery> res = query.fetchKeys();
@@ -4370,6 +4445,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateless().order("id");
 		Iterable<Discovery> future = query.limit(50).iter();
@@ -4419,6 +4495,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> future = query.limit(50).iter();
@@ -4458,6 +4535,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		Iterable<Discovery> future = query.offset(50).iter();
@@ -4477,6 +4555,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> future = query.offset(50).iter();
@@ -4496,6 +4575,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		Iterable<Discovery> future = query.offset(50).limit(50).iter();
@@ -4515,6 +4595,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> future = query.offset(50).limit(50).iter();
@@ -4534,6 +4615,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		Iterable<Discovery> future = query.paginate(50).iter();
@@ -4593,6 +4675,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> future = query.paginate(50).iter();
@@ -4658,6 +4741,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		Iterable<Discovery> future = query.limit(50).offset(12).iter();
@@ -4775,6 +4859,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> future = query.limit(50).offset(12).iter();
@@ -4892,6 +4977,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
 		Iterable<Discovery> future = query.iter();
@@ -4941,6 +5027,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().paginate(5).order("id");
 		Iterable<Discovery> future = query.iter();
@@ -4990,6 +5077,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateless().order("id");
 		List<Discovery> res1 = query.limit(50).fetch();
@@ -5056,6 +5144,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res1 = query.limit(50).fetch();
@@ -5191,7 +5280,8 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert(discs).get();
-
+		
+		Arrays.sort(discs);
 		List<Discovery> res = 
 			pm.createQuery(Discovery.class).fetch();
 		
@@ -5231,6 +5321,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		
 		nb = pm.update(discs).get();
 		assertEquals(discs.size(), nb);
+    Collections.sort(discs);
+
 		res = 
 			pm.createQuery(Discovery.class).fetch();
 		int i=0;
@@ -5247,6 +5339,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		Iterable<Discovery> iter = query.iterPerPage(50);
@@ -5263,6 +5356,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		Iterable<Discovery> iter = query.iterPerPage(50);
@@ -5280,6 +5374,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		Iterable<Discovery> iter = query.offset(25).iterPerPage(50);
@@ -5297,6 +5392,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> iter = query.iterPerPage(50);
@@ -5313,6 +5409,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> iter = query.iterPerPage(50);
@@ -5330,6 +5427,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
 		pm.insert((Object[])discs).get();
+    Arrays.sort(discs);
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> iter = query.offset(25).iterPerPage(50);
@@ -5515,6 +5613,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		}
 		pm.save(discs).get();
 
+		Arrays.sort(discs);
 		List<Discovery> res = 
 			pm.createQuery(Discovery.class).fetch();
 		
@@ -5550,6 +5649,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		int nb = pm.insert(discs).get();
 		assertEquals(discs.size(), nb);
 		
+    Collections.sort(discs);
+
 		List<Discovery> res = 
 			pm.createQuery(Discovery.class).fetch();
 		
