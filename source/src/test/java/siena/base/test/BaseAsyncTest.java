@@ -181,9 +181,8 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFetch() {
-		SienaFuture<List<PersonUUID>> future = queryPersonUUIDOrderBy("n", 0, false).fetch();
+		List<PersonUUID> people = queryPersonUUIDOrderBy("n", 0, false).fetch();
 
-		List<PersonUUID> people = future.get();
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -193,9 +192,8 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFetchKeys() {
-		SienaFuture<List<PersonUUID>> future = queryPersonUUIDOrderBy("n", 0, false).fetchKeys();
+		List<PersonUUID> people = queryPersonUUIDOrderBy("n", 0, false).fetchKeys();
 
-		List<PersonUUID> people = future.get();
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -210,9 +208,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFetchOrder() {
-		SienaFuture<List<PersonUUID>> future = queryPersonUUIDOrderBy("firstName", "", false).fetch();
+		List<PersonUUID> people = queryPersonUUIDOrderBy("firstName", "", false).fetch();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -222,9 +220,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFetchOrderKeys() {
-		SienaFuture<List<PersonUUID>> future = queryPersonUUIDOrderBy("firstName", "", false).fetchKeys();
+		List<PersonUUID> people = queryPersonUUIDOrderBy("firstName", "", false).fetchKeys();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -234,9 +232,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 
 	public void testFetchOrderDesc() {
-		SienaFuture<List<PersonUUID>> future = queryPersonUUIDOrderBy("lastName", "", true).fetch();
+		List<PersonUUID> people = queryPersonUUIDOrderBy("lastName", "", true).fetch();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -246,9 +244,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 
 	public void testFetchOrderDescKeys() {
-		SienaFuture<List<PersonUUID>> future = queryPersonUUIDOrderBy("lastName", "", true).fetchKeys();
+		List<PersonUUID> people = queryPersonUUIDOrderBy("lastName", "", true).fetchKeys();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -258,9 +256,8 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFetchOrderOnLongAutoId() {
-		SienaFuture<List<PersonLongAutoID>> future = queryPersonLongAutoIDOrderBy("id", "", false).fetchKeys();
+	  List<PersonLongAutoID> people = queryPersonLongAutoIDOrderBy("id", "", false).fetchKeys();
 
-		List<PersonLongAutoID> people = future.get();
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -270,9 +267,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFetchOrderOnLongManualId() {
-		SienaFuture<List<PersonLongManualID>> future = queryPersonLongManualIDOrderBy("id", "", false).fetchKeys();
+		List<PersonLongManualID> people = queryPersonLongManualIDOrderBy("id", "", false).fetchKeys();
 
-		List<PersonLongManualID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -282,9 +279,8 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFetchOrderOnStringId() {
-		SienaFuture<List<PersonStringID>> future = queryPersonStringIDOrderBy("id", "", false).fetchKeys();
+	  List<PersonStringID> people = queryPersonStringIDOrderBy("id", "", false).fetchKeys();
 
-		List<PersonStringID> people = future.get();
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -295,9 +291,9 @@ public abstract class BaseAsyncTest extends TestCase {
 		
 	public void testFetchOrderOnUUID() {
 		List<PersonUUID> l = getOrderedPersonUUIDs();
-		SienaFuture<List<PersonUUID>> future = queryPersonUUIDOrderBy("id", "", false).fetchKeys();
+		List<PersonUUID> people = queryPersonUUIDOrderBy("id", "", false).fetchKeys();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -307,9 +303,8 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFetchOrderOnLongAutoIdDesc() {
-		SienaFuture<List<PersonLongAutoID>> future = queryPersonLongAutoIDOrderBy("id", "", true).fetchKeys();
+	  List<PersonLongAutoID> people = queryPersonLongAutoIDOrderBy("id", "", true).fetchKeys();
 
-		List<PersonLongAutoID> people = future.get();
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -319,9 +314,8 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 		
 	public void testFetchOrderOnLongManualIdDesc() {
-		SienaFuture<List<PersonLongManualID>> future = queryPersonLongManualIDOrderBy("id", "", true).fetchKeys();
+		List<PersonLongManualID> people = queryPersonLongManualIDOrderBy("id", "", true).fetchKeys();
 
-		List<PersonLongManualID> people = future.get();
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -331,9 +325,8 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFetchOrderOnStringIdDesc() {
-		SienaFuture<List<PersonStringID>> future = queryPersonStringIDOrderBy("id", "", true).fetchKeys();
+	  List<PersonStringID> people = queryPersonStringIDOrderBy("id", "", true).fetchKeys();
 
-		List<PersonStringID> people = future.get();
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -344,9 +337,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	
 	public void testFetchOrderOnUUIDDesc() {
 		List<PersonUUID> l = getOrderedPersonUUIDs();
-		SienaFuture<List<PersonUUID>> future = queryPersonUUIDOrderBy("id", "", true).fetchKeys();
+		List<PersonUUID> people = queryPersonUUIDOrderBy("id", "", true).fetchKeys();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -356,52 +349,51 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorEqualString() {
-		SienaFuture<PersonUUID> future = pm.createQuery(PersonUUID.class).filter("firstName", "Albert").get();		
-		PersonUUID person = future.get();
+	  PersonUUID person = pm.createQuery(PersonUUID.class).filter("firstName", "Albert").get();		
 		assertNotNull(person);
 		assertEquals(UUID_EINSTEIN, person);
 	}
 	
 	public void testFilterOperatorEqualInt() {
-		SienaFuture<PersonUUID> future = pm.createQuery(PersonUUID.class).filter("n", 3).get();
-		PersonUUID person = future.get();
+		PersonUUID person = pm.createQuery(PersonUUID.class).filter("n", 3).get();
+		
 		assertNotNull(person);
 		assertEquals(UUID_EINSTEIN, person);
 	}
 	
 	public void testFilterOperatorEqualUUID() {
 		List<PersonUUID> l = getOrderedPersonUUIDs();	
-		SienaFuture<PersonUUID> future = pm.createQuery(PersonUUID.class).filter("id", l.get(0).id).get();
-		PersonUUID person = future.get();
+		PersonUUID person = pm.createQuery(PersonUUID.class).filter("id", l.get(0).id).get();
+		
 		assertNotNull(person);
 		assertEquals(l.get(0), person);
 	}
 	
 	public void testFilterOperatorEqualLongAutoID() {
-		SienaFuture<PersonLongAutoID> future = pm.createQuery(PersonLongAutoID.class).filter("id", LongAutoID_EINSTEIN.id).get();
-		PersonLongAutoID person = future.get();
+		PersonLongAutoID person = pm.createQuery(PersonLongAutoID.class).filter("id", LongAutoID_EINSTEIN.id).get();
+		
 		assertNotNull(person);
 		assertEquals(LongAutoID_EINSTEIN, person);
 	}
 		
 	public void testFilterOperatorEqualLongManualID() {
-		SienaFuture<PersonLongManualID> future = pm.createQuery(PersonLongManualID.class).filter("id", 3L).get();
-		PersonLongManualID person = future.get();
+		PersonLongManualID person = pm.createQuery(PersonLongManualID.class).filter("id", 3L).get();
+		
 		assertNotNull(person);
 		assertEquals(LongManualID_EINSTEIN, person);
 	}
 	
 	public void testFilterOperatorEqualStringID() {
-		SienaFuture<PersonStringID> future = pm.createQuery(PersonStringID.class).filter("id", "EINSTEIN").get();
-		PersonStringID person = future.get();
+		PersonStringID person = pm.createQuery(PersonStringID.class).filter("id", "EINSTEIN").get();
+		
 		assertNotNull(person);
 		assertEquals(StringID_EINSTEIN, person);
 	}
 	
 	public void testFilterOperatorNotEqualString() {
-		SienaFuture<List<PersonStringID>> future = pm.createQuery(PersonStringID.class).filter("firstName!=", "Albert").order("firstName").fetch();
+		List<PersonStringID> people = pm.createQuery(PersonStringID.class).filter("firstName!=", "Albert").order("firstName").fetch();
 
-		List<PersonStringID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -410,9 +402,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorNotEqualInt() {
-		SienaFuture<List<PersonUUID>> future = pm.createQuery(PersonUUID.class).filter("n!=", 3).order("n").fetch();
+		List<PersonUUID> people = pm.createQuery(PersonUUID.class).filter("n!=", 3).order("n").fetch();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -422,9 +414,9 @@ public abstract class BaseAsyncTest extends TestCase {
 
 	public void testFilterOperatorNotEqualUUID() {
 		List<PersonUUID> l = getOrderedPersonUUIDs();
-		SienaFuture<List<PersonUUID>> future = pm.createQuery(PersonUUID.class).filter("id!=", l.get(0).id).order("id").fetch();
+		List<PersonUUID> people = pm.createQuery(PersonUUID.class).filter("id!=", l.get(0).id).order("id").fetch();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -433,9 +425,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorNotEqualLongAutoID() {
-		SienaFuture<List<PersonLongAutoID>> future = pm.createQuery(PersonLongAutoID.class).filter("id!=", LongAutoID_EINSTEIN.id).order("id").fetch();
+		List<PersonLongAutoID> people = pm.createQuery(PersonLongAutoID.class).filter("id!=", LongAutoID_EINSTEIN.id).order("id").fetch();
 
-		List<PersonLongAutoID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -444,9 +436,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 
 	public void testFilterOperatorNotEqualLongManualID() {
-		SienaFuture<List<PersonLongManualID>> future = pm.createQuery(PersonLongManualID.class).filter("id!=", 3L).order("id").fetch();
+		List<PersonLongManualID> people = pm.createQuery(PersonLongManualID.class).filter("id!=", 3L).order("id").fetch();
 
-		List<PersonLongManualID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -455,9 +447,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorNotEqualStringID() {
-		SienaFuture<List<PersonStringID>> future = pm.createQuery(PersonStringID.class).filter("id!=", StringID_EINSTEIN.id).order("id").fetch();
+		List<PersonStringID> people = pm.createQuery(PersonStringID.class).filter("id!=", StringID_EINSTEIN.id).order("id").fetch();
 
-		List<PersonStringID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -467,7 +459,7 @@ public abstract class BaseAsyncTest extends TestCase {
 	
 	public void testFilterOperatorIn() {
 		@SuppressWarnings("serial")
-		SienaFuture<List<PersonUUID>> future = 
+		List<PersonUUID> people = 
 			pm.createQuery(PersonUUID.class)
 				.filter("n IN", new ArrayList<Integer>(){{ 
 					add(2);
@@ -476,7 +468,7 @@ public abstract class BaseAsyncTest extends TestCase {
 				.order("n")
 				.fetch();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -486,7 +478,7 @@ public abstract class BaseAsyncTest extends TestCase {
 	
 	public void testFilterOperatorInOrder() {
 		@SuppressWarnings("serial")
-		SienaFuture<List<PersonUUID>> future = 
+		List<PersonUUID> people = 
 			pm.createQuery(PersonUUID.class)
 				.filter("n IN", new ArrayList<Integer>(){{ 
 					add(3);
@@ -495,7 +487,7 @@ public abstract class BaseAsyncTest extends TestCase {
 				.order("n")
 				.fetch();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -506,12 +498,12 @@ public abstract class BaseAsyncTest extends TestCase {
 	public void testFilterOperatorInForUUID() {
 		List<PersonUUID> l = getOrderedPersonUUIDs();
 		
-		SienaFuture<List<PersonUUID>> future = 
+		List<PersonUUID> people = 
 			pm.createQuery(PersonUUID.class)
 				.filter("id IN", Arrays.asList( l.get(0).id, l.get(1).id))
 				.fetch();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -521,7 +513,7 @@ public abstract class BaseAsyncTest extends TestCase {
 	
 	public void testFilterOperatorInForLongAutoID() {
 		@SuppressWarnings("serial")
-		SienaFuture<List<PersonLongAutoID>> future = 
+		List<PersonLongAutoID> people = 
 			pm.createQuery(PersonLongAutoID.class)
 				.filter("id IN", new ArrayList<Long>(){{ 
 					add(LongAutoID_TESLA.id);
@@ -529,7 +521,7 @@ public abstract class BaseAsyncTest extends TestCase {
 				}})
 				.fetch();
 
-		List<PersonLongAutoID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -539,7 +531,7 @@ public abstract class BaseAsyncTest extends TestCase {
 
 	public void testFilterOperatorInForLongManualID() {
 		@SuppressWarnings("serial")
-		SienaFuture<List<PersonLongManualID>> future = 
+		List<PersonLongManualID> people = 
 			pm.createQuery(PersonLongManualID.class)
 				.filter("id IN", new ArrayList<Long>(){{ 
 					add(LongManualID_TESLA.id);
@@ -547,7 +539,7 @@ public abstract class BaseAsyncTest extends TestCase {
 				}})
 				.fetch();
 
-		List<PersonLongManualID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -557,7 +549,7 @@ public abstract class BaseAsyncTest extends TestCase {
 	
 	public void testFilterOperatorInForStringID() {
 		@SuppressWarnings("serial")
-		SienaFuture<List<PersonStringID>> future = 
+		List<PersonStringID> people = 
 			pm.createQuery(PersonStringID.class)
 				.filter("id IN", new ArrayList<String>(){{ 
 					add(StringID_TESLA.id);
@@ -566,7 +558,7 @@ public abstract class BaseAsyncTest extends TestCase {
 				.order("id")
 				.fetch();
 
-		List<PersonStringID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -575,9 +567,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorLessThan() {
-		SienaFuture<List<PersonUUID>> future = pm.createQuery(PersonUUID.class).filter("n<", 3).order("n").fetch();
+		List<PersonUUID> people = pm.createQuery(PersonUUID.class).filter("n<", 3).order("n").fetch();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -588,9 +580,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	public void testFilterOperatorLessThanForUUID() {
 		List<PersonUUID> l = getOrderedPersonUUIDs();
 
-		SienaFuture<List<PersonUUID>> future = pm.createQuery(PersonUUID.class).filter("id<", l.get(2).id).order("id").fetch();
+		List<PersonUUID> people = pm.createQuery(PersonUUID.class).filter("id<", l.get(2).id).order("id").fetch();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 		
@@ -599,9 +591,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorLessThanForLongAutoID() {
-		SienaFuture<List<PersonLongAutoID>> future = pm.createQuery(PersonLongAutoID.class).filter("id<", LongAutoID_EINSTEIN.id).order("id").fetch();
+		List<PersonLongAutoID> people = pm.createQuery(PersonLongAutoID.class).filter("id<", LongAutoID_EINSTEIN.id).order("id").fetch();
 
-		List<PersonLongAutoID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -610,9 +602,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorLessThanForLongManualID() {
-		SienaFuture<List<PersonLongManualID>> future = pm.createQuery(PersonLongManualID.class).filter("id<", 3L).order("id").fetch();
+		List<PersonLongManualID> people = pm.createQuery(PersonLongManualID.class).filter("id<", 3L).order("id").fetch();
 
-		List<PersonLongManualID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -621,9 +613,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorLessThanForStringID() {
-		SienaFuture<List<PersonStringID>> future = pm.createQuery(PersonStringID.class).filter("id<", StringID_TESLA.id).order("id").fetch();
+		List<PersonStringID> people = pm.createQuery(PersonStringID.class).filter("id<", StringID_TESLA.id).order("id").fetch();
 
-		List<PersonStringID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -632,9 +624,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorLessThanOrEqual() {
-		SienaFuture<List<PersonUUID>> future = pm.createQuery(PersonUUID.class).filter("n<=", 3).order("n").fetch();
+		List<PersonUUID> people = pm.createQuery(PersonUUID.class).filter("n<=", 3).order("n").fetch();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -646,9 +638,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	public void testFilterOperatorLessThanOrEqualForUUID() {
 		List<PersonUUID> l = getOrderedPersonUUIDs();
 
-		SienaFuture<List<PersonUUID>> future = pm.createQuery(PersonUUID.class).filter("id<=", l.get(2).id).order("id").fetch();
+		List<PersonUUID> people = pm.createQuery(PersonUUID.class).filter("id<=", l.get(2).id).order("id").fetch();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -659,9 +651,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorLessThanOrEqualForLongAutoID() {
-		SienaFuture<List<PersonLongAutoID>> future = pm.createQuery(PersonLongAutoID.class).filter("id<=", LongAutoID_EINSTEIN.id).order("id").fetch();
+		List<PersonLongAutoID> people = pm.createQuery(PersonLongAutoID.class).filter("id<=", LongAutoID_EINSTEIN.id).order("id").fetch();
 
-		List<PersonLongAutoID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -671,9 +663,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorLessThanOrEqualForLongManualID() {
-		SienaFuture<List<PersonLongManualID>> future = pm.createQuery(PersonLongManualID.class).filter("id<=", LongManualID_EINSTEIN.id).order("id").fetch();
+		List<PersonLongManualID> people = pm.createQuery(PersonLongManualID.class).filter("id<=", LongManualID_EINSTEIN.id).order("id").fetch();
 
-		List<PersonLongManualID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -683,9 +675,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorLessThanOrEqualForStringID() {
-		SienaFuture<List<PersonStringID>> future = pm.createQuery(PersonStringID.class).filter("id<=", StringID_TESLA.id).order("id").fetch();
+		List<PersonStringID> people = pm.createQuery(PersonStringID.class).filter("id<=", StringID_TESLA.id).order("id").fetch();
 
-		List<PersonStringID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -696,9 +688,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	
 	
 	public void testFilterOperatorMoreThan() {
-		SienaFuture<List<PersonUUID>> future = pm.createQuery(PersonUUID.class).filter("n>", 1).order("n").fetch();
+		List<PersonUUID> people = pm.createQuery(PersonUUID.class).filter("n>", 1).order("n").fetch();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -709,9 +701,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	public void testFilterOperatorMoreThanForUUID() {
 		List<PersonUUID> l = getOrderedPersonUUIDs();
 
-		SienaFuture<List<PersonUUID>> future = pm.createQuery(PersonUUID.class).filter("id>", l.get(0).id).order("id").fetch();
+		List<PersonUUID> people = pm.createQuery(PersonUUID.class).filter("id>", l.get(0).id).order("id").fetch();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 		
@@ -720,9 +712,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorMoreThanForLongAutoID() {
-		SienaFuture<List<PersonLongAutoID>> future = pm.createQuery(PersonLongAutoID.class).filter("id>", LongAutoID_TESLA.id).order("id").fetch();
+		List<PersonLongAutoID> people = pm.createQuery(PersonLongAutoID.class).filter("id>", LongAutoID_TESLA.id).order("id").fetch();
 
-		List<PersonLongAutoID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -731,9 +723,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorMoreThanForLongManualID() {
-		SienaFuture<List<PersonLongManualID>> future = pm.createQuery(PersonLongManualID.class).filter("id>", LongManualID_TESLA.id).order("id").fetch();
+		List<PersonLongManualID> people = pm.createQuery(PersonLongManualID.class).filter("id>", LongManualID_TESLA.id).order("id").fetch();
 
-		List<PersonLongManualID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -742,9 +734,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorMoreThanForStringID() {
-		SienaFuture<List<PersonStringID>> future = pm.createQuery(PersonStringID.class).filter("id>", StringID_CURIE.id).order("id").fetch();
+		List<PersonStringID> people = pm.createQuery(PersonStringID.class).filter("id>", StringID_CURIE.id).order("id").fetch();
 
-		List<PersonStringID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -754,9 +746,9 @@ public abstract class BaseAsyncTest extends TestCase {
 
 	
 	public void testFilterOperatorMoreThanOrEqual() {
-		SienaFuture<List<PersonUUID>> future = pm.createQuery(PersonUUID.class).filter("n>=", 1).order("n").fetch();
+		List<PersonUUID> people = pm.createQuery(PersonUUID.class).filter("n>=", 1).order("n").fetch();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -768,9 +760,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	public void testFilterOperatorMoreThanOrEqualForUUID() {
 		List<PersonUUID> l = getOrderedPersonUUIDs();
 
-		SienaFuture<List<PersonUUID>> future = pm.createQuery(PersonUUID.class).filter("id>=", l.get(0).id).order("id").fetch();
+		List<PersonUUID> people = pm.createQuery(PersonUUID.class).filter("id>=", l.get(0).id).order("id").fetch();
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(3, people.size());
 
@@ -781,9 +773,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorMoreThanOrEqualForLongAutoID() {
-		SienaFuture<List<PersonLongAutoID>> future = pm.createQuery(PersonLongAutoID.class).filter("id>=", LongAutoID_CURIE.id).order("id").fetch();
+		List<PersonLongAutoID> people = pm.createQuery(PersonLongAutoID.class).filter("id>=", LongAutoID_CURIE.id).order("id").fetch();
 
-		List<PersonLongAutoID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -792,9 +784,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorMoreThanOrEqualForLongManualID() {
-		SienaFuture<List<PersonLongManualID>> future = pm.createQuery(PersonLongManualID.class).filter("id>=", LongManualID_CURIE.id).order("id").fetch();
+		List<PersonLongManualID> people = pm.createQuery(PersonLongManualID.class).filter("id>=", LongManualID_CURIE.id).order("id").fetch();
 
-		List<PersonLongManualID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -803,9 +795,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFilterOperatorMoreThanOrEqualForStringID() {
-		SienaFuture<List<PersonStringID>> future = pm.createQuery(PersonStringID.class).filter("id>=", StringID_EINSTEIN.id).order("id").fetch();
+		List<PersonStringID> people = pm.createQuery(PersonStringID.class).filter("id>=", StringID_EINSTEIN.id).order("id").fetch();
 
-		List<PersonStringID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -835,9 +827,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFetchLimit() {
-		SienaFuture<List<PersonUUID>> future = queryPersonUUIDOrderBy("n", 0, false).fetch(1);
+		List<PersonUUID> people = queryPersonUUIDOrderBy("n", 0, false).fetch(1);
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(1, people.size());
 
@@ -846,9 +838,9 @@ public abstract class BaseAsyncTest extends TestCase {
 
 	public void testFetchLimitUUID() {
 		List<PersonUUID> l = getOrderedPersonUUIDs();
-		SienaFuture<List<PersonUUID>> future = queryPersonUUIDOrderBy("id", l.get(0), false).fetch(1);
+		List<PersonUUID> people = queryPersonUUIDOrderBy("id", l.get(0), false).fetch(1);
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(1, people.size());
 
@@ -856,9 +848,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFetchLimitLongAutoID() {
-		SienaFuture<List<PersonLongAutoID>> future = queryPersonLongAutoIDOrderBy("id", 0, false).fetch(1);
+		List<PersonLongAutoID> people = queryPersonLongAutoIDOrderBy("id", 0, false).fetch(1);
 
-		List<PersonLongAutoID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(1, people.size());
 
@@ -866,9 +858,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFetchLimitLongManualID() {
-		SienaFuture<List<PersonLongManualID>> future = queryPersonLongManualIDOrderBy("id", 0, false).fetch(1);
+		List<PersonLongManualID> people = queryPersonLongManualIDOrderBy("id", 0, false).fetch(1);
 
-		List<PersonLongManualID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(1, people.size());
 
@@ -876,9 +868,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testFetchLimitStringID() {
-		SienaFuture<List<PersonStringID>> future = queryPersonStringIDOrderBy("id", StringID_CURIE, false).fetch(1);
+		List<PersonStringID> people = queryPersonStringIDOrderBy("id", StringID_CURIE, false).fetch(1);
 
-		List<PersonStringID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(1, people.size());
 
@@ -893,8 +885,8 @@ public abstract class BaseAsyncTest extends TestCase {
 
 		pm.insert((Object[])discs).get();
 
-		SienaFuture<List<Discovery>> future = pm.createQuery(Discovery.class).order("name").fetch(3);
-		List<Discovery> res = future.get();
+		List<Discovery> res = pm.createQuery(Discovery.class).order("name").fetch(3);
+		
 		assertNotNull(res);
 		assertEquals(3, res.size());
 		
@@ -911,8 +903,8 @@ public abstract class BaseAsyncTest extends TestCase {
 
 		pm.insert((Object[])discs).get();
 		
-		SienaFuture<List<Discovery>> future = pm.createQuery(Discovery.class).order("name").fetch(3, 5);
-		List<Discovery> res = future.get();
+		List<Discovery> res = pm.createQuery(Discovery.class).order("name").fetch(3, 5);
+		
 		assertNotNull(res);
 		assertEquals(3, res.size());
 		
@@ -923,9 +915,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	
 	public void testFetchLimitOffset() {
 		QueryAsync<PersonUUID> query = queryPersonUUIDOrderBy("n", 0, false);
-		SienaFuture<List<PersonUUID>> future = query.fetch(2, 1);
+		List<PersonUUID> people = query.fetch(2, 1);
 
-		List<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -943,8 +935,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert(maxwell).get();
 		assertNotNull(maxwell.id);
 
-		SienaFuture<List<PersonUUID>> future = queryPersonUUIDOrderBy("n", 0, false).fetch();
-		List<PersonUUID> people = future.get();
+		List<PersonUUID> people = queryPersonUUIDOrderBy("n", 0, false).fetch();
+		
 		assertEquals(4, people.size());
 
 		assertEquals(UUID_TESLA, people.get(0));
@@ -963,8 +955,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert(maxwell).get();
 		assertNotNull(maxwell.id);
 
-		SienaFuture<List<PersonLongAutoID>> future = queryPersonLongAutoIDOrderBy("n", 0, false).fetch();
-		List<PersonLongAutoID> people = future.get();
+		List<PersonLongAutoID> people = queryPersonLongAutoIDOrderBy("n", 0, false).fetch();
+		
 		assertEquals(4, people.size());
 
 		assertEquals(LongAutoID_TESLA, people.get(0));
@@ -984,8 +976,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert(maxwell).get();
 		assertEquals((Long)4L, maxwell.id);
 
-		SienaFuture<List<PersonLongManualID>> future = queryPersonLongManualIDOrderBy("n", 0, false).fetch();
-		List<PersonLongManualID> people = future.get();
+		List<PersonLongManualID> people = queryPersonLongManualIDOrderBy("n", 0, false).fetch();
+		
 		assertEquals(4, people.size());
 
 		assertEquals(LongManualID_TESLA, people.get(0));
@@ -1005,8 +997,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert(maxwell).get();
 		assertEquals(maxwell.id, "MAXWELL");
 
-		SienaFuture<List<PersonStringID>> future = queryPersonStringIDOrderBy("n", 0, false).fetch();
-		List<PersonStringID> people = future.get();
+		List<PersonStringID> people = queryPersonStringIDOrderBy("n", 0, false).fetch();
+		
 		assertEquals(4, people.size());
 
 		assertEquals(StringID_TESLA, people.get(0));
@@ -1055,8 +1047,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		PersonUUID curie = getPersonUUID(UUID_CURIE.id);
 		pm.delete(curie).get();
 		
-		SienaFuture<List<PersonUUID>> future = queryPersonUUIDOrderBy("n", 0, false).fetch();
-		List<PersonUUID> people = future.get();
+		List<PersonUUID> people = queryPersonUUIDOrderBy("n", 0, false).fetch();
+		
 		assertNotNull(people);
 		assertEquals(2, people.size());
 
@@ -1065,9 +1057,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testIterFullUUID() {
-		SienaFuture<Iterable<PersonUUID>> future = pm.createQuery(PersonUUID.class).order("n").iter();
+		Iterable<PersonUUID> people = pm.createQuery(PersonUUID.class).order("n").iter();
 
-		Iterable<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 
 		@SuppressWarnings("serial")
@@ -1085,9 +1077,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testIterFullLongAutoID() {
-		SienaFuture<Iterable<PersonLongAutoID>> future = pm.createQuery(PersonLongAutoID.class).order("n").iter();
+		Iterable<PersonLongAutoID> people = pm.createQuery(PersonLongAutoID.class).order("n").iter();
 
-		Iterable<PersonLongAutoID> people = future.get();
+		
 		assertNotNull(people);
 
 		PersonLongAutoID[] array = new PersonLongAutoID[] { LongAutoID_TESLA, LongAutoID_CURIE, LongAutoID_EINSTEIN };
@@ -1100,9 +1092,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 
 	public void testIterFullLongManualID() {
-		SienaFuture<Iterable<PersonLongManualID>> future = pm.createQuery(PersonLongManualID.class).order("n").iter();
+		Iterable<PersonLongManualID> people = pm.createQuery(PersonLongManualID.class).order("n").iter();
 
-		Iterable<PersonLongManualID> people = future.get();
+		
 		assertNotNull(people);
 
 		PersonLongManualID[] array = new PersonLongManualID[] { LongManualID_TESLA, LongManualID_CURIE, LongManualID_EINSTEIN };
@@ -1115,9 +1107,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testIterFullLongStringID() {
-		SienaFuture<Iterable<PersonStringID>> future = pm.createQuery(PersonStringID.class).order("n").iter();
+		Iterable<PersonStringID> people = pm.createQuery(PersonStringID.class).order("n").iter();
 
-		Iterable<PersonStringID> people = future.get();
+		
 		assertNotNull(people);
 
 		PersonStringID[] array = new PersonStringID[] { StringID_TESLA, StringID_CURIE, StringID_EINSTEIN  };
@@ -1130,9 +1122,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testIterLimitUUID() {
-		SienaFuture<Iterable<PersonUUID>> future = pm.createQuery(PersonUUID.class).order("n").iter(2);
+		Iterable<PersonUUID> people = pm.createQuery(PersonUUID.class).order("n").iter(2);
 
-		Iterable<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 
 		@SuppressWarnings("serial")
@@ -1149,9 +1141,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testIterLimitLongAutoID() {
-		SienaFuture<Iterable<PersonLongAutoID>> future = pm.createQuery(PersonLongAutoID.class).order("n").iter(2);
+		Iterable<PersonLongAutoID> people = pm.createQuery(PersonLongAutoID.class).order("n").iter(2);
 
-		Iterable<PersonLongAutoID> people = future.get();
+		
 		assertNotNull(people);
 
 		PersonLongAutoID[] array = new PersonLongAutoID[] { LongAutoID_TESLA, LongAutoID_CURIE };
@@ -1164,9 +1156,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 
 	public void testIterLimitLongManualID() {
-		SienaFuture<Iterable<PersonLongManualID>> future = pm.createQuery(PersonLongManualID.class).order("n").iter(2);
+		Iterable<PersonLongManualID> people = pm.createQuery(PersonLongManualID.class).order("n").iter(2);
 
-		Iterable<PersonLongManualID> people = future.get();
+		
 		assertNotNull(people);
 
 		PersonLongManualID[] array = new PersonLongManualID[] { LongManualID_TESLA, LongManualID_CURIE };
@@ -1179,9 +1171,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testIterLimitLongStringID() {
-		SienaFuture<Iterable<PersonStringID>> future = pm.createQuery(PersonStringID.class).order("n").iter(2);
+		Iterable<PersonStringID> people = pm.createQuery(PersonStringID.class).order("n").iter(2);
 
-		Iterable<PersonStringID> people = future.get();
+		
 		assertNotNull(people);
 
 		PersonStringID[] array = new PersonStringID[] { StringID_TESLA, StringID_CURIE };
@@ -1194,9 +1186,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testIterLimitOffsetUUID() {
-		SienaFuture<Iterable<PersonUUID>> future = pm.createQuery(PersonUUID.class).order("n").iter(2,1);
+		Iterable<PersonUUID> people = pm.createQuery(PersonUUID.class).order("n").iter(2,1);
 
-		Iterable<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 
 		@SuppressWarnings("serial")
@@ -1213,9 +1205,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testIterLimitOffsetLongAutoID() {
-		SienaFuture<Iterable<PersonLongAutoID>> future = pm.createQuery(PersonLongAutoID.class).order("n").iter(2, 1);
+		Iterable<PersonLongAutoID> people = pm.createQuery(PersonLongAutoID.class).order("n").iter(2, 1);
 
-		Iterable<PersonLongAutoID> people = future.get();
+		
 		assertNotNull(people);
 
 		PersonLongAutoID[] array = new PersonLongAutoID[] { LongAutoID_CURIE, LongAutoID_EINSTEIN };
@@ -1228,9 +1220,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 
 	public void testIterLimitOffsetLongManualID() {
-		SienaFuture<Iterable<PersonLongManualID>> future = pm.createQuery(PersonLongManualID.class).order("n").iter(2,1);
+		Iterable<PersonLongManualID> people = pm.createQuery(PersonLongManualID.class).order("n").iter(2,1);
 
-		Iterable<PersonLongManualID> people = future.get();
+		
 		assertNotNull(people);
 
 		PersonLongManualID[] array = new PersonLongManualID[] { LongManualID_CURIE, LongManualID_EINSTEIN };
@@ -1243,9 +1235,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testIterLimitOffsetLongStringID() {
-		SienaFuture<Iterable<PersonStringID>> future = pm.createQuery(PersonStringID.class).order("n").iter(2,1);
+		Iterable<PersonStringID> people = pm.createQuery(PersonStringID.class).order("n").iter(2,1);
 
-		Iterable<PersonStringID> people = future.get();
+		
 		assertNotNull(people);
 
 		PersonStringID[] array = new PersonStringID[] { StringID_CURIE, StringID_EINSTEIN };
@@ -1258,9 +1250,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testIterFilter() {
-		SienaFuture<Iterable<PersonUUID>> future = pm.createQuery(PersonUUID.class).filter("n>", 1).order("n").iter();
+		Iterable<PersonUUID> people = pm.createQuery(PersonUUID.class).filter("n>", 1).order("n").iter();
 
-		Iterable<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 
 		PersonUUID[] array = new PersonUUID[] { UUID_CURIE, UUID_EINSTEIN };
@@ -1273,9 +1265,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testIterFilterLimit() {
-		SienaFuture<Iterable<PersonUUID>> future = pm.createQuery(PersonUUID.class).filter("n>", 1).order("n").iter(1);
+		Iterable<PersonUUID> people = pm.createQuery(PersonUUID.class).filter("n>", 1).order("n").iter(1);
 
-		Iterable<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 
 		PersonUUID[] array = new PersonUUID[] { UUID_CURIE };
@@ -1288,9 +1280,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testIterFilterLimitOffset() {
-		SienaFuture<Iterable<PersonUUID>> future = pm.createQuery(PersonUUID.class).filter("n>", 1).order("n").iter(2, 1);
+		Iterable<PersonUUID> people = pm.createQuery(PersonUUID.class).filter("n>", 1).order("n").iter(2, 1);
 
-		Iterable<PersonUUID> people = future.get();
+		
 		assertNotNull(people);
 
 		PersonUUID[] array = new PersonUUID[] { UUID_EINSTEIN };
@@ -1303,9 +1295,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testOrderLongAutoId() {
-		SienaFuture<List<PersonLongAutoID>> future = queryPersonLongAutoIDOrderBy("id", "", false).fetch();
+		List<PersonLongAutoID> people = queryPersonLongAutoIDOrderBy("id", "", false).fetch();
 		
-		List<PersonLongAutoID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(3, people.size());
 		
@@ -1319,9 +1311,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testOrderLongManualId() {
-		SienaFuture<List<PersonLongManualID>> future = queryPersonLongManualIDOrderBy("id", "", false).fetch();
+		List<PersonLongManualID> people = queryPersonLongManualIDOrderBy("id", "", false).fetch();
 		
-		List<PersonLongManualID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(3, people.size());
 		
@@ -1335,9 +1327,9 @@ public abstract class BaseAsyncTest extends TestCase {
 	}
 	
 	public void testOrderStringId() {
-		SienaFuture<List<PersonStringID>> future = queryPersonStringIDOrderBy("id", "", false).fetch();
+		List<PersonStringID> people = queryPersonStringIDOrderBy("id", "", false).fetch();
 		
-		List<PersonStringID> people = future.get();
+		
 		assertNotNull(people);
 		assertEquals(3, people.size());
 		
@@ -1358,7 +1350,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			System.out.println("Everything is OK");
 		}
 		
-		assertNull(pm.createQuery(PersonUUID.class).filter("firstName", "John").get().get());
+		assertNull(pm.createQuery(PersonUUID.class).filter("firstName", "John").get());
 	}
 	
 	public void testDeleteObjectNotFound() {
@@ -1395,10 +1387,10 @@ public abstract class BaseAsyncTest extends TestCase {
 		
 		pm.insert(radioactivity, relativity, teslaCoil, foo).get();
 
-		SienaFuture<Discovery> relativity2 = pm.createQuery(Discovery.class).filter("discoverer", LongAutoID_EINSTEIN).get();
-		SienaFuture<Discovery> foo2 = pm.createQuery(Discovery.class).filter("name", null).get();
-		assertTrue(relativity.name.equals(relativity2.get().name));
-		assertTrue(foo.id.equals(foo2.get().id));
+		Discovery relativity2 = pm.createQuery(Discovery.class).filter("discoverer", LongAutoID_EINSTEIN).get();
+		Discovery foo2 = pm.createQuery(Discovery.class).filter("name", null).get();
+		assertTrue(relativity.name.equals(relativity2.name));
+		assertTrue(foo.id.equals(foo2.id));
 	}
 	
 	public void testMultipleKeys() {
@@ -1426,7 +1418,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		DataTypes dataTypes = new DataTypes();
 		pm.insert(dataTypes).get();
 		
-		assertEqualsDataTypes(dataTypes, pm.createQuery(DataTypes.class).get().get());
+		assertEqualsDataTypes(dataTypes, pm.createQuery(DataTypes.class).get());
 	}
 	
 	public void testDataTypesNotNull() {
@@ -1463,8 +1455,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		// to test that fields are read back correctly
 		pm.createQuery(DataTypes.class).filter("id", dataTypes.id).get();
 		
-		SienaFuture<DataTypes> same = pm.createQuery(DataTypes.class).get();
-		assertEqualsDataTypes(dataTypes, same.get());
+		DataTypes same = pm.createQuery(DataTypes.class).get();
+		assertEqualsDataTypes(dataTypes, same );
 	}
 	
 	private void assertEqualsDataTypes(DataTypes dataTypes, DataTypes same) {
@@ -1539,7 +1531,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		int n = pm.createQuery(Discovery.class).delete().get();
 		assertEquals(3, n);
 		
-		List<Discovery> res = pm.createQuery(Discovery.class).fetch().get();
+		List<Discovery> res = pm.createQuery(Discovery.class).fetch();
 		assertEquals(0, res.size());
 	}
 	
@@ -1554,7 +1546,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		int n = pm.createQuery(Discovery.class).filter("discoverer", LongAutoID_EINSTEIN).delete().get();
 		assertEquals(2, n);
 
-		List<Discovery> res = pm.createQuery(Discovery.class).order("name").fetch().get();
+		List<Discovery> res = pm.createQuery(Discovery.class).order("name").fetch();
 		assertEquals(2, res.size());
 		assertEquals(radioactivity, res.get(0));
 		assertEquals(teslaCoil, res.get(1));
@@ -1568,9 +1560,9 @@ public abstract class BaseAsyncTest extends TestCase {
 		
 		pm.insert(radioactivity, relativity, foo, teslaCoil).get();
 		
-		SienaFuture<List<Discovery>> future = pm.createQuery(Discovery.class).join("discoverer").order("name").fetch();
+		List<Discovery> res = pm.createQuery(Discovery.class).join("discoverer").order("name").fetch();
 		
-		List<Discovery> res = future.get(); 
+		 
 		assertEquals(4, res.size());
 		assertEquals(foo, res.get(0));
 		assertEquals(radioactivity, res.get(1));
@@ -1591,8 +1583,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		
 		pm.insert(radioactivity, relativity, foo, teslaCoil).get();
 		
-		SienaFuture<List<Discovery>> future = pm.createQuery(Discovery.class).join("discoverer", "firstName").order("name").fetch();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = pm.createQuery(Discovery.class).join("discoverer", "firstName").order("name").fetch();
+		 
 		assertEquals(4, res.size());
 		assertEquals(foo, res.get(0));
 		assertEquals(relativity, res.get(1));
@@ -1613,8 +1605,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		
 		pm.insert(radioactivity, relativity, foo, teslaCoil).get();
 		
-		SienaFuture<List<Discovery4Join>> future = pm.createQuery(Discovery4Join.class).fetch();
-		List<Discovery4Join> res = future.get(); 
+		List<Discovery4Join> res = pm.createQuery(Discovery4Join.class).fetch();
 		assertEquals(4, res.size());
 		assertEquals(radioactivity, res.get(0));
 		assertEquals(relativity, res.get(1));
@@ -1645,8 +1636,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		
 		pm.insert(radioactivity, relativity, foo, teslaCoil).get();
 
-		SienaFuture<List<DiscoveryPrivate>> future = pm.createQuery(DiscoveryPrivate.class).order("name").fetch();
-		List<DiscoveryPrivate> res = future.get(); 
+		List<DiscoveryPrivate> res = pm.createQuery(DiscoveryPrivate.class).order("name").fetch();
 		assertEquals(foo, res.get(0));
 		assertEquals(radioactivity, res.get(1));
 		assertEquals(relativity, res.get(2));
@@ -1661,14 +1651,13 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
-		SienaFuture<List<Discovery>> future = query.fetch();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
 		}
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5], res.get(i));
@@ -1683,36 +1672,35 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
-		SienaFuture<List<Discovery>> future = query.fetch();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.fetch();
+		
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
 		}
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
+		
 		assertEquals(0, res.size());
 
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
+		
 		assertEquals(0, res.size());
 
-		future = query.previousPage().fetch();
-		res = future.get();
+		res = query.previousPage().fetch();
+		
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
+		
 		assertEquals(0, res.size());
 	}
 	
@@ -1724,15 +1712,15 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
-		SienaFuture<List<Discovery>> future1 = query.fetch();
-		SienaFuture<List<Discovery>> future2 = query.nextPage().fetch();
+		List<Discovery> res1 = query.fetch();
+		List<Discovery> res2 = query.nextPage().fetch();
 		
-		List<Discovery> res = future1.get(); 
+    List<Discovery> res = res1; 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
 		}
-		res = future2.get(); 
+		res = res2; 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5], res.get(i));
@@ -1747,31 +1735,31 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
-		SienaFuture<List<Discovery>> future = query.previousPage().fetch();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.previousPage().fetch();
+		 
 		assertEquals(0, res.size());
 
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(0, res.size());
 		
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(0, res.size());
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(0, res.size());
 		
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
@@ -1786,15 +1774,15 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
-		SienaFuture<List<Discovery>> future = query.nextPage().fetch();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.nextPage().fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5], res.get(i));
 		}
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
@@ -1809,36 +1797,36 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
-		SienaFuture<List<Discovery>> future = query.fetch();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
 		}		
 		
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+10], res.get(i));
 		}
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5], res.get(i));
 		}
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
@@ -1853,21 +1841,21 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
-		SienaFuture<List<Discovery>> future = query.fetch();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
 		}
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
+		 
 		assertEquals(0, res.size());
 	}
 	
@@ -1879,36 +1867,36 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name").stateful();
-		SienaFuture<List<Discovery>> future = query.fetch();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.fetch();
+		
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
 		}
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
+		
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
+		
 		assertEquals(0, res.size());
 
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
+		
 		assertEquals(0, res.size());
 
-		future = query.previousPage().fetch();
-		res = future.get();
+		res = query.previousPage().fetch();
+		
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
+		
 		assertEquals(0, res.size());
 	}
 	
@@ -1920,15 +1908,15 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
-		SienaFuture<List<Discovery>> future1 = query.fetch();
-		SienaFuture<List<Discovery>> future2 = query.nextPage().fetch();
+		List<Discovery> res1 = query.fetch();
+		List<Discovery> res2 = query.nextPage().fetch();
 		
-		List<Discovery> res = future1.get(); 
+		List<Discovery> res = res1; 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
 		}
-		res = future2.get(); 
+		res = res2; 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5], res.get(i));
@@ -1943,31 +1931,31 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
-		SienaFuture<List<Discovery>> future = query.previousPage().fetch();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.previousPage().fetch();
+		 
 		assertEquals(0, res.size());
 
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(0, res.size());
 		
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(0, res.size());
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(0, res.size());
 		
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
@@ -1982,22 +1970,22 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
-		SienaFuture<List<Discovery>> future = query.fetch();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5], res.get(i));
 		}
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
@@ -2012,36 +2000,36 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
-		SienaFuture<List<Discovery>> future = query.fetch();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
 		}		
 		
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+10], res.get(i));
 		}
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5], res.get(i));
 		}
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
@@ -2056,15 +2044,15 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
-		SienaFuture<List<Discovery>> future = query.fetchKeys();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
-		future = query.nextPage().fetchKeys();
-		res = future.get(); 
+		res = query.nextPage().fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5].id, res.get(i).id);
@@ -2080,16 +2068,16 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
-		SienaFuture<List<Discovery>> future1 = query.fetchKeys();
-		SienaFuture<List<Discovery>> future2 = query.nextPage().fetchKeys();
+		List<Discovery> res1 = query.fetchKeys();
+		List<Discovery> res2 = query.nextPage().fetchKeys();
 		
-		List<Discovery> res = future1.get(); 
+		List<Discovery> res = res1; 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
-		res = future2.get(); 
+		res = res2; 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5].id, res.get(i).id);
@@ -2105,12 +2093,12 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
-		SienaFuture<List<Discovery>> future = query.previousPage().fetchKeys();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.previousPage().fetchKeys();
+		 
 		assertEquals(0, res.size());
 
-		future = query.previousPage().fetchKeys();
-		res = future.get(); 
+		res = query.previousPage().fetchKeys();
+		 
 		assertEquals(0, res.size());
 	}
 	
@@ -2122,16 +2110,16 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
-		SienaFuture<List<Discovery>> future = query.nextPage().fetchKeys();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.nextPage().fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.previousPage().fetchKeys();
-		res = future.get(); 
+		res = query.previousPage().fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i].id, res.get(i).id);
@@ -2147,40 +2135,40 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
-		SienaFuture<List<Discovery>> future = query.fetchKeys();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}		
 		
-		future = query.nextPage().fetchKeys();
-		res = future.get(); 
+		res = query.nextPage().fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.nextPage().fetchKeys();
-		res = future.get(); 
+		res = query.nextPage().fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+10].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.previousPage().fetchKeys();
-		res = future.get(); 
+		res = query.previousPage().fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.previousPage().fetchKeys();
-		res = future.get(); 
+		res = query.previousPage().fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i].id, res.get(i).id);
@@ -2196,15 +2184,15 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
-		SienaFuture<List<Discovery>> future = query.fetchKeys();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
-		future = query.nextPage().fetchKeys();
-		res = future.get(); 
+		res = query.nextPage().fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5].id, res.get(i).id);
@@ -2220,16 +2208,16 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
-		SienaFuture<List<Discovery>> future1 = query.fetchKeys();
-		SienaFuture<List<Discovery>> future2 = query.nextPage().fetchKeys();
+		List<Discovery> res1 = query.fetchKeys();
+		List<Discovery> res2 = query.nextPage().fetchKeys();
 		
-		List<Discovery> res = future1.get(); 
+		List<Discovery> res = res1; 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
-		res = future2.get(); 
+		res = res2; 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5].id, res.get(i).id);
@@ -2245,12 +2233,12 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
-		SienaFuture<List<Discovery>> future = query.previousPage().fetchKeys();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.previousPage().fetchKeys();
+		 
 		assertEquals(0, res.size());
 
-		future = query.previousPage().fetchKeys();
-		res = future.get(); 
+		res = query.previousPage().fetchKeys();
+		 
 		assertEquals(0, res.size());
 	}
 	
@@ -2262,24 +2250,24 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
-		SienaFuture<List<Discovery>> future = query.fetchKeys();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 
-		future = query.nextPage().fetchKeys();
-		res = future.get(); 
+		res = query.nextPage().fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.previousPage().fetchKeys();
-		res = future.get(); 
+		res = query.previousPage().fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i].id, res.get(i).id);
@@ -2295,36 +2283,36 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
-		SienaFuture<List<Discovery>> future = query.fetchKeys();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 		}		
 		
-		future = query.nextPage().fetchKeys();
-		res = future.get(); 
+		res = query.nextPage().fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5].id, res.get(i).id);
 		}
 		
-		future = query.nextPage().fetchKeys();
-		res = future.get(); 
+		res = query.nextPage().fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+10].id, res.get(i).id);
 		}
 		
-		future = query.previousPage().fetchKeys();
-		res = future.get(); 
+		res = query.previousPage().fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5].id, res.get(i).id);
 		}
 		
-		future = query.previousPage().fetchKeys();
-		res = future.get(); 
+		res = query.previousPage().fetchKeys();
+		 
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i].id, res.get(i).id);
@@ -2340,8 +2328,8 @@ public abstract class BaseAsyncTest extends TestCase {
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		try {
-			SienaFuture<Iterable<Discovery>> res = query.iter();
-			Iterator<Discovery> it = res.get().iterator();
+			Iterable<Discovery> res = query.iter();
+			Iterator<Discovery> it = res.iterator();
 			int i=0;
 			while(it.hasNext()){
 				assertEquals(discs[i++], it.next());
@@ -2349,7 +2337,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			assertEquals(5, i);
 
 			res = query.nextPage().iter();
-			it = res.get().iterator();
+			it = res.iterator();
 			while(it.hasNext()){
 				assertEquals(discs[i++], it.next());
 			}
@@ -2367,17 +2355,17 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
-		SienaFuture<Iterable<Discovery>> future1 = query.iter();
-		SienaFuture<Iterable<Discovery>> future2 = query.nextPage().iter();
+		Iterable<Discovery> future1 = query.iter();
+		Iterable<Discovery> future2 = query.nextPage().iter();
 		
-		Iterator<Discovery> it = future1.get().iterator();
+		Iterator<Discovery> it = future1.iterator();
 		int i=0;
 		while(it.hasNext()){
 			assertEquals(discs[i++], it.next());
 		}
 		assertEquals(5, i);
 
-		it = future2.get().iterator(); 
+		it = future2.iterator(); 
 		while(it.hasNext()){
 			assertEquals(discs[i++], it.next());
 		}
@@ -2393,8 +2381,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
-		SienaFuture<Iterable<Discovery>> future = query.previousPage().iter();
-		Iterator<Discovery> it = future.get().iterator();
+		Iterable<Discovery> future = query.previousPage().iter();
+		Iterator<Discovery> it = future.iterator();
 		int i=0;
 		while(it.hasNext()){
 			assertEquals(discs[i++], it.next());
@@ -2403,7 +2391,7 @@ public abstract class BaseAsyncTest extends TestCase {
 
 		future = query.previousPage().iter();
 		i=0;
-		it = future.get().iterator();
+		it = future.iterator();
 		while(it.hasNext()){
 			assertEquals(discs[i++], it.next());
 		}
@@ -2419,8 +2407,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
-		SienaFuture<Iterable<Discovery>> future = query.nextPage().iter();
-		Iterator<Discovery> it = future.get().iterator();
+		Iterable<Discovery> future = query.nextPage().iter();
+		Iterator<Discovery> it = future.iterator();
 		int i=5;
 		while(it.hasNext()){
 			assertEquals(discs[i++], it.next());
@@ -2428,7 +2416,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(10, i);
 
 		future = query.previousPage().iter();
-		it = future.get().iterator();
+		it = future.iterator();
 		i=0;
 		while(it.hasNext()){
 			assertEquals(discs[i++], it.next());
@@ -2445,8 +2433,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
-		SienaFuture<Iterable<Discovery>> future = query.iter();
-		Iterator<Discovery> it = future.get().iterator();
+		Iterable<Discovery> future = query.iter();
+		Iterator<Discovery> it = future.iterator();
 		int i=0;
 		while(it.hasNext()){
 			assertEquals(discs[i++], it.next());
@@ -2454,21 +2442,21 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(5, i);
 		
 		future = query.nextPage().iter();
-		it = future.get().iterator();
+		it = future.iterator();
 		while(it.hasNext()){
 			assertEquals(discs[i++], it.next());
 		}	
 		assertEquals(10, i);
 		
 		future = query.nextPage().iter();
-		it = future.get().iterator();
+		it = future.iterator();
 		while(it.hasNext()){
 			assertEquals(discs[i++], it.next());
 		}
 		assertEquals(15, i);
 	
 		future = query.previousPage().iter();
-		it = future.get().iterator();
+		it = future.iterator();
 		i=5;
 		while(it.hasNext()){
 			assertEquals(discs[i++], it.next());
@@ -2476,7 +2464,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(10, i);
 
 		future = query.previousPage().iter();
-		it = future.get().iterator();
+		it = future.iterator();
 		i=0;
 		while(it.hasNext()){
 			assertEquals(discs[i++], it.next());
@@ -2493,14 +2481,14 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
-		SienaFuture<Iterable<Discovery>> future = query.iter();
-		Iterator<Discovery> it = future.get().iterator();
+		Iterable<Discovery> future = query.iter();
+		Iterator<Discovery> it = future.iterator();
 		int i=0;
 		while(it.hasNext()){
 			assertEquals(discs[i++], it.next());
 		}	
 		future = query.nextPage().iter();
-		it = future.get().iterator();
+		it = future.iterator();
 		while(it.hasNext()){
 			assertEquals(discs[i++], it.next());
 		}	
@@ -2516,17 +2504,17 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
-		SienaFuture<Iterable<Discovery>> future1 = query.iter();
-		SienaFuture<Iterable<Discovery>> future2 = query.nextPage().iter();
+		Iterable<Discovery> future1 = query.iter();
+		Iterable<Discovery> future2 = query.nextPage().iter();
 		
-		Iterator<Discovery> it = future1.get().iterator();
+		Iterator<Discovery> it = future1.iterator();
 		int i=0;
 		while(it.hasNext()){
 			Discovery disc = it.next();
 			assertEquals(discs[i++], disc);
 		}	
 		assertEquals(5, i);
-		it = future2.get().iterator(); 
+		it = future2.iterator(); 
 		while(it.hasNext()){
 			Discovery disc = it.next();
 			assertEquals(discs[i++], disc);
@@ -2542,8 +2530,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
-		SienaFuture<Iterable<Discovery>> future = query.previousPage().iter();
-		Iterator<Discovery> it = future.get().iterator();
+		Iterable<Discovery> future = query.previousPage().iter();
+		Iterator<Discovery> it = future.iterator();
 		int i=0;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2551,7 +2539,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		}	
 		assertEquals(0, i);
 
-		it = future.get().iterator();
+		it = future.iterator();
 		i=0;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2568,8 +2556,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
-		SienaFuture<Iterable<Discovery>> future = query.iter();
-		Iterator<Discovery> it = future.get().iterator();
+		Iterable<Discovery> future = query.iter();
+		Iterator<Discovery> it = future.iterator();
 		int i=0;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2578,7 +2566,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(5, i);
 
 		future = query.nextPage().iter();
-		it = future.get().iterator();
+		it = future.iterator();
 		while(it.hasNext()){
 			Discovery disc = it.next();
 			assertEquals(discs[i++], disc);
@@ -2586,7 +2574,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(10, i);
 		
 		future = query.previousPage().iter();
-		it = future.get().iterator();
+		it = future.iterator();
 		i=0;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2603,10 +2591,10 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
-		SienaFuture<Iterable<Discovery>> future1 = query.iter();
-		SienaFuture<Iterable<Discovery>> future2 = query.nextPage().iter();
-		SienaFuture<Iterable<Discovery>> future3 = query.previousPage().iter();
-		Iterator<Discovery> it = future1.get().iterator();
+		Iterable<Discovery> future1 = query.iter();
+		Iterable<Discovery> future2 = query.nextPage().iter();
+		Iterable<Discovery> future3 = query.previousPage().iter();
+		Iterator<Discovery> it = future1.iterator();
 		int i=0;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2614,14 +2602,14 @@ public abstract class BaseAsyncTest extends TestCase {
 		}	
 		assertEquals(5, i);
 
-		it = future2.get().iterator();
+		it = future2.iterator();
 		while(it.hasNext()){
 			Discovery disc = it.next();
 			assertEquals(discs[i++], disc);
 		}	
 		assertEquals(10, i);
 		
-		it = future3.get().iterator();
+		it = future3.iterator();
 		i=0;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2638,8 +2626,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
-		SienaFuture<Iterable<Discovery>> future = query.iter();
-		Iterator<Discovery> it = future.get().iterator();
+		Iterable<Discovery> future = query.iter();
+		Iterator<Discovery> it = future.iterator();
 		int i=0;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2648,7 +2636,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(5, i);	
 		
 		future = query.nextPage().iter();
-		it = future.get().iterator();
+		it = future.iterator();
 		while(it.hasNext()){
 			Discovery disc = it.next();
 			assertEquals(discs[i++], disc);
@@ -2656,7 +2644,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(10, i);	
 		
 		future = query.nextPage().iter();
-		it = future.get().iterator();
+		it = future.iterator();
 		while(it.hasNext()){
 			Discovery disc = it.next();
 			assertEquals(discs[i++], disc);
@@ -2665,7 +2653,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		
 		future = query.previousPage().iter();
 		i=5;
-		it = future.get().iterator();
+		it = future.iterator();
 		while(it.hasNext()){
 			Discovery disc = it.next();
 			assertEquals(discs[i++], disc);
@@ -2674,7 +2662,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		
 		future = query.previousPage().iter();
 		i=0;
-		it = future.get().iterator();
+		it = future.iterator();
 		while(it.hasNext()){
 			Discovery disc = it.next();
 			assertEquals(discs[i++], disc);
@@ -2690,12 +2678,12 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
-		SienaFuture<Iterable<Discovery>> future = query.iter();
-		SienaFuture<Iterable<Discovery>> future2 = query.nextPage().iter();
-		SienaFuture<Iterable<Discovery>> future3 = query.nextPage().iter();
-		SienaFuture<Iterable<Discovery>> future4 = query.previousPage().iter();
-		SienaFuture<Iterable<Discovery>> future5 = query.previousPage().iter();
-		Iterator<Discovery> it = future.get().iterator();
+		Iterable<Discovery> future = query.iter();
+		Iterable<Discovery> future2 = query.nextPage().iter();
+		Iterable<Discovery> future3 = query.nextPage().iter();
+		Iterable<Discovery> future4 = query.previousPage().iter();
+		Iterable<Discovery> future5 = query.previousPage().iter();
+		Iterator<Discovery> it = future.iterator();
 		int i=0;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2703,14 +2691,14 @@ public abstract class BaseAsyncTest extends TestCase {
 		}	
 		assertEquals(5, i);	
 		
-		it = future2.get().iterator();
+		it = future2.iterator();
 		while(it.hasNext()){
 			Discovery disc = it.next();
 			assertEquals(discs[i++], disc);
 		}	
 		assertEquals(10, i);	
 		
-		it = future3.get().iterator();
+		it = future3.iterator();
 		while(it.hasNext()){
 			Discovery disc = it.next();
 			assertEquals(discs[i++], disc);
@@ -2718,7 +2706,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(15, i);	
 		
 		i=5;
-		it = future4.get().iterator();
+		it = future4.iterator();
 		while(it.hasNext()){
 			Discovery disc = it.next();
 			assertEquals(discs[i++], disc);
@@ -2726,7 +2714,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(10, i);	
 		
 		i=0;
-		it = future5.get().iterator();
+		it = future5.iterator();
 		while(it.hasNext()){
 			Discovery disc = it.next();
 			assertEquals(discs[i++], disc);
@@ -2742,8 +2730,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
-		SienaFuture<Iterable<Discovery>> future = query.iter();
-		Iterator<Discovery> it = future.get().iterator();
+		Iterable<Discovery> future = query.iter();
+		Iterator<Discovery> it = future.iterator();
 		int i=0;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2760,8 +2748,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<Iterable<Discovery>> future = query.iter();
-		Iterator<Discovery> it = future.get().iterator();
+		Iterable<Discovery> future = query.iter();
+		Iterator<Discovery> it = future.iterator();
 		int i=0;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2778,8 +2766,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<Iterable<Discovery>> future = query.iter(50);
-		Iterator<Discovery> it = future.get().iterator();
+		Iterable<Discovery> future = query.iter(50);
+		Iterator<Discovery> it = future.iterator();
 		int i=0;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2788,7 +2776,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(50, i);	
 
 		future = query.iter(50,50);
-		it = future.get().iterator();
+		it = future.iterator();
 		i=100;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2797,7 +2785,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(150, i);	
 
 		future = query.iter(50,100);
-		it = future.get().iterator();
+		it = future.iterator();
 		while(it.hasNext()){
 			Discovery disc = it.next();
 			assertEquals(discs[i++], disc);
@@ -2813,8 +2801,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<Iterable<Discovery>> future = query.paginate(50).iter();
-		Iterator<Discovery> it = future.get().iterator();
+		Iterable<Discovery> future = query.paginate(50).iter();
+		Iterator<Discovery> it = future.iterator();
 		int i=0;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2823,7 +2811,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(50, i);	
 
 		future = query.iter(50,50);
-		it = future.get().iterator();
+		it = future.iterator();
 		while(it.hasNext()){
 			Discovery disc = it.next();
 			assertEquals(discs[i++], disc);
@@ -2840,8 +2828,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<Iterable<Discovery>> future = query.iter(50);
-		Iterator<Discovery> it = future.get().iterator();
+		Iterable<Discovery> future = query.iter(50);
+		Iterator<Discovery> it = future.iterator();
 		int i=0;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2850,7 +2838,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(50, i);	
 				
 		future = query.paginate(50).iter();
-		it = future.get().iterator();
+		it = future.iterator();
 		i=50;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2859,7 +2847,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(100, i);	
 	
 		future = query.iter();
-		it = future.get().iterator();
+		it = future.iterator();
 		i=50;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2868,7 +2856,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(100, i);	
 
 		future = query.nextPage().iter();
-		it = future.get().iterator();
+		it = future.iterator();
 		while(it.hasNext()){
 			Discovery disc = it.next();
 			assertEquals(discs[i++], disc);
@@ -2884,29 +2872,29 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<List<Discovery>> future = query.paginate(50).fetch();
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.paginate(50).fetch();
+		 
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		future = query.fetch(50);
-		res = future.get(); 
+		res = query.fetch(50);
+		 
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
+		 
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50], res.get(i));
 		}
 
-		future = query.fetch(50);
-		res = future.get(); 
+		res = query.fetch(50);
+		 
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50], res.get(i));
@@ -2921,29 +2909,29 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<List<Discovery>> future = query.fetch(50);
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.fetch(50);
+		 
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		future = query.paginate(50).fetch(50);
-		res = future.get(); 
+		res = query.paginate(50).fetch(50);
+		 
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
+		 
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+100], res.get(i));
 		}
 
-		future = query.fetch(50);
-		res = future.get(); 
+		res = query.fetch(50);
+		 
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+100], res.get(i));
@@ -2958,15 +2946,15 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<List<Discovery>> future = query.fetch(50);
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.fetch(50);
+		 
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		SienaFuture<Iterable<Discovery>> future2 = query.iter(50);
-		Iterator<Discovery> it = future2.get().iterator();
+		Iterable<Discovery> future2 = query.iter(50);
+		Iterator<Discovery> it = future2.iterator();
 		int i=50;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2974,15 +2962,15 @@ public abstract class BaseAsyncTest extends TestCase {
 		}	
 		assertEquals(100, i);	
 
-		future = query.paginate(25).fetch();
-		res = future.get(); 
+		res = query.paginate(25).fetch();
+		 
 		assertEquals(25, res.size());
 		for(i=0; i<25; i++){
 			assertEquals(discs[i+100], res.get(i));
 		}
 		
 		future2 = query.nextPage().iter();
-		it = future2.get().iterator();
+		it = future2.iterator();
 		i=125;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -2990,89 +2978,89 @@ public abstract class BaseAsyncTest extends TestCase {
 		}	
 		assertEquals(150, i);	
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(25, res.size());
 		for(i=0; i<25; i++){
 			assertEquals(discs[i+100], res.get(i));
 		}
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(25, res.size());
 		for(i=0; i<25; i++){
 			assertEquals(discs[i+75], res.get(i));
 		}
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(25, res.size());
 		for(i=0; i<25; i++){
 			assertEquals(discs[i+50], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
+		 
 		assertEquals(25, res.size());
 		for(i=0; i<25; i++){
 			assertEquals(discs[i+75], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
+		 
 		assertEquals(25, res.size());
 		for(i=0; i<25; i++){
 			assertEquals(discs[i+100], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
+		 
 		assertEquals(25, res.size());
 		for(i=0; i<25; i++){
 			assertEquals(discs[i+125], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get(); 
+		res = query.nextPage().fetch();
+		 
 		assertEquals(0, res.size());
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(25, res.size());
 		for(i=0; i<25; i++){
 			assertEquals(discs[i+125], res.get(i));
 		}
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(25, res.size());
 		for(i=0; i<25; i++){
 			assertEquals(discs[i+100], res.get(i));
 		}
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(25, res.size());
 		for(i=0; i<25; i++){
 			assertEquals(discs[i+75], res.get(i));
 		}
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(25, res.size());
 		for(i=0; i<25; i++){
 			assertEquals(discs[i+50], res.get(i));
 		}
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(25, res.size());
 		for(i=0; i<25; i++){
 			assertEquals(discs[i+25], res.get(i));
 		}
 		
-		future = query.previousPage().fetch();
-		res = future.get(); 
+		res = query.previousPage().fetch();
+		 
 		assertEquals(25, res.size());
 		for(i=0; i<25; i++){
 			assertEquals(discs[i], res.get(i));
@@ -3087,15 +3075,15 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<List<Discovery>> future = query.fetch(50);
-		List<Discovery> res = future.get(); 
+		List<Discovery> res = query.fetch(50);
+		 
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 
-		SienaFuture<Iterable<Discovery>> future2 = query.iter(50);
-		Iterator<Discovery> it = future2.get().iterator();
+		Iterable<Discovery> future2 = query.iter(50);
+		Iterator<Discovery> it = future2.iterator();
 		int i=50;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -3103,15 +3091,15 @@ public abstract class BaseAsyncTest extends TestCase {
 		}	
 		assertEquals(100, i);	
 		
-		future = query.fetch(50);
-		res = future.get(); 
+		res = query.fetch(50);
+		 
 		assertEquals(50, res.size());
 		for(i=0; i<50; i++){
 			assertEquals(discs[i+100], res.get(i));
 		}
 		
 		future2 = query.iter(50);
-		it = future2.get().iterator();
+		it = future2.iterator();
 		i=150;
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -3132,8 +3120,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		QueryAsync<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("Disc_5", "name");
 		
-		SienaFuture<List<Discovery4Search>> future = query.fetch();
-		List<Discovery4Search> res = future.get();
+		List<Discovery4Search> res = query.fetch();
 				
 		assertEquals(1, res.size());
 		assertEquals(discs[5], res.get(0));
@@ -3150,8 +3137,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		QueryAsync<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("Disc_5", "name");
 		
-		SienaFuture<List<Discovery4Search>> future = query.fetchKeys();
-		List<Discovery4Search> res = future.get();
+		List<Discovery4Search> res = query.fetchKeys();
 				
 		assertEquals(1, res.size());
 		assertEquals(discs[5].id, res.get(0).id);
@@ -3168,8 +3154,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		QueryAsync<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("Disc_5", "name");
 		
-		SienaFuture<List<Discovery4Search>> future = query.fetch();
-		List<Discovery4Search> res = future.get();
+		List<Discovery4Search> res = query.fetch();
 				
 		assertEquals(1, res.size());
 		assertEquals(discs[5], res.get(0));
@@ -3177,8 +3162,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		query = 
 			pm.createQuery(Discovery4Search.class).search("Disc_48", "name");
 		
-		future = query.fetch();
-		res = future.get();
+		res = query.fetch();
+		
 				
 		assertEquals(1, res.size());
 		assertEquals(discs[48], res.get(0));
@@ -3208,9 +3193,9 @@ public abstract class BaseAsyncTest extends TestCase {
 		SienaFuture<Integer> resf = pm.insert(discs);
 		assertEquals(discs.length, (int)resf.get());
 		
-		SienaFuture<List<Discovery>> future = 
+		List<Discovery> res = 
 			pm.createQuery(Discovery.class).fetch();
-		List<Discovery> res = future.get();
+		
 		
 		assertEquals(discs.length, res.size());
 		int i=0;
@@ -3226,9 +3211,9 @@ public abstract class BaseAsyncTest extends TestCase {
 		SienaFuture<Integer> resf = pm.insert(discs);
 		assertEquals(discs.size(), (int)resf.get());
 
-		SienaFuture<List<Discovery>> future = 
+		List<Discovery> res = 
 			pm.createQuery(Discovery.class).fetch();
-		List<Discovery> res = future.get();
+		
 		
 		assertEquals(discs.size(), res.size());
 		int i=0;
@@ -3244,18 +3229,18 @@ public abstract class BaseAsyncTest extends TestCase {
 		}
 		pm.insert(discs).get();
 
-		SienaFuture<List<Discovery>> future = 
+		List<Discovery> res = 
 			pm.createQuery(Discovery.class).fetch();
-		List<Discovery> res = future.get();
+		
 		
 		assertEquals(discs.length, res.size());
 		
 		SienaFuture<Integer> resf = pm.delete(discs);
 		assertEquals(discs.length, (int)resf.get());
 		
-		future = 
+		res = 
 			pm.createQuery(Discovery.class).fetch();
-		res = future.get();
+		
 		
 		assertEquals(0, res.size());
 	}
@@ -3268,17 +3253,17 @@ public abstract class BaseAsyncTest extends TestCase {
 		}
 		pm.insert(discs).get();
 
-		SienaFuture<List<Discovery>> future = 
+		List<Discovery> res = 
 			pm.createQuery(Discovery.class).fetch();
-		List<Discovery> res = future.get();
+		
 		
 		assertEquals(discs.size(), res.size());
 		
 		pm.delete(discs).get();
 		
-		future = 
+		res = 
 			pm.createQuery(Discovery.class).fetch();
-		res = future.get();
+		
 		
 		assertEquals(0, res.size());
 	}
@@ -3289,7 +3274,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(2, (int)resf.get());
 		
 		List<PersonStringID> res = 
-			pm.createQuery(PersonStringID.class).fetch().get();
+			pm.createQuery(PersonStringID.class).fetch();
 		
 		assertEquals(1, res.size());
 		assertEquals(StringID_EINSTEIN, res.get(0));
@@ -3303,7 +3288,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(2, (int)resf.get());
 
 		List<PersonStringID> res = 
-			pm.createQuery(PersonStringID.class).fetch().get();
+			pm.createQuery(PersonStringID.class).fetch();
 		
 		assertEquals(1, res.size());
 		assertEquals(StringID_EINSTEIN, res.get(0));
@@ -3323,8 +3308,8 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs2Get[i].id = discs[i].id;
 		}
 		
-		SienaFuture<Integer> resf = pm.get((Object[])discs2Get);
-		assertEquals(discs.length, (int)resf.get());
+		SienaFuture<List<Object>> resf = pm.get((Object[])discs2Get);
+		assertEquals(discs.length, (int)resf.get().size());
 
 		assertEquals(discs.length, discs2Get.length);
 		for(int i=0; i<discs.length; i++){
@@ -3347,8 +3332,8 @@ public abstract class BaseAsyncTest extends TestCase {
 			discs2Get.add(disc);
 		}
 		
-		SienaFuture<Integer> resf = pm.get(discs2Get);
-		assertEquals(discs.length, (int)resf.get());
+		SienaFuture<List<Discovery>> resf = pm.get(discs2Get);
+		assertEquals(discs.length, (int)resf.get().size());
 
 		int i=0;
 		for(Discovery disc:discs2Get){
@@ -3358,8 +3343,8 @@ public abstract class BaseAsyncTest extends TestCase {
 	
 	public void testBatchGetByKeys() {
 		SienaFuture<List<PersonStringID>> future = pm.getByKeys(PersonStringID.class, "TESLA", "CURIE");
-		
 		List<PersonStringID> res = future.get();
+		
 		assertEquals(2, res.size());
 		assertEquals(StringID_TESLA, res.get(0));
 		assertEquals(StringID_CURIE, res.get(1));
@@ -3394,29 +3379,29 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateless().order("id");
-		SienaFuture<List<Discovery>> future = query.limit(50).fetch();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.limit(50).fetch();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		future = query.limit(50).fetch();
-		res = future.get();
+		res = query.limit(50).fetch();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		future = query.fetch(50);
-		res = future.get();
+		res = query.fetch(50);
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		future = query.paginate(50).fetch();
-		res = future.get();
+		res = query.paginate(50).fetch();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
@@ -3433,22 +3418,22 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<List<Discovery>> future = query.limit(50).fetch();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.limit(50).fetch();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		future = query.fetch(50);
-		res = future.get();
+		res = query.fetch(50);
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50], res.get(i));
 		}
 		
-		future = query.paginate(50).fetch(25);
-		res = future.get();
+		res = query.paginate(50).fetch(25);
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+100], res.get(i));
@@ -3463,8 +3448,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
-		SienaFuture<List<Discovery>> future = query.offset(50).fetch();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.offset(50).fetch();
+		
 		assertEquals(100, res.size());
 		for(int i=0; i<100; i++){
 			assertEquals(discs[i+50], res.get(i));
@@ -3479,8 +3464,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<List<Discovery>> future = query.offset(50).fetch();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.offset(50).fetch();
+		
 		assertEquals(100, res.size());
 		for(int i=0; i<100; i++){
 			assertEquals(discs[i+50], res.get(i));
@@ -3495,8 +3480,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
-		SienaFuture<List<Discovery>> future = query.offset(50).limit(50).fetch();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.offset(50).limit(50).fetch();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50], res.get(i));
@@ -3511,8 +3496,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<List<Discovery>> future = query.offset(50).limit(50).fetch();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.offset(50).limit(50).fetch();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50], res.get(i));
@@ -3528,36 +3513,36 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
-		SienaFuture<List<Discovery>> future = query.paginate(50).fetch();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.paginate(50).fetch();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50], res.get(i));
 		}
 
-		future = query.limit(50).fetch();
-		res = future.get();
+		res = query.limit(50).fetch();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 
-		future = query.offset(50).fetch();
-		res = future.get();
+		res = query.offset(50).fetch();
+		
 		assertEquals(100, res.size());
 		for(int i=0; i<100; i++){
 			assertEquals(discs[i+50], res.get(i));
 		}
 		
-		future = query.offset(50).limit(50).fetch();
-		res = future.get();
+		res = query.offset(50).limit(50).fetch();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50], res.get(i));
@@ -3573,42 +3558,42 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id").stateful();
-		SienaFuture<List<Discovery>> future = query.paginate(50).fetch();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.paginate(50).fetch();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50], res.get(i));
 		}
 
-		future = query.limit(50).fetch();
-		res = future.get();
+		res = query.limit(50).fetch();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50], res.get(i));
 		}
 
-		future = query.offset(50).fetch();
-		res = future.get();
+		res = query.offset(50).fetch();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+150], res.get(i));
 		}
 		
-		future = query.offset(50).limit(25).fetch();
-		res = future.get();
+		res = query.offset(50).limit(25).fetch();
+		
 		assertEquals(25, res.size());
 		for(int i=0; i<25; i++){
 			assertEquals(discs[i+250], res.get(i));
 		}
 		try {
-			future = query.previousPage().fetch();
+			res = query.previousPage().fetch();
 		}catch(SienaException ex){
 			return;
 		}
@@ -3623,74 +3608,74 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
-		SienaFuture<List<Discovery>> future = query.limit(50).offset(12).fetch();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.limit(50).offset(12).fetch();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+12], res.get(i));
 		}
 		
-		future = query.offset(13).limit(30).fetch();
-		res = future.get();
+		res = query.offset(13).limit(30).fetch();
+		
 		assertEquals(30, res.size());
 		for(int i=0; i<30; i++){
 			assertEquals(discs[i+13], res.get(i));
 		}
 		
-		future = query.offset(10).limit(30).fetch(15);
-		res = future.get();
+		res = query.offset(10).limit(30).fetch(15);
+		
 		assertEquals(15, res.size());
 		for(int i=0; i<15; i++){
 			assertEquals(discs[i+10], res.get(i));
 		}
 		
-		future = query.paginate(6).fetch();
-		res = future.get();
+		res = query.paginate(6).fetch();
+		
 		assertEquals(6, res.size());
 		for(int i=0; i<6; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
+		
 		assertEquals(6, res.size());
 		for(int i=0; i<6; i++){
 			assertEquals(discs[i+6], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
+		
 		assertEquals(6, res.size());
 		for(int i=0; i<6; i++){
 			assertEquals(discs[i+12], res.get(i));
 		}
 		
-		future = query.previousPage().fetch();
-		res = future.get();
+		res = query.previousPage().fetch();
+		
 		assertEquals(6, res.size());
 		for(int i=0; i<6; i++){
 			assertEquals(discs[i+6], res.get(i));
 		}
 		
-		future = query.offset(10).fetch(10);
-		res = future.get();
+		res = query.offset(10).fetch(10);
+		
 		assertEquals(10, res.size());
 		for(int i=0; i<10; i++){
 			assertEquals(discs[i+10], res.get(i));
 		}
 		
 		try {
-			future = query.nextPage().fetch();
+			res = query.nextPage().fetch();
 		}catch(SienaException ex){
-			future = query.paginate(8).fetch();
-			res = future.get();
+			res = query.paginate(8).fetch();
+			
 			assertEquals(8, res.size());
 			for(int i=0; i<8; i++){
 				assertEquals(discs[i], res.get(i));
 			}
 			
-			future = query.nextPage().fetch();
-			res = future.get();
+			res = query.nextPage().fetch();
+			
 			assertEquals(8, res.size());
 			for(int i=0; i<8; i++){
 				assertEquals(discs[i+8], res.get(i));
@@ -3710,74 +3695,74 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id").stateful();
-		SienaFuture<List<Discovery>> future = query.limit(50).offset(12).fetch();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.limit(50).offset(12).fetch();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+12], res.get(i));
 		}
 		
-		future = query.offset(13).limit(30).fetch();
-		res = future.get();
+		res = query.offset(13).limit(30).fetch();
+		
 		assertEquals(30, res.size());
 		for(int i=0; i<30; i++){
 			assertEquals(discs[i+75], res.get(i));
 		}
 		
-		future = query.offset(10).limit(30).fetch(15);
-		res = future.get();
+		res = query.offset(10).limit(30).fetch(15);
+		
 		assertEquals(15, res.size());
 		for(int i=0; i<15; i++){
 			assertEquals(discs[i+115], res.get(i));
 		}
 		
-		future = query.paginate(6).fetch();
-		res = future.get();
+		res = query.paginate(6).fetch();
+		
 		assertEquals(6, res.size());
 		for(int i=0; i<6; i++){
 			assertEquals(discs[i+130], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
+		
 		assertEquals(6, res.size());
 		for(int i=0; i<6; i++){
 			assertEquals(discs[i+136], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
+		
 		assertEquals(6, res.size());
 		for(int i=0; i<6; i++){
 			assertEquals(discs[i+142], res.get(i));
 		}
 		
-		future = query.previousPage().fetch();
-		res = future.get();
+		res = query.previousPage().fetch();
+		
 		assertEquals(6, res.size());
 		for(int i=0; i<6; i++){
 			assertEquals(discs[i+136], res.get(i));
 		}
 		
-		future = query.offset(10).fetch(10);
-		res = future.get();
+		res = query.offset(10).fetch(10);
+		
 		assertEquals(10, res.size());
 		for(int i=0; i<10; i++){
 			assertEquals(discs[i+146], res.get(i));
 		}
 		
 		try {
-			future = query.nextPage().fetch();
+			res = query.nextPage().fetch();
 		}catch(SienaException ex){
-			future = query.paginate(8).fetch();
-			res = future.get();
+			res = query.paginate(8).fetch();
+			
 			assertEquals(8, res.size());
 			for(int i=0; i<8; i++){
 				assertEquals(discs[i+156], res.get(i));
 			}
 			
-			future = query.nextPage().fetch();
-			res = future.get();
+			res = query.nextPage().fetch();
+			
 			assertEquals(8, res.size());
 			for(int i=0; i<8; i++){
 				assertEquals(discs[i+164], res.get(i));
@@ -3793,29 +3778,29 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
-		SienaFuture<List<Discovery>> future = query.fetch();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.fetch();
+		
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
 		}		
 		
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
+		
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5], res.get(i));
 		}
 		
-		future = query.paginate(8).fetch();
-		res = future.get();
+		res = query.paginate(8).fetch();
+		
 		assertEquals(8, res.size());
 		for(int i=0; i<8; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
+		
 		assertEquals(7, res.size());
 		for(int i=0; i<7; i++){
 			assertEquals(discs[i+8], res.get(i));
@@ -3830,29 +3815,29 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().paginate(5).order("id");
-		SienaFuture<List<Discovery>> future = query.fetch();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.fetch();
+		
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i], res.get(i));
 		}		
 		
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
+		
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5], res.get(i));
 		}
 		
-		future = query.paginate(8).fetch();
-		res = future.get();
+		res = query.paginate(8).fetch();
+		
 		assertEquals(8, res.size());
 		for(int i=0; i<8; i++){
 			assertEquals(discs[i+5], res.get(i));
 		}
 		
-		future = query.nextPage().fetch();
-		res = future.get();
+		res = query.nextPage().fetch();
+		
 		assertEquals(2, res.size());
 		for(int i=0; i<2; i++){
 			assertEquals(discs[i+13], res.get(i));
@@ -3868,32 +3853,32 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateless().order("id");
-		SienaFuture<List<Discovery>> future = query.limit(50).fetchKeys();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.limit(50).fetchKeys();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.limit(50).fetchKeys();
-		res = future.get();
+		res = query.limit(50).fetchKeys();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.fetchKeys(50);
-		res = future.get();
+		res = query.fetchKeys(50);
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.paginate(50).fetchKeys();
-		res = future.get();
+		res = query.paginate(50).fetchKeys();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i].id, res.get(i).id);
@@ -3909,24 +3894,24 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<List<Discovery>> future = query.limit(50).fetchKeys();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.limit(50).fetchKeys();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.fetchKeys(50);
-		res = future.get();
+		res = query.fetchKeys(50);
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.paginate(50).fetchKeys(25);
-		res = future.get();
+		res = query.paginate(50).fetchKeys(25);
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+100].id, res.get(i).id);
@@ -3942,8 +3927,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
-		SienaFuture<List<Discovery>> future = query.offset(50).fetchKeys();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.offset(50).fetchKeys();
+		
 		assertEquals(100, res.size());
 		for(int i=0; i<100; i++){
 			assertEquals(discs[i+50].id, res.get(i).id);
@@ -3959,8 +3944,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<List<Discovery>> future = query.offset(50).fetchKeys();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.offset(50).fetchKeys();
+		
 		assertEquals(100, res.size());
 		for(int i=0; i<100; i++){
 			assertEquals(discs[i+50].id, res.get(i).id);
@@ -3976,8 +3961,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
-		SienaFuture<List<Discovery>> future = query.offset(50).limit(50).fetchKeys();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.offset(50).limit(50).fetchKeys();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50].id, res.get(i).id);
@@ -3993,8 +3978,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<List<Discovery>> future = query.offset(50).limit(50).fetchKeys();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.offset(50).limit(50).fetchKeys();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50].id, res.get(i).id);
@@ -4011,40 +3996,40 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
-		SienaFuture<List<Discovery>> future = query.paginate(50).fetchKeys();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.paginate(50).fetchKeys();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.nextPage().fetchKeys();
-		res = future.get();
+		res = query.nextPage().fetchKeys();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 
-		future = query.limit(50).fetchKeys();
-		res = future.get();
+		res = query.limit(50).fetchKeys();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 
-		future = query.offset(50).fetchKeys();
-		res = future.get();
+		res = query.offset(50).fetchKeys();
+		
 		assertEquals(100, res.size());
 		for(int i=0; i<100; i++){
 			assertEquals(discs[i+50].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.offset(50).limit(50).fetchKeys();
-		res = future.get();
+		res = query.offset(50).limit(50).fetchKeys();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50].id, res.get(i).id);
@@ -4061,47 +4046,47 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id").stateful();
-		SienaFuture<List<Discovery>> future = query.paginate(50).fetchKeys();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.paginate(50).fetchKeys();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.nextPage().fetchKeys();
-		res = future.get();
+		res = query.nextPage().fetchKeys();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 
-		future = query.limit(50).fetchKeys();
-		res = future.get();
+		res = query.limit(50).fetchKeys();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 
-		future = query.offset(50).fetchKeys();
-		res = future.get();
+		res = query.offset(50).fetchKeys();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+150].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.offset(50).limit(25).fetchKeys();
-		res = future.get();
+		res = query.offset(50).limit(25).fetchKeys();
+		
 		assertEquals(25, res.size());
 		for(int i=0; i<25; i++){
 			assertEquals(discs[i+250].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		try {
-			future = query.previousPage().fetch();
+			res = query.previousPage().fetch();
 		}catch(SienaException ex){
 			return;
 		}
@@ -4116,64 +4101,64 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
-		SienaFuture<List<Discovery>> future = query.limit(50).offset(12).fetchKeys();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.limit(50).offset(12).fetchKeys();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+12].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.offset(13).limit(30).fetchKeys();
-		res = future.get();
+		res = query.offset(13).limit(30).fetchKeys();
+		
 		assertEquals(30, res.size());
 		for(int i=0; i<30; i++){
 			assertEquals(discs[i+13].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.offset(10).limit(30).fetchKeys(15);
-		res = future.get();
+		res = query.offset(10).limit(30).fetchKeys(15);
+		
 		assertEquals(15, res.size());
 		for(int i=0; i<15; i++){
 			assertEquals(discs[i+10].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.paginate(6).fetchKeys();
-		res = future.get();
+		res = query.paginate(6).fetchKeys();
+		
 		assertEquals(6, res.size());
 		for(int i=0; i<6; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.nextPage().fetchKeys();
-		res = future.get();
+		res = query.nextPage().fetchKeys();
+		
 		assertEquals(6, res.size());
 		for(int i=0; i<6; i++){
 			assertEquals(discs[i+6].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.nextPage().fetchKeys();
-		res = future.get();
+		res = query.nextPage().fetchKeys();
+		
 		assertEquals(6, res.size());
 		for(int i=0; i<6; i++){
 			assertEquals(discs[i+12].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.previousPage().fetchKeys();
-		res = future.get();
+		res = query.previousPage().fetchKeys();
+		
 		assertEquals(6, res.size());
 		for(int i=0; i<6; i++){
 			assertEquals(discs[i+6].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.offset(10).fetchKeys(10);
-		res = future.get();
+		res = query.offset(10).fetchKeys(10);
+		
 		assertEquals(10, res.size());
 		for(int i=0; i<10; i++){
 			assertEquals(discs[i+10].id, res.get(i).id);
@@ -4181,17 +4166,17 @@ public abstract class BaseAsyncTest extends TestCase {
 		}
 		
 		try {
-			future = query.nextPage().fetchKeys();
+			res = query.nextPage().fetchKeys();
 		}catch(SienaException ex){
-			future = query.paginate(8).fetch();
-			res = future.get();
+			res = query.paginate(8).fetch();
+			
 			assertEquals(8, res.size());
 			for(int i=0; i<8; i++){
 				assertEquals(discs[i].id, res.get(i).id);
 			}
 			
-			future = query.nextPage().fetchKeys();
-			res = future.get();
+			res = query.nextPage().fetchKeys();
+			
 			assertEquals(8, res.size());
 			for(int i=0; i<8; i++){
 				assertEquals(discs[i+8].id, res.get(i).id);
@@ -4208,64 +4193,64 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id").stateful();
-		SienaFuture<List<Discovery>> future = query.limit(50).offset(12).fetchKeys();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.limit(50).offset(12).fetchKeys();
+		
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+12].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.offset(13).limit(30).fetchKeys();
-		res = future.get();
+		res = query.offset(13).limit(30).fetchKeys();
+		
 		assertEquals(30, res.size());
 		for(int i=0; i<30; i++){
 			assertEquals(discs[i+75].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.offset(10).limit(30).fetchKeys(15);
-		res = future.get();
+		res = query.offset(10).limit(30).fetchKeys(15);
+		
 		assertEquals(15, res.size());
 		for(int i=0; i<15; i++){
 			assertEquals(discs[i+115].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.paginate(6).fetchKeys();
-		res = future.get();
+		res = query.paginate(6).fetchKeys();
+		
 		assertEquals(6, res.size());
 		for(int i=0; i<6; i++){
 			assertEquals(discs[i+130].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.nextPage().fetchKeys();
-		res = future.get();
+		res = query.nextPage().fetchKeys();
+		
 		assertEquals(6, res.size());
 		for(int i=0; i<6; i++){
 			assertEquals(discs[i+136].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.nextPage().fetchKeys();
-		res = future.get();
+		res = query.nextPage().fetchKeys();
+		
 		assertEquals(6, res.size());
 		for(int i=0; i<6; i++){
 			assertEquals(discs[i+142].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.previousPage().fetchKeys();
-		res = future.get();
+		res = query.previousPage().fetchKeys();
+		
 		assertEquals(6, res.size());
 		for(int i=0; i<6; i++){
 			assertEquals(discs[i+136].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.offset(10).fetchKeys(10);
-		res = future.get();
+		res = query.offset(10).fetchKeys(10);
+		
 		assertEquals(10, res.size());
 		for(int i=0; i<10; i++){
 			assertEquals(discs[i+146].id, res.get(i).id);
@@ -4273,18 +4258,18 @@ public abstract class BaseAsyncTest extends TestCase {
 		}
 		
 		try {
-			future = query.nextPage().fetchKeys();
+			res = query.nextPage().fetchKeys();
 		}catch(SienaException ex){
-			future = query.paginate(8).fetchKeys();
-			res = future.get();
+			res = query.paginate(8).fetchKeys();
+			
 			assertEquals(8, res.size());
 			for(int i=0; i<8; i++){
 				assertEquals(discs[i+156].id, res.get(i).id);
 				assertTrue(res.get(i).isOnlyIdFilled());
 			}
 			
-			future = query.nextPage().fetchKeys();
-			res = future.get();
+			res = query.nextPage().fetchKeys();
+			
 			assertEquals(8, res.size());
 			for(int i=0; i<8; i++){
 				assertEquals(discs[i+164].id, res.get(i).id);
@@ -4301,32 +4286,32 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
-		SienaFuture<List<Discovery>> future = query.fetchKeys();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.fetchKeys();
+		
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}		
 		
-		future = query.nextPage().fetchKeys();
-		res = future.get();
+		res = query.nextPage().fetchKeys();
+		
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.paginate(8).fetchKeys();
-		res = future.get();
+		res = query.paginate(8).fetchKeys();
+		
 		assertEquals(8, res.size());
 		for(int i=0; i<8; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.nextPage().fetchKeys();
-		res = future.get();
+		res = query.nextPage().fetchKeys();
+		
 		assertEquals(7, res.size());
 		for(int i=0; i<7; i++){
 			assertEquals(discs[i+8].id, res.get(i).id);
@@ -4342,32 +4327,32 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().paginate(5).order("id");
-		SienaFuture<List<Discovery>> future = query.fetchKeys();
-		List<Discovery> res = future.get();
+		List<Discovery> res = query.fetchKeys();
+		
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}		
 		
-		future = query.nextPage().fetchKeys();
-		res = future.get();
+		res = query.nextPage().fetchKeys();
+		
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+5].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.paginate(8).fetchKeys();
-		res = future.get();
+		res = query.paginate(8).fetchKeys();
+		
 		assertEquals(8, res.size());
 		for(int i=0; i<8; i++){
 			assertEquals(discs[i+5].id, res.get(i).id);
 			assertTrue(res.get(i).isOnlyIdFilled());
 		}
 		
-		future = query.nextPage().fetchKeys();
-		res = future.get();
+		res = query.nextPage().fetchKeys();
+		
 		assertEquals(2, res.size());
 		for(int i=0; i<2; i++){
 			assertEquals(discs[i+13].id, res.get(i).id);
@@ -4383,8 +4368,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateless().order("id");
-		SienaFuture<Iterable<Discovery>> future = query.limit(50).iter();
-		Iterable<Discovery> iter = future.get();
+		Iterable<Discovery> future = query.limit(50).iter();
+		Iterable<Discovery> iter = future;
 		Iterator<Discovery> it = iter.iterator();
 		int i=0;
 		while(it.hasNext()){
@@ -4394,7 +4379,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(50, i);	
 		
 		future = query.limit(50).iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=0;
 		while(it.hasNext()){
@@ -4404,7 +4389,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(50, i);	
 		
 		future = query.iter(50);
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=0;
 		while(it.hasNext()){
@@ -4414,7 +4399,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(50, i);	
 
 		future = query.paginate(50).iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=0;
 		while(it.hasNext()){
@@ -4432,8 +4417,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<Iterable<Discovery>> future = query.limit(50).iter();
-		Iterable<Discovery> iter = future.get();
+		Iterable<Discovery> future = query.limit(50).iter();
+		Iterable<Discovery> iter = future;
 		Iterator<Discovery> it = iter.iterator();
 		int i=0;
 		while(it.hasNext()){
@@ -4443,7 +4428,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(50, i);
 		
 		future = query.iter(50);
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=50;
 		while(it.hasNext()){
@@ -4453,7 +4438,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(100, i);
 		
 		future = query.paginate(50).iter(25);
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=100;
 		while(it.hasNext()){
@@ -4471,8 +4456,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
-		SienaFuture<Iterable<Discovery>> future = query.offset(50).iter();
-		Iterable<Discovery> iter = future.get();
+		Iterable<Discovery> future = query.offset(50).iter();
+		Iterable<Discovery> iter = future;
 		Iterator<Discovery> it = iter.iterator();
 		int i=50;
 		while(it.hasNext()){
@@ -4490,8 +4475,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<Iterable<Discovery>> future = query.offset(50).iter();
-		Iterable<Discovery> iter = future.get();
+		Iterable<Discovery> future = query.offset(50).iter();
+		Iterable<Discovery> iter = future;
 		Iterator<Discovery> it = iter.iterator();
 		int i=50;
 		while(it.hasNext()){
@@ -4509,8 +4494,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
-		SienaFuture<Iterable<Discovery>> future = query.offset(50).limit(50).iter();
-		Iterable<Discovery> iter = future.get();
+		Iterable<Discovery> future = query.offset(50).limit(50).iter();
+		Iterable<Discovery> iter = future;
 		Iterator<Discovery> it = iter.iterator();
 		int i=50;
 		while(it.hasNext()){
@@ -4528,8 +4513,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<Iterable<Discovery>> future = query.offset(50).limit(50).iter();
-		Iterable<Discovery> iter = future.get();
+		Iterable<Discovery> future = query.offset(50).limit(50).iter();
+		Iterable<Discovery> iter = future;
 		Iterator<Discovery> it = iter.iterator();
 		int i=50;
 		while(it.hasNext()){
@@ -4547,8 +4532,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
-		SienaFuture<Iterable<Discovery>> future = query.paginate(50).iter();
-		Iterable<Discovery> iter = future.get();
+		Iterable<Discovery> future = query.paginate(50).iter();
+		Iterable<Discovery> iter = future;
 		Iterator<Discovery> it = iter.iterator();
 		int i=0;
 		while(it.hasNext()){
@@ -4558,7 +4543,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(50, i);
 		
 		future = query.nextPage().iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -4567,7 +4552,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(100, i);
 
 		future = query.limit(50).iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=0;
 		while(it.hasNext()){
@@ -4577,7 +4562,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(50, i);
 
 		future = query.offset(50).iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=50;
 		while(it.hasNext()){
@@ -4587,7 +4572,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(150, i);
 		
 		future = query.offset(50).limit(50).iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=50;
 		while(it.hasNext()){
@@ -4606,8 +4591,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<Iterable<Discovery>> future = query.paginate(50).iter();
-		Iterable<Discovery> iter = future.get();
+		Iterable<Discovery> future = query.paginate(50).iter();
+		Iterable<Discovery> iter = future;
 		Iterator<Discovery> it = iter.iterator();
 		int i=0;
 		while(it.hasNext()){
@@ -4617,7 +4602,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(50, i);
 		
 		future = query.nextPage().iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		while(it.hasNext()){
 			Discovery disc = it.next();
@@ -4626,7 +4611,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(100, i);
 
 		future = query.limit(50).iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=50;
 		while(it.hasNext()){
@@ -4636,7 +4621,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(100, i);
 
 		future = query.offset(50).iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=150;
 		while(it.hasNext()){
@@ -4646,7 +4631,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(200, i);
 		
 		future = query.offset(50).limit(25).iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=250;
 		while(it.hasNext()){
@@ -4671,8 +4656,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
-		SienaFuture<Iterable<Discovery>> future = query.limit(50).offset(12).iter();
-		Iterable<Discovery> iter = future.get();
+		Iterable<Discovery> future = query.limit(50).offset(12).iter();
+		Iterable<Discovery> iter = future;
 		Iterator<Discovery> it = iter.iterator();
 		int i=12;
 		while(it.hasNext()){
@@ -4682,7 +4667,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(62, i);
 		
 		future = query.offset(13).limit(30).iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=13;
 		while(it.hasNext()){
@@ -4692,7 +4677,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(43, i);
 		
 		future = query.offset(10).limit(30).iter(15);
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=10;
 		while(it.hasNext()){
@@ -4702,7 +4687,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(25, i);
 
 		future = query.paginate(6).iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=0;
 		while(it.hasNext()){
@@ -4712,7 +4697,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(6, i);
 		
 		future = query.nextPage().iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=6;
 		while(it.hasNext()){
@@ -4722,7 +4707,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(12, i);
 		
 		future = query.nextPage().iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=12;
 		while(it.hasNext()){
@@ -4732,7 +4717,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(18, i);
 		
 		future = query.previousPage().iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=6;
 		while(it.hasNext()){
@@ -4742,7 +4727,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(12, i);
 		
 		future = query.offset(10).iter(10);
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=10;
 		while(it.hasNext()){
@@ -4755,7 +4740,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			future = query.nextPage().iter();
 		}catch(SienaException ex){
 			future = query.paginate(8).iter();
-			iter = future.get();
+			iter = future;
 			it = iter.iterator();
 			i=0;
 			while(it.hasNext()){
@@ -4765,7 +4750,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			assertEquals(8, i);
 			
 			future = query.nextPage().iter();
-			iter = future.get();
+			iter = future;
 			it = iter.iterator();
 			i=8;
 			while(it.hasNext()){
@@ -4788,8 +4773,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<Iterable<Discovery>> future = query.limit(50).offset(12).iter();
-		Iterable<Discovery> iter = future.get();
+		Iterable<Discovery> future = query.limit(50).offset(12).iter();
+		Iterable<Discovery> iter = future;
 		Iterator<Discovery> it = iter.iterator();
 		int i=12;
 		while(it.hasNext()){
@@ -4799,7 +4784,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(62, i);
 		
 		future = query.offset(13).limit(30).iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=75;
 		while(it.hasNext()){
@@ -4809,7 +4794,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(105, i);
 		
 		future = query.offset(10).limit(30).iter(15);
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=115;
 		while(it.hasNext()){
@@ -4819,7 +4804,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(130, i);
 
 		future = query.paginate(6).iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=130;
 		while(it.hasNext()){
@@ -4829,7 +4814,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(136, i);
 		
 		future = query.nextPage().iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=136;
 		while(it.hasNext()){
@@ -4839,7 +4824,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(142, i);
 		
 		future = query.nextPage().iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=142;
 		while(it.hasNext()){
@@ -4849,7 +4834,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(148, i);
 		
 		future = query.previousPage().iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=136;
 		while(it.hasNext()){
@@ -4859,7 +4844,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(142, i);
 		
 		future = query.offset(10).iter(10);
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=146;
 		while(it.hasNext()){
@@ -4872,7 +4857,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			future = query.nextPage().iter();
 		}catch(SienaException ex){
 			future = query.paginate(8).iter();
-			iter = future.get();
+			iter = future;
 			it = iter.iterator();
 			i=156;
 			while(it.hasNext()){
@@ -4882,7 +4867,7 @@ public abstract class BaseAsyncTest extends TestCase {
 			assertEquals(164, i);
 			
 			future = query.nextPage().iter();
-			iter = future.get();
+			iter = future;
 			it = iter.iterator();
 			i=164;
 			while(it.hasNext()){
@@ -4905,8 +4890,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
-		SienaFuture<Iterable<Discovery>> future = query.iter();
-		Iterable<Discovery> iter = future.get();
+		Iterable<Discovery> future = query.iter();
+		Iterable<Discovery> iter = future;
 		Iterator<Discovery> it = iter.iterator();
 		int i=0;
 		while(it.hasNext()){
@@ -4916,7 +4901,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(5, i);
 		
 		future = query.nextPage().iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=5;
 		while(it.hasNext()){
@@ -4926,7 +4911,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(10, i);
 		
 		future = query.paginate(8).iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=0;
 		while(it.hasNext()){
@@ -4936,7 +4921,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(8, i);
 		
 		future = query.nextPage().iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=8;
 		while(it.hasNext()){
@@ -4954,8 +4939,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().paginate(5).order("id");
-		SienaFuture<Iterable<Discovery>> future = query.iter();
-		Iterable<Discovery> iter = future.get();
+		Iterable<Discovery> future = query.iter();
+		Iterable<Discovery> iter = future;
 		Iterator<Discovery> it = iter.iterator();
 		int i=0;
 		while(it.hasNext()){
@@ -4965,7 +4950,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(5, i);
 		
 		future = query.nextPage().iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=5;
 		while(it.hasNext()){
@@ -4975,7 +4960,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(10, i);
 		
 		future = query.paginate(8).iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=5;
 		while(it.hasNext()){
@@ -4985,7 +4970,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(13, i);
 		
 		future = query.nextPage().iter();
-		iter = future.get();
+		iter = future;
 		it = iter.iterator();
 		i=13;
 		while(it.hasNext()){
@@ -5003,58 +4988,58 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateless().order("id");
-		SienaFuture<List<Discovery>> future1 = query.limit(50).fetch();
-		SienaFuture<List<Discovery>> future2 = query.offset(50).fetch();
-		SienaFuture<List<Discovery>> future21 = query.limit(70).offset(30).fetch();
-		SienaFuture<List<Discovery>> future3 = query.fetch(50);
-		SienaFuture<List<Discovery>> future4 = query.paginate(50).fetch();
-		SienaFuture<List<Discovery>> future5 = query.nextPage().fetch();
-		SienaFuture<List<Discovery>> future6 = query.nextPage().fetch();
-		SienaFuture<List<Discovery>> future7 = query.previousPage().fetch();
+		List<Discovery> res1 = query.limit(50).fetch();
+		List<Discovery> res2 = query.offset(50).fetch();
+		List<Discovery> res21 = query.limit(70).offset(30).fetch();
+		List<Discovery> res3 = query.fetch(50);
+		List<Discovery> res4 = query.paginate(50).fetch();
+		List<Discovery> res5 = query.nextPage().fetch();
+		List<Discovery> res6 = query.nextPage().fetch();
+		List<Discovery> res7 = query.previousPage().fetch();
 
-		List<Discovery> res = future1.get();
+		List<Discovery> res = res1;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		res = future2.get();
+		res = res2;
 		assertEquals(100, res.size());
 		for(int i=0; i<100; i++){
 			assertEquals(discs[i+50], res.get(i));
 		}
 				
-		res = future21.get();
+		res = res21;
 		assertEquals(70, res.size());
 		for(int i=0; i<70; i++){
 			assertEquals(discs[i+30], res.get(i));
 		}
 		
-		res = future3.get();
+		res = res3;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		res = future4.get();
+		res = res4;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		res = future5.get();
+		res = res5;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50], res.get(i));
 		}
 		
-		res = future6.get();
+		res = res6;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+100], res.get(i));
 		}
 		
-		res = future7.get();
+		res = res7;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50], res.get(i));
@@ -5069,58 +5054,58 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<List<Discovery>> future1 = query.limit(50).fetch();
-		SienaFuture<List<Discovery>> future2 = query.offset(5).fetch(5);
-		SienaFuture<List<Discovery>> future21 = query.limit(70).offset(30).fetch();
-		SienaFuture<List<Discovery>> future3 = query.fetch(50);
-		SienaFuture<List<Discovery>> future4 = query.paginate(50).fetch();
-		SienaFuture<List<Discovery>> future5 = query.nextPage().fetch();
-		SienaFuture<List<Discovery>> future6 = query.nextPage().fetch();
-		SienaFuture<List<Discovery>> future7 = query.previousPage().fetch();
+		List<Discovery> res1 = query.limit(50).fetch();
+		List<Discovery> res2 = query.offset(5).fetch(5);
+		List<Discovery> res21 = query.limit(70).offset(30).fetch();
+		List<Discovery> res3 = query.fetch(50);
+		List<Discovery> res4 = query.paginate(50).fetch();
+		List<Discovery> res5 = query.nextPage().fetch();
+		List<Discovery> res6 = query.nextPage().fetch();
+		List<Discovery> res7 = query.previousPage().fetch();
 
-		List<Discovery> res = future1.get();
+		List<Discovery> res = res1;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		res = future2.get();
+		res = res2;
 		assertEquals(5, res.size());
 		for(int i=0; i<5; i++){
 			assertEquals(discs[i+55], res.get(i));
 		}
 		// 60		
-		res = future21.get();
+		res = res21;
 		assertEquals(70, res.size());
 		for(int i=0; i<70; i++){
 			assertEquals(discs[i+90], res.get(i));
 		}
 		// 160
-		res = future3.get();
+		res = res3;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+160], res.get(i));
 		}
 		
-		res = future4.get();
+		res = res4;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+210], res.get(i));
 		}
 		
-		res = future5.get();
+		res = res5;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+260], res.get(i));
 		}
 		
-		res = future6.get();
+		res = res6;
 		assertEquals(10, res.size());
 		for(int i=0; i<10; i++){
 			assertEquals(discs[i+310], res.get(i));
 		}
 		
-		res = future7.get();
+		res = res7;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+260], res.get(i));
@@ -5177,7 +5162,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert(radioactivity, relativity, foo, teslaCoil).get();
 
 		List<Discovery4Join2> res = pm.createQuery(Discovery4Join2.class)
-				.fetch().get();
+				.fetch();
 		assertEquals(4, res.size());
 		assertEquals(radioactivity, res.get(0));
 		assertEquals(relativity, res.get(1));
@@ -5204,7 +5189,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert(discs).get();
 
 		List<Discovery> res = 
-			pm.createQuery(Discovery.class).fetch().get();
+			pm.createQuery(Discovery.class).fetch();
 		
 		assertEquals(discs.length, res.size());
 		
@@ -5215,7 +5200,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		int nb = pm.update(discs).get();
 		assertEquals(discs.length, nb);
 		res = 
-			pm.createQuery(Discovery.class).fetch().get();
+			pm.createQuery(Discovery.class).fetch();
 		int i=0;
 		for(Discovery disc:res){
 			assertEquals(discs[i++], disc);
@@ -5232,7 +5217,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		assertEquals(discs.size(), nb);
 
 		List<Discovery> res = 
-			pm.createQuery(Discovery.class).fetch().get();
+			pm.createQuery(Discovery.class).fetch();
 		
 		assertEquals(discs.size(), res.size());
 		
@@ -5243,7 +5228,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		nb = pm.update(discs).get();
 		assertEquals(discs.size(), nb);
 		res = 
-			pm.createQuery(Discovery.class).fetch().get();
+			pm.createQuery(Discovery.class).fetch();
 		int i=0;
 		for(Discovery disc:res){
 			assertEquals(discs.get(i++), disc);
@@ -5260,9 +5245,9 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
-		SienaFuture<Iterable<Discovery>> iter = query.iterPerPage(50);
+		Iterable<Discovery> iter = query.iterPerPage(50);
 		int i=0;
-		for(Discovery disc: iter.get()){
+		for(Discovery disc: iter){
 			assertEquals(discs[i++], disc);
 		}	
 		assertEquals(500, i);	
@@ -5276,8 +5261,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
-		SienaFuture<Iterable<Discovery>> iter = query.iterPerPage(50);
-		Iterator<Discovery> it = iter.get().iterator();
+		Iterable<Discovery> iter = query.iterPerPage(50);
+		Iterator<Discovery> it = iter.iterator();
 		int i=0;
 		while(it.hasNext()){
 			assertEquals(discs[i++], it.next());
@@ -5293,8 +5278,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).order("id");
-		SienaFuture<Iterable<Discovery>> iter = query.offset(25).iterPerPage(50);
-		Iterator<Discovery> it = iter.get().iterator();
+		Iterable<Discovery> iter = query.offset(25).iterPerPage(50);
+		Iterator<Discovery> it = iter.iterator();
 		int i=25;
 		while(it.hasNext()){
 			assertEquals(discs[i++], it.next());
@@ -5310,9 +5295,9 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<Iterable<Discovery>> iter = query.iterPerPage(50);
+		Iterable<Discovery> iter = query.iterPerPage(50);
 		int i=0;
-		for(Discovery disc: iter.get()){
+		for(Discovery disc: iter){
 			assertEquals(discs[i++], disc);
 		}	
 		assertEquals(500, i);	
@@ -5326,8 +5311,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<Iterable<Discovery>> iter = query.iterPerPage(50);
-		Iterator<Discovery> it = iter.get().iterator();
+		Iterable<Discovery> iter = query.iterPerPage(50);
+		Iterator<Discovery> it = iter.iterator();
 		int i=0;
 		while(it.hasNext()){
 			assertEquals(discs[i++], it.next());
@@ -5343,8 +5328,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.insert((Object[])discs).get();
 		
 		QueryAsync<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
-		SienaFuture<Iterable<Discovery>> iter = query.offset(25).iterPerPage(50);
-		Iterator<Discovery> it = iter.get().iterator();
+		Iterable<Discovery> iter = query.offset(25).iterPerPage(50);
+		Iterator<Discovery> it = iter.iterator();
 		int i=25;
 		while(it.hasNext()){
 			assertEquals(discs[i++], it.next());
@@ -5382,8 +5367,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.save(maxwell).get();
 		assertNotNull(maxwell.id);
 
-		SienaFuture<List<PersonLongAutoID>> future = queryPersonLongAutoIDOrderBy("n", 0, false).fetch();
-		List<PersonLongAutoID> people = future.get();
+		List<PersonLongAutoID> people = queryPersonLongAutoIDOrderBy("n", 0, false).fetch();
+		
 		assertEquals(4, people.size());
 
 		assertEquals(LongAutoID_TESLA, people.get(0));
@@ -5399,8 +5384,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.save(maxwell).get();
 		assertNotNull(maxwell.id);
 		
-		future = queryPersonLongAutoIDOrderBy("n", 0, false).fetch();
-		people = future.get();
+		people = queryPersonLongAutoIDOrderBy("n", 0, false).fetch();
 		assertEquals(4, people.size());
 
 		assertEquals(LongAutoID_TESLA, people.get(0));
@@ -5419,8 +5403,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.save(maxwell).get();
 		assertNotNull(maxwell.id);
 
-		SienaFuture<List<PersonUUID>> future = queryPersonUUIDOrderBy("n", 0, false).fetch();
-		List<PersonUUID> people = future.get();
+		List<PersonUUID> people = queryPersonUUIDOrderBy("n", 0, false).fetch();
+		
 		assertEquals(4, people.size());
 
 		assertEquals(UUID_TESLA, people.get(0));
@@ -5436,8 +5420,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.save(maxwell).get();
 		assertNotNull(maxwell.id);
 		
-		future = queryPersonUUIDOrderBy("n", 0, false).fetch();
-		people = future.get();
+		people = queryPersonUUIDOrderBy("n", 0, false).fetch();
 		assertEquals(4, people.size());
 
 		assertEquals(UUID_TESLA, people.get(0));
@@ -5458,8 +5441,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.save(maxwell).get();
 		assertEquals((Long)4L, maxwell.id);
 
-		SienaFuture<List<PersonLongManualID>> future = queryPersonLongManualIDOrderBy("n", 0, false).fetch();
-		List<PersonLongManualID> people = future.get();
+		List<PersonLongManualID> people = queryPersonLongManualIDOrderBy("n", 0, false).fetch();
+		
 		assertEquals(4, people.size());
 
 		assertEquals(LongManualID_TESLA, people.get(0));
@@ -5475,8 +5458,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.save(maxwell).get();
 		assertEquals((Long)4L, maxwell.id);
 
-		future = queryPersonLongManualIDOrderBy("n", 0, false).fetch();
-		people = future.get();
+		people = queryPersonLongManualIDOrderBy("n", 0, false).fetch();
 		assertEquals(4, people.size());
 
 		assertEquals(LongManualID_TESLA, people.get(0));
@@ -5496,8 +5478,8 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.save(maxwell).get();
 		assertEquals(maxwell.id, "MAXWELL");
 
-		SienaFuture<List<PersonStringID>> future = queryPersonStringIDOrderBy("n", 0, false).fetch();
-		List<PersonStringID> people = future.get();
+		List<PersonStringID> people = queryPersonStringIDOrderBy("n", 0, false).fetch();
+		
 		assertEquals(4, people.size());
 
 		assertEquals(StringID_TESLA, people.get(0));
@@ -5513,8 +5495,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		pm.save(maxwell).get();
 		assertEquals(maxwell.id, "MAXWELL");
 
-		future = queryPersonStringIDOrderBy("n", 0, false).fetch();
-		people = future.get();
+		people = queryPersonStringIDOrderBy("n", 0, false).fetch();
 		assertEquals(4, people.size());
 
 		assertEquals(StringID_TESLA, people.get(0));
@@ -5530,9 +5511,9 @@ public abstract class BaseAsyncTest extends TestCase {
 		}
 		pm.save(discs).get();
 
-		SienaFuture<List<Discovery>> future = 
+		List<Discovery> res = 
 			pm.createQuery(Discovery.class).fetch();
-		List<Discovery> res = future.get();
+		
 		assertEquals(discs.length, res.size());
 		int i=0;
 		for(Discovery disc:res){
@@ -5546,9 +5527,9 @@ public abstract class BaseAsyncTest extends TestCase {
 		
 		int nb = pm.save(discs).get();
 		assertEquals(discs.length, nb);
-		future = 
+		res = 
 			pm.createQuery(Discovery.class).fetch();
-		res = future.get();
+		
 		i=0;
 		for(Discovery disc:res){
 			assertEquals(discs[i++], disc);
@@ -5565,9 +5546,9 @@ public abstract class BaseAsyncTest extends TestCase {
 		int nb = pm.insert(discs).get();
 		assertEquals(discs.size(), nb);
 		
-		SienaFuture<List<Discovery>> future = 
+		List<Discovery> res = 
 			pm.createQuery(Discovery.class).fetch();
-		List<Discovery> res = future.get();
+		
 		
 		assertEquals(discs.size(), res.size());
 		int i=0;
@@ -5582,9 +5563,9 @@ public abstract class BaseAsyncTest extends TestCase {
 		
 		nb = pm.save(discs).get();
 		assertEquals(discs.size(), nb);
-		future = 
+		res = 
 			pm.createQuery(Discovery.class).fetch();
-		res = future.get();
+		
 		i=0;
 		for(Discovery disc:res){
 			assertEquals(discs.get(i++), disc);
@@ -5639,7 +5620,7 @@ public abstract class BaseAsyncTest extends TestCase {
 		
 		pm.insert(radioactivity, relativity, foo, teslaCoil).get();
 		
-		List<DiscoveryNoColumn> res = pm.createQuery(DiscoveryNoColumn.class).fetch().get();
+		List<DiscoveryNoColumn> res = pm.createQuery(DiscoveryNoColumn.class).fetch();
 		assertEquals(4, res.size());
 		assertEquals(radioactivity, res.get(0));
 		assertEquals(relativity, res.get(1));
