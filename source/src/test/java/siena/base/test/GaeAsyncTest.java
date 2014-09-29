@@ -81,9 +81,9 @@ public class GaeAsyncTest extends BaseAsyncTest {
 			.filter("id IN", Arrays.asList( l.get(0).id, l.get(1).id))
 			.stateful()
 			.paginate(1);
-		SienaFuture<List<PersonUUID>> future = query.fetch();
+		List<PersonUUID> future = query.fetch();
 
-		List<PersonUUID> people = future.get();
+		List<PersonUUID> people = future;
 		QueryOptionGaeContext gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(people);
@@ -91,7 +91,7 @@ public class GaeAsyncTest extends BaseAsyncTest {
 		assertEquals(l.get(0), people.get(0));
 		
 		future = query.nextPage().fetch();
-		people = future.get();
+		people = future;
 		gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);
 		assertNotNull(people);
@@ -109,9 +109,9 @@ public class GaeAsyncTest extends BaseAsyncTest {
 		QueryAsync<Discovery> query = 
 			pm.createQuery(Discovery.class)
 			.filter("id IN", Arrays.asList( discs[48].id, discs[73].id, discs[86].id));
-		SienaFuture<List<Discovery>> future = query.fetch();
+		List<Discovery> future = query.fetch();
 
-		List<Discovery> people = future.get();
+		List<Discovery> people = future;
 		QueryOptionGaeContext gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(people);
@@ -132,9 +132,9 @@ public class GaeAsyncTest extends BaseAsyncTest {
 			pm.createQuery(Discovery.class)
 			.filter("id IN", Arrays.asList( discs[48].id, discs[73].id, discs[86].id))
 			.paginate(2);
-		SienaFuture<List<Discovery>> future = query.fetch();
+		List<Discovery> future = query.fetch();
 
-		List<Discovery> people = future.get();
+		List<Discovery> people = future;
 		QueryOptionGaeContext gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(people);
@@ -143,32 +143,32 @@ public class GaeAsyncTest extends BaseAsyncTest {
 		assertEquals(discs[73], people.get(1));
 		
 		future = query.nextPage().fetch();
-		people = future.get();
+		people = future;
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(people);
 		assertEquals(1, people.size());
 		assertEquals(discs[86], people.get(0));
 		
 		future = query.nextPage().fetch();
-		people = future.get();
+		people = future;
 		assertNotNull(people);
 		assertEquals(0, people.size());
 		
 		future = query.previousPage().fetch();
-		people = future.get();
+		people = future;
 		assertNotNull(people);
 		assertEquals(1, people.size());
 		assertEquals(discs[86], people.get(0));
 		
 		future = query.previousPage().fetch();
-		people = future.get();
+		people = future;
 		assertNotNull(people);
 		assertEquals(2, people.size());
 		assertEquals(discs[48], people.get(0));
 		assertEquals(discs[73], people.get(1));
 		
 		future = query.previousPage().fetch();
-		people = future.get();
+		people = future;
 		assertNotNull(people);
 		assertEquals(0, people.size());
 	}
@@ -185,9 +185,9 @@ public class GaeAsyncTest extends BaseAsyncTest {
 			.filter("id IN", Arrays.asList( discs[48].id, discs[73].id, discs[86].id))
 			.stateful()
 			.paginate(2);
-		SienaFuture<List<Discovery>> future = query.fetch();
+		List<Discovery> future = query.fetch();
 
-		List<Discovery> people = future.get();
+		List<Discovery> people = future;
 		QueryOptionGaeContext gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(people);
@@ -196,32 +196,32 @@ public class GaeAsyncTest extends BaseAsyncTest {
 		assertEquals(discs[73], people.get(1));
 		
 		future = query.nextPage().fetch();
-		people = future.get();
+		people = future;
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(people);
 		assertEquals(1, people.size());
 		assertEquals(discs[86], people.get(0));
 		
 		future = query.nextPage().fetch();
-		people = future.get();
+		people = future;
 		assertNotNull(people);
 		assertEquals(0, people.size());
 		
 		future = query.previousPage().fetch();
-		people = future.get();
+		people = future;
 		assertNotNull(people);
 		assertEquals(1, people.size());
 		assertEquals(discs[86], people.get(0));
 		
 		future = query.previousPage().fetch();
-		people = future.get();
+		people = future;
 		assertNotNull(people);
 		assertEquals(2, people.size());
 		assertEquals(discs[48], people.get(0));
 		assertEquals(discs[73], people.get(1));
 		
 		future = query.previousPage().fetch();
-		people = future.get();
+		people = future;
 		assertNotNull(people);
 		assertEquals(0, people.size());
 	}
@@ -235,9 +235,9 @@ public class GaeAsyncTest extends BaseAsyncTest {
 			.stateful()
 			.paginate(1);
 		
-		SienaFuture<List<PersonUUID>> future = query.fetch();
+		List<PersonUUID> future = query.fetch();
 
-		List<PersonUUID> people = future.get();
+		List<PersonUUID> people = future;
 		QueryOptionGaeContext gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(people);
@@ -245,7 +245,7 @@ public class GaeAsyncTest extends BaseAsyncTest {
 		assertEquals(l.get(1), people.get(0));
 		
 		future = query.nextPage().fetch();
-		people = future.get();
+		people = future;
 
 		gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);
@@ -266,9 +266,9 @@ public class GaeAsyncTest extends BaseAsyncTest {
 			pm.createQuery(Discovery.class)
 			.stateful()
 			.filter("id !=", discs[48].id);
-		SienaFuture<List<Discovery>> future = query.fetch();
+		List<Discovery> future = query.fetch();
 
-		List<Discovery> res = future.get();
+		List<Discovery> res = future;
 		QueryOptionGaeContext gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(res);
@@ -288,9 +288,9 @@ public class GaeAsyncTest extends BaseAsyncTest {
 		QueryAsync<Discovery> query = 
 			pm.createQuery(Discovery.class)
 			.filter("id !=", discs[48].id);
-		SienaFuture<List<Discovery>> future = query.fetch();
+		List<Discovery> future = query.fetch();
 
-		List<Discovery> res = future.get();
+		List<Discovery> res = future;
 		QueryOptionGaeContext gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(res);
@@ -311,9 +311,9 @@ public class GaeAsyncTest extends BaseAsyncTest {
 		QueryAsync<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("even_4", "name").order("name");
 		
-		SienaFuture<List<Discovery4Search>> future = query.fetch();
+		List<Discovery4Search> future = query.fetch();
 
-		List<Discovery4Search> res = future.get();
+		List<Discovery4Search> res = future;
 		assertEquals(1, res.size());
 		assertEquals(discs[4], res.get(0));
 		/*assertEquals(5, res.size());
@@ -334,9 +334,9 @@ public class GaeAsyncTest extends BaseAsyncTest {
 		QueryAsync<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("beta eta", "name");
 		
-		SienaFuture<List<Discovery4Search>> future = query.fetch();
+		List<Discovery4Search> future = query.fetch();
 
-		List<Discovery4Search> res = future.get();
+		List<Discovery4Search> res = future;
 		assertEquals(2, res.size());
 		assertEquals(discs[1], res.get(0));
 		assertEquals(discs[4], res.get(1));
@@ -354,9 +354,9 @@ public class GaeAsyncTest extends BaseAsyncTest {
 		QueryAsync<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("gamma*", "name");
 		
-		SienaFuture<List<Discovery4Search>> future = query.fetch();
+		List<Discovery4Search> future = query.fetch();
 
-		List<Discovery4Search> res = future.get();
+		List<Discovery4Search> res = future;
 		assertEquals(1, res.size());
 		assertEquals(discs[2], res.get(0));
 	}
@@ -373,9 +373,9 @@ public class GaeAsyncTest extends BaseAsyncTest {
 		QueryAsync<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("alpha*", "name");
 		
-		SienaFuture<List<Discovery4Search>> future = query.fetch();
+		List<Discovery4Search> future = query.fetch();
 
-		List<Discovery4Search> res = future.get();
+		List<Discovery4Search> res = future;
 		assertEquals(2, res.size());
 		assertEquals(discs[0], res.get(0));
 		assertEquals(discs[2], res.get(1));
@@ -393,9 +393,9 @@ public class GaeAsyncTest extends BaseAsyncTest {
 		QueryAsync<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("alpha*", "name");
 		
-		SienaFuture<List<Discovery4Search>> future = query.fetchKeys();
+		List<Discovery4Search> future = query.fetchKeys();
 
-		List<Discovery4Search> res = future.get();
+		List<Discovery4Search> res = future;
 		assertEquals(2, res.size());
 		assertEquals(discs[0].id, res.get(0).id);
 		assertTrue(res.get(0).isOnlyIdFilled());
