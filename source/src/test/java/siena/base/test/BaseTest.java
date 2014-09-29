@@ -1369,9 +1369,12 @@ public abstract class BaseTest extends TestCase {
 
 		Discovery relativity2 = pm.createQuery(Discovery.class).filter("discoverer", LongAutoID_EINSTEIN).get();
 		assertTrue(relativity.name.equals(relativity2.name));
-		
+	
+		/***
+		 * Skip this test in GAE as we don't persist null properties anymore
 		Discovery foo2 = pm.createQuery(Discovery.class).filter("name", null).get();
 		assertTrue(foo.id.equals(foo2.id));
+		*/
 	}
 	
 	public void testMultipleKeys() {
