@@ -7,7 +7,7 @@ import siena.Max;
 import siena.Table;
 
 @Table("discoveries")
-public class Discovery {
+public class Discovery implements Comparable<Discovery>{
 
 	@Id(Generator.AUTO_INCREMENT)
 	public Long id;
@@ -52,4 +52,9 @@ public class Discovery {
 	public String toString() {
 		return "Discovery [ id:"+id+" - name:"+name+" - discoverer:"+discoverer+" ]";
 	}
+
+  @Override
+  public int compareTo(Discovery o) {
+    return (int) (this.id - o.id);
+  }
 }
