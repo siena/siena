@@ -97,8 +97,8 @@ public abstract class BaseModelTest extends TestCase {
 	
 	public void testFetchAsync() {
 		QueryAsync<PersonLongAutoIDModel> q = PersonLongAutoIDModel.all().async();
-		SienaFuture<List<PersonLongAutoIDModel>> future = q.fetch();
-		List<PersonLongAutoIDModel> persons = future.get();
+		List<PersonLongAutoIDModel> future = q.fetch();
+		List<PersonLongAutoIDModel> persons = future;
 		assertEquals(3, persons.size());
 		assertEquals(PERSON_LONGAUTOID_TESLA, persons.get(0));
 		assertEquals(PERSON_LONGAUTOID_CURIE, persons.get(1));
@@ -108,15 +108,15 @@ public abstract class BaseModelTest extends TestCase {
 	public void testFetchAsync2Models() {
 		QueryAsync<PersonLongAutoIDModel> q = PersonLongAutoIDModel.all().async();
 		QueryAsync<DiscoveryModel> q2 = DiscoveryModel.all().async();
-		SienaFuture<List<PersonLongAutoIDModel>> future = q.fetch();
-		SienaFuture<List<DiscoveryModel>> future2 = q2.fetch();
-		List<PersonLongAutoIDModel> persons = future.get();
+		List<PersonLongAutoIDModel> future = q.fetch();
+		List<DiscoveryModel> future2 = q2.fetch();
+		List<PersonLongAutoIDModel> persons = future;
 		assertEquals(3, persons.size());
 		assertEquals(PERSON_LONGAUTOID_TESLA, persons.get(0));
 		assertEquals(PERSON_LONGAUTOID_CURIE, persons.get(1));
 		assertEquals(PERSON_LONGAUTOID_EINSTEIN, persons.get(2));
 		
-		List<DiscoveryModel> res = future2.get();
+		List<DiscoveryModel> res = future2;
 		assertEquals(200, res.size());
 		for(int i=0; i<200; i++){
 			assertEquals(discs[i], res.get(i));
@@ -126,27 +126,27 @@ public abstract class BaseModelTest extends TestCase {
 	public void testFetchAsyncAndGetAndResetAsync2Models() {
 		QueryAsync<DiscoveryModel> qd = DiscoveryModel.all().async();
 		QueryAsync<PersonLongAutoIDModel> qp = PersonLongAutoIDModel.all().async();
-		SienaFuture<List<DiscoveryModel>> futured = qd.fetch();
-		SienaFuture<PersonLongAutoIDModel> futurep1 = qp.filter("lastName", "Tesla").get();
-		SienaFuture<PersonLongAutoIDModel> futurep2 = qp.resetData().filter("lastName", "Curie").get();
+		List<DiscoveryModel> futured = qd.fetch();
+		PersonLongAutoIDModel futurep1 = qp.filter("lastName", "Tesla").get();
+		PersonLongAutoIDModel futurep2 = qp.resetData().filter("lastName", "Curie").get();
 		
-		List<DiscoveryModel> res = futured.get();
+		List<DiscoveryModel> res = futured;
 		assertEquals(200, res.size());
 		for(int i=0; i<200; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		PersonLongAutoIDModel person = futurep1.get();
+		PersonLongAutoIDModel person = futurep1;
 		assertEquals(PERSON_LONGAUTOID_TESLA, person);
-		PersonLongAutoIDModel person2 = futurep2.get();
+		PersonLongAutoIDModel person2 = futurep2;
 		assertEquals(PERSON_LONGAUTOID_CURIE, person2);
 	}
 	
 	public void testFetchPaginateSyncAndGetAndResetAsync2Models() {
 		Query<DiscoveryModel> qd = DiscoveryModel.all();
 		QueryAsync<PersonLongAutoIDModel> qp = PersonLongAutoIDModel.all().async();
-		SienaFuture<PersonLongAutoIDModel> futurep1 = qp.filter("lastName", "Tesla").get();
-		SienaFuture<PersonLongAutoIDModel> futurep2 = qp.resetData().filter("lastName", "Curie").get();
+		PersonLongAutoIDModel futurep1 = qp.filter("lastName", "Tesla").get();
+		PersonLongAutoIDModel futurep2 = qp.resetData().filter("lastName", "Curie").get();
 		
 		List<DiscoveryModel> res = qd.fetch();
 		assertEquals(200, res.size());
@@ -154,23 +154,23 @@ public abstract class BaseModelTest extends TestCase {
 			assertEquals(discs[i], res.get(i));
 		}
 		
-		PersonLongAutoIDModel person = futurep1.get();
+		PersonLongAutoIDModel person = futurep1;
 		assertEquals(PERSON_LONGAUTOID_TESLA, person);
-		PersonLongAutoIDModel person2 = futurep2.get();
+		PersonLongAutoIDModel person2 = futurep2;
 		assertEquals(PERSON_LONGAUTOID_CURIE, person2);
 	}
 	
 	public void testFetchAsyncAndGetAndResetSync2Models() {
 		QueryAsync<DiscoveryModel> qd = DiscoveryModel.all().async();
 		Query<PersonLongAutoIDModel> qp = PersonLongAutoIDModel.all();
-		SienaFuture<List<DiscoveryModel>> futured = qd.fetch();
+		List<DiscoveryModel> futured = qd.fetch();
 		
 		PersonLongAutoIDModel person = qp.filter("lastName", "Tesla").get();
 		assertEquals(PERSON_LONGAUTOID_TESLA, person);
 		PersonLongAutoIDModel person2 = qp.resetData().filter("lastName", "Curie").get();		
 		assertEquals(PERSON_LONGAUTOID_CURIE, person2);
 		
-		List<DiscoveryModel> res = futured.get();
+		List<DiscoveryModel> res = futured;
 		assertEquals(200, res.size());
 		for(int i=0; i<200; i++){
 			assertEquals(discs[i], res.get(i));
@@ -180,13 +180,13 @@ public abstract class BaseModelTest extends TestCase {
 	public void testFetchPaginateAsyncAndGetAndResetAsync2Models() {
 		QueryAsync<DiscoveryModel> qd = DiscoveryModel.all().async();
 		QueryAsync<PersonLongAutoIDModel> qp = PersonLongAutoIDModel.all().async();
-		SienaFuture<List<DiscoveryModel>> futured = qd.paginate(50).fetch();
+		List<DiscoveryModel> futured = qd.paginate(50).fetch();
 
-		SienaFuture<PersonLongAutoIDModel> futurep1 = qp.filter("lastName", "Tesla").get();
-		PersonLongAutoIDModel person = futurep1.get();
+		PersonLongAutoIDModel futurep1 = qp.filter("lastName", "Tesla").get();
+		PersonLongAutoIDModel person = futurep1;
 		assertEquals(PERSON_LONGAUTOID_TESLA, person);
 		
-		List<DiscoveryModel> res = futured.get();
+		List<DiscoveryModel> res = futured;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
@@ -194,11 +194,11 @@ public abstract class BaseModelTest extends TestCase {
 
 		futured = qd.nextPage().fetch();
 		
-		SienaFuture<PersonLongAutoIDModel> futurep2 = qp.resetData().filter("lastName", "Curie").get();
-		PersonLongAutoIDModel person2 = futurep2.get();
+		PersonLongAutoIDModel futurep2 = qp.resetData().filter("lastName", "Curie").get();
+		PersonLongAutoIDModel person2 = futurep2;
 		assertEquals(PERSON_LONGAUTOID_CURIE, person2);
 		
-		res = futured.get();
+		res = futured;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50], res.get(i));
@@ -208,13 +208,13 @@ public abstract class BaseModelTest extends TestCase {
 	public void testFetchPaginateAsyncStatefulAndGetAndResetAsync2Models() {
 		QueryAsync<DiscoveryModel> qd = DiscoveryModel.all().async().stateful();
 		QueryAsync<PersonLongAutoIDModel> qp = PersonLongAutoIDModel.all().async();
-		SienaFuture<List<DiscoveryModel>> futured = qd.paginate(50).fetch();
+		List<DiscoveryModel> futured = qd.paginate(50).fetch();
 
-		SienaFuture<PersonLongAutoIDModel> futurep1 = qp.filter("lastName", "Tesla").get();
-		PersonLongAutoIDModel person = futurep1.get();
+		PersonLongAutoIDModel futurep1 = qp.filter("lastName", "Tesla").get();
+		PersonLongAutoIDModel person = futurep1;
 		assertEquals(PERSON_LONGAUTOID_TESLA, person);
 		
-		List<DiscoveryModel> res = futured.get();
+		List<DiscoveryModel> res = futured;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
@@ -222,11 +222,11 @@ public abstract class BaseModelTest extends TestCase {
 
 		futured = qd.nextPage().fetch();
 		
-		SienaFuture<PersonLongAutoIDModel> futurep2 = qp.resetData().filter("lastName", "Curie").get();
-		PersonLongAutoIDModel person2 = futurep2.get();
+		PersonLongAutoIDModel futurep2 = qp.resetData().filter("lastName", "Curie").get();
+		PersonLongAutoIDModel person2 = futurep2;
 		assertEquals(PERSON_LONGAUTOID_CURIE, person2);
 		
-		res = futured.get();
+		res = futured;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50], res.get(i));
@@ -236,13 +236,13 @@ public abstract class BaseModelTest extends TestCase {
 	public void testFetchPaginateStatefulAsyncAndGetAndResetAsync2Models() {
 		QueryAsync<DiscoveryModel> qd = DiscoveryModel.all().stateful().async();
 		QueryAsync<PersonLongAutoIDModel> qp = PersonLongAutoIDModel.all().async();
-		SienaFuture<List<DiscoveryModel>> futured = qd.paginate(50).fetch();
+		List<DiscoveryModel> futured = qd.paginate(50).fetch();
 
-		SienaFuture<PersonLongAutoIDModel> futurep1 = qp.filter("lastName", "Tesla").get();
-		PersonLongAutoIDModel person = futurep1.get();
+		PersonLongAutoIDModel futurep1 = qp.filter("lastName", "Tesla").get();
+		PersonLongAutoIDModel person = futurep1;
 		assertEquals(PERSON_LONGAUTOID_TESLA, person);
 		
-		List<DiscoveryModel> res = futured.get();
+		List<DiscoveryModel> res = futured;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
@@ -250,11 +250,11 @@ public abstract class BaseModelTest extends TestCase {
 
 		futured = qd.nextPage().fetch();
 		
-		SienaFuture<PersonLongAutoIDModel> futurep2 = qp.resetData().filter("lastName", "Curie").get();
-		PersonLongAutoIDModel person2 = futurep2.get();
+		PersonLongAutoIDModel futurep2 = qp.resetData().filter("lastName", "Curie").get();
+		PersonLongAutoIDModel person2 = futurep2;
 		assertEquals(PERSON_LONGAUTOID_CURIE, person2);
 		
-		res = futured.get();
+		res = futured;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50], res.get(i));
@@ -264,12 +264,12 @@ public abstract class BaseModelTest extends TestCase {
 	public void testFetchPaginateStatefulAsyncAndGetAndResetSync2Models() {
 		QueryAsync<DiscoveryModel> qd = DiscoveryModel.all().stateful().async();
 		Query<PersonLongAutoIDModel> qp = PersonLongAutoIDModel.all();
-		SienaFuture<List<DiscoveryModel>> futured = qd.paginate(50).fetch();
+		List<DiscoveryModel> futured = qd.paginate(50).fetch();
 
 		PersonLongAutoIDModel person = qp.filter("lastName", "Tesla").get();
 		assertEquals(PERSON_LONGAUTOID_TESLA, person);
 		
-		List<DiscoveryModel> res = futured.get();
+		List<DiscoveryModel> res = futured;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
@@ -280,7 +280,7 @@ public abstract class BaseModelTest extends TestCase {
 		PersonLongAutoIDModel person2 = qp.resetData().filter("lastName", "Curie").get();
 		assertEquals(PERSON_LONGAUTOID_CURIE, person2);
 		
-		res = futured.get();
+		res = futured;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50], res.get(i));
@@ -290,12 +290,12 @@ public abstract class BaseModelTest extends TestCase {
 	public void testFetchPaginateAsync2Sync2AsyncAndGetAndResetSync2Models() {
 		QueryAsync<DiscoveryModel> qd = DiscoveryModel.all().async();
 		Query<PersonLongAutoIDModel> qp = PersonLongAutoIDModel.all();
-		SienaFuture<List<DiscoveryModel>> futured = qd.paginate(50).fetch();
+		List<DiscoveryModel> futured = qd.paginate(50).fetch();
 
 		PersonLongAutoIDModel person = qp.filter("lastName", "Tesla").get();
 		assertEquals(PERSON_LONGAUTOID_TESLA, person);
 		
-		List<DiscoveryModel> res = futured.get();
+		List<DiscoveryModel> res = futured;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
@@ -314,7 +314,7 @@ public abstract class BaseModelTest extends TestCase {
 		assertEquals(PERSON_LONGAUTOID_EINSTEIN, person3);
 
 		futured = qd.nextPage().fetch();
-		res = futured.get();
+		res = futured;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+100], res.get(i));
@@ -330,11 +330,11 @@ public abstract class BaseModelTest extends TestCase {
 		}
 		
 		futured = qd.nextPage().fetch();
-		res = futured.get();
+		res = futured;
 		assertEquals(0, res.size());
 
 		futured = qd.nextPage().fetch();
-		res = futured.get();
+		res = futured;
 		assertEquals(0, res.size());
 		
 		person3 = qp.resetData().filter("lastName", "Einstein").get();
@@ -347,7 +347,7 @@ public abstract class BaseModelTest extends TestCase {
 		}
 		
 		futured = qd.previousPage().fetch();
-		res = futured.get();
+		res = futured;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+100], res.get(i));
@@ -360,7 +360,7 @@ public abstract class BaseModelTest extends TestCase {
 		}
 		
 		futured = qd.previousPage().fetch();
-		res = futured.get();
+		res = futured;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
@@ -370,7 +370,7 @@ public abstract class BaseModelTest extends TestCase {
 		assertEquals(0, res.size()); 
 		
 		futured = qd.nextPage().fetch();
-		res = futured.get();
+		res = futured;
 		assertEquals(50, res.size());
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
@@ -386,7 +386,7 @@ public abstract class BaseModelTest extends TestCase {
 		assertEquals(0, res.size()); 
 		
 		futured = qd.previousPage().fetch();
-		res = futured.get();
+		res = futured;
 		assertEquals(0, res.size()); 
 	}
 	
@@ -447,75 +447,75 @@ public abstract class BaseModelTest extends TestCase {
 	
 	public void testFetchPaginateStatefulAsyncUpdateData() {
 		QueryAsync<DiscoveryModel> qd = DiscoveryModel.all().stateful().async();
-		SienaFuture<List<DiscoveryModel>> future = qd.paginate(200).fetch();
+		List<DiscoveryModel> future = qd.paginate(200).fetch();
 		
-		List<DiscoveryModel> res = future.get();
+		List<DiscoveryModel> res = future;
 		assertEquals(200, res.size()); 
 		for(int i=0; i<200; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
 		future = qd.nextPage().fetch();
-		res = future.get();
+		res = future;
 		assertEquals(0, res.size()); 
 		
 		DiscoveryModel disc = new DiscoveryModel("Disc_201", PERSON_LONGAUTOID_CURIE);
 		disc.insert();
 		
 		future = qd.fetch();
-		res = future.get();
+		res = future;
 		assertEquals(1, res.size()); 
 		assertEquals(disc, res.get(0));
 		
 		future = qd.nextPage().fetch();
-		res = future.get();
+		res = future;
 		assertEquals(0, res.size()); 
 		
 		future = qd.previousPage().fetch();
-		res = future.get();
+		res = future;
 		assertEquals(1, res.size()); 
 		assertEquals(disc, res.get(0));
 	}
 
 	public void testFetchPaginateStatelessAsyncUpdateData() {
 		QueryAsync<DiscoveryModel> qd = DiscoveryModel.all().async();
-		SienaFuture<List<DiscoveryModel>> future = qd.paginate(200).fetch();
+		List<DiscoveryModel> future = qd.paginate(200).fetch();
 
-		List<DiscoveryModel> res = future.get();
+		List<DiscoveryModel> res = future;
 		assertEquals(200, res.size()); 
 		for(int i=0; i<200; i++){
 			assertEquals(discs[i], res.get(i));
 		}
 		
 		future = qd.nextPage().fetch();
-		res = future.get();
+		res = future;
 		assertEquals(0, res.size()); 
 		
 		DiscoveryModel disc = new DiscoveryModel("Disc_201", PERSON_LONGAUTOID_CURIE);
 		disc.insert();
 		
 		future = qd.fetch();
-		res = future.get();
+		res = future;
 		assertEquals(1, res.size()); 
 		assertEquals(disc, res.get(0));
 		
 		future = qd.nextPage().fetch();
-		res = future.get();
+		res = future;
 		assertEquals(0, res.size()); 
 		
 		future = qd.previousPage().fetch();
-		res = future.get();
+		res = future;
 		assertEquals(1, res.size()); 
 		assertEquals(disc, res.get(0));
 	}
 	
 	public void testFetchPaginateStatefulRealAsyncUpdateData() {
 		QueryAsync<DiscoveryModel> qd = DiscoveryModel.all().stateful().async();
-		SienaFuture<List<DiscoveryModel>> future = qd.paginate(200).fetch();
+		List<DiscoveryModel> future = qd.paginate(200).fetch();
 		DiscoveryModel disc = new DiscoveryModel("Disc_201", PERSON_LONGAUTOID_CURIE);
 		SienaFuture<Void> futureDisc = disc.async().insert();
 		
-		List<DiscoveryModel> res = future.get();
+		List<DiscoveryModel> res = future;
 		assertEquals(200, res.size()); 
 		for(int i=0; i<200; i++){
 			assertEquals(discs[i], res.get(i));
@@ -523,17 +523,17 @@ public abstract class BaseModelTest extends TestCase {
 		
 		futureDisc.get();
 		
-		SienaFuture<List<DiscoveryModel>> future2 = qd.nextPage().fetch();
-		res = future2.get();
+		List<DiscoveryModel> future2 = qd.nextPage().fetch();
+		res = future2;
 		assertEquals(1, res.size()); 
 		assertEquals(disc, res.get(0));
 		
 		future = qd.nextPage().fetch();
-		res = future.get();
+		res = future;
 		assertEquals(0, res.size()); 
 		
 		future = qd.previousPage().fetch();
-		res = future.get();
+		res = future;
 		assertEquals(1, res.size()); 
 		assertEquals(disc, res.get(0));
 	}
@@ -563,7 +563,6 @@ public abstract class BaseModelTest extends TestCase {
 		mod.type = SampleModel.Type.FOO;
 		
 		SienaFuture<Void> future = mod.async().insert();
-		future.get();
 		
 		List<SampleModel> res = SampleModel.all().fetch();
 		for(SampleModel m: res){
@@ -672,8 +671,8 @@ public abstract class BaseModelTest extends TestCase {
 		mod2.relationship = mod;
 		mod2.async().insert().get();
 		
-		SienaFuture<List<SampleModel>> future = SampleModel.all().async().fetch();
-		List<SampleModel> res = future.get();
+		List<SampleModel> future = SampleModel.all().async().fetch();
+		List<SampleModel> res = future;
 		for(SampleModel m: res){
 			assertEquals(mod, m);
 			List<SampleModel2> res2 = mod.links.fetch();
@@ -696,12 +695,12 @@ public abstract class BaseModelTest extends TestCase {
 		mod2.relationship = mod;
 		mod2.async().insert().get();
 		
-		SienaFuture<List<SampleModel>> future = SampleModel.all().async().fetch();
-		List<SampleModel> res = future.get();
+		List<SampleModel> future = SampleModel.all().async().fetch();
+		List<SampleModel> res = future;
 		for(SampleModel m: res){
 			assertEquals(mod, m);
-			SienaFuture<List<SampleModel2>> future2 = mod.links.async().fetch();
-			List<SampleModel2> res2 = future2.get();
+			List<SampleModel2> future2 = mod.links.async().fetch();
+			List<SampleModel2> res2 = future2;
 			assertEquals(1, res2.size());
 			assertEquals(mod2, res2.get(0));
 		}
