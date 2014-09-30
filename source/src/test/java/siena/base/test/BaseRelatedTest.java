@@ -362,12 +362,14 @@ public abstract class BaseRelatedTest extends TestCase {
 		}
 		
 		// update 
+    Collections.sort(adams);
 		adams.get(57).name = "adam57_modified";
 		adams.get(57).update();
 		
 		RelatedManyParent godbis = Model.all(RelatedManyParent.class).filter("name", god.name).get();
 		
 		List<RelatedManyChild> children = godbis.children.asList();
+    Collections.sort(children);
 		for(int i=0; i<100; i++){
 			if(i!=57){
 				assertEquals(adams.get(i), children.get(i));
@@ -407,6 +409,7 @@ public abstract class BaseRelatedTest extends TestCase {
 		RelatedManyParent godbis = Model.all(RelatedManyParent.class).filter("name", god.name).get();
 		
 		List<RelatedManyChild> children = godbis.children.asList();
+    Collections.sort(adams);
 		for(int i=0; i<99; i++){
 			if(i<57){
 				assertEquals(adams.get(i), children.get(i));
@@ -443,6 +446,7 @@ public abstract class BaseRelatedTest extends TestCase {
 		RelatedManyParent godbis = Model.all(RelatedManyParent.class).filter("name", god.name).get();
 		
 		List<RelatedManyChild> children = godbis.children.asList();
+    Collections.sort(adams);
 		for(int i=0; i<101; i++){
 			if(i<100){
 				assertEquals(adams.get(i), children.get(i));
@@ -483,6 +487,7 @@ public abstract class BaseRelatedTest extends TestCase {
 		RelatedManyParent godbis = Model.all(RelatedManyParent.class).filter("name", god.name).get();
 		
 		List<RelatedManyChild> children = godbis.children.asList();
+    Collections.sort(adams);
 		for(int i=0; i<101; i++){
 			if(i<100){
 				assertEquals(adams.get(i), children.get(i));
