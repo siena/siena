@@ -1916,7 +1916,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		List<Discovery> res = query.fetch();
@@ -1936,7 +1936,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		List<Discovery> res = query.fetch();
@@ -1971,7 +1971,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		List<Discovery> res = query.previousPage().fetch();
@@ -1995,7 +1995,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		List<Discovery> res = query.nextPage().fetch();
@@ -2016,7 +2016,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<15; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
 		List<Discovery> res = query.fetch();
@@ -2056,7 +2056,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
 		List<Discovery> res = query.fetch();
@@ -2079,7 +2079,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name").stateful();
 		List<Discovery> res = query.fetch();
@@ -2114,7 +2114,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
 		List<Discovery> res = query.previousPage().fetch();
@@ -2138,7 +2138,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
 		List<Discovery> res = query.fetch();
@@ -2165,7 +2165,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<15; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs); 
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
 		List<Discovery> res = query.fetch();
@@ -2204,7 +2204,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		List<Discovery> res = query.fetchKeys();
@@ -2226,7 +2226,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		List<Discovery> res = query.previousPage().fetchKeys();
@@ -2241,7 +2241,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		List<Discovery> res = query.nextPage().fetchKeys();
@@ -2264,7 +2264,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<15; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
 		List<Discovery> res = query.fetchKeys();
@@ -2308,7 +2308,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
 		List<Discovery> res = query.fetchKeys();
@@ -2331,7 +2331,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
 		List<Discovery> res = query.previousPage().fetchKeys();
@@ -2346,7 +2346,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
 		List<Discovery> res = query.fetchKeys();
@@ -2376,7 +2376,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<15; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
 		List<Discovery> res = query.fetchKeys();
@@ -2415,7 +2415,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		try {
@@ -2443,7 +2443,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		Iterable<Discovery> iter = query.previousPage().iter();
@@ -2469,7 +2469,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("name");
 		Iterable<Discovery> iter = query.nextPage().iter();
@@ -2495,7 +2495,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<15; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
 		Iterable<Discovery> iter = query.iter();
@@ -2543,7 +2543,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
 		Iterable<Discovery> iter = query.iter();
@@ -2568,7 +2568,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
 		Iterable<Discovery> iter = query.previousPage().iter();
@@ -2594,7 +2594,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<10; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("name");
 		Iterable<Discovery> iter = query.iter();
@@ -2630,7 +2630,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<15; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).stateful().order("id");
 		Iterable<Discovery> iter = query.iter();
@@ -2683,7 +2683,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		Iterable<Discovery> iter = query.iter();
@@ -2701,7 +2701,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> iter = query.iter();
@@ -2719,7 +2719,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> res = query.iter(50);
@@ -2754,7 +2754,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> iter = query.paginate(50).iter();
@@ -2782,7 +2782,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> iter = query.iter(50);
@@ -2826,7 +2826,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.paginate(50).fetch();
@@ -2859,7 +2859,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.fetch(50);
@@ -2892,7 +2892,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.fetch(50);
@@ -3006,7 +3006,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<200; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.fetch(50);
@@ -3046,7 +3046,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.fetch(50);
@@ -3070,7 +3070,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<100; i++){
 			discs[i] = new Discovery4Search("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); 
 
 		Query<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("Disc_5", "name");
@@ -3086,7 +3086,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<100; i++){
 			discs[i] = new Discovery4Search("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); 
 
 		Query<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("Disc_5", "name");
@@ -3103,7 +3103,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<100; i++){
 			discs[i] = new Discovery4Search("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); 
 
 		Query<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("Disc_5", "name");
@@ -3128,7 +3128,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<100; i++){
 			discs[i] = new Discovery4Search("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); 
 
 		Query<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("Disc_5", "name");
@@ -3150,6 +3150,7 @@ public abstract class BaseTest extends TestCase {
 			pm.createQuery(Discovery.class).fetch();
 		
 		assertEquals(discs.length, res.size());
+		Arrays.sort(discs);
 		int i=0;
 		for(Discovery disc:res){
 			assertEquals(discs[i++], disc);
@@ -3167,6 +3168,8 @@ public abstract class BaseTest extends TestCase {
 			pm.createQuery(Discovery.class).fetch();
 		
 		assertEquals(discs.size(), res.size());
+    Collections.sort(discs);
+
 		int i=0;
 		for(Discovery disc:res){
 			assertEquals(discs.get(i++), disc);
@@ -3248,7 +3251,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<100; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Discovery[] discs2Get = new Discovery[100];
 		for(int i=0; i<100; i++){
@@ -3271,7 +3274,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<100; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		List<Discovery> discs2Get = new ArrayList<Discovery>();
 		for(int i=0; i<100; i++){
@@ -3302,7 +3305,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<100; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		List<Long> discsKeys = new ArrayList<Long>();
 		for(int i=0; i<100; i++){
@@ -3375,7 +3378,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateless().order("id");
 		List<Discovery> res = query.limit(50).fetch();
@@ -3408,7 +3411,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.limit(50).fetch();
@@ -3435,7 +3438,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		List<Discovery> res = query.offset(50).fetch();
@@ -3450,7 +3453,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.offset(50).fetch();
@@ -3465,7 +3468,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		List<Discovery> res = query.offset(50).limit(50).fetch();
@@ -3480,7 +3483,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.offset(50).limit(50).fetch();
@@ -3496,7 +3499,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		List<Discovery> res = query.paginate(50).fetch();
@@ -3536,7 +3539,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<300; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id").stateful();
 		List<Discovery> res = query.paginate(50).fetch();
@@ -3581,7 +3584,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<300; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		List<Discovery> res = query.limit(50).offset(12).fetch();
@@ -3658,7 +3661,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<300; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id").stateful();
 		List<Discovery> res = query.limit(50).offset(12).fetch();
@@ -3731,7 +3734,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<15; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
 		List<Discovery> res = query.fetch();
@@ -3764,7 +3767,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<15; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().paginate(5).order("id");
 		List<Discovery> res = query.fetch();
@@ -3798,7 +3801,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateless().order("id");
 		List<Discovery> res = query.limit(50).fetchKeys();
@@ -3835,7 +3838,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.limit(50).fetchKeys();
@@ -3865,7 +3868,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		List<Discovery> res = query.offset(50).fetchKeys();
@@ -3881,7 +3884,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.offset(50).fetchKeys();
@@ -3897,7 +3900,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		List<Discovery> res = query.offset(50).limit(50).fetchKeys();
@@ -3913,7 +3916,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		List<Discovery> res = query.offset(50).limit(50).fetchKeys();
@@ -3930,7 +3933,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		List<Discovery> res = query.paginate(50).fetchKeys();
@@ -3975,7 +3978,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<300; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id").stateful();
 		List<Discovery> res = query.paginate(50).fetchKeys();
@@ -4025,7 +4028,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<300; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		List<Discovery> res = query.limit(50).offset(12).fetchKeys();
@@ -4107,7 +4110,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<300; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id").stateful();
 		List<Discovery> res = query.limit(50).offset(12).fetchKeys();
@@ -4190,7 +4193,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<15; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
 		List<Discovery> res = query.fetchKeys();
@@ -4227,7 +4230,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<15; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().paginate(5).order("id");
 		List<Discovery> res = query.fetchKeys();
@@ -4264,7 +4267,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateless().order("id");
 		Iterable<Discovery> iter = query.limit(50).iter();
@@ -4309,7 +4312,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> iter = query.limit(50).iter();
@@ -4345,7 +4348,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		Iterable<Discovery> iter = query.offset(50).iter();
@@ -4363,7 +4366,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> iter = query.offset(50).iter();
@@ -4381,7 +4384,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		Iterable<Discovery> iter = query.offset(50).limit(50).iter();
@@ -4399,7 +4402,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> iter = query.offset(50).limit(50).iter();
@@ -4417,7 +4420,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<150; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		Iterable<Discovery> iter = query.paginate(50).iter();
@@ -4471,7 +4474,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<300; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> iter = query.paginate(50).iter();
@@ -4531,7 +4534,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<300; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		Iterable<Discovery> iter = query.limit(50).offset(12).iter();
@@ -4638,7 +4641,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<300; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> iter = query.limit(50).offset(12).iter();
@@ -4745,7 +4748,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<15; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).paginate(5).order("id");
 		Iterable<Discovery> iter = query.iter();
@@ -4790,7 +4793,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<15; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().paginate(5).order("id");
 		Iterable<Discovery> iter = query.iter();
@@ -4941,7 +4944,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<500; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		Iterable<Discovery> iter = query.iterPerPage(50);
@@ -4957,7 +4960,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<500; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		Iterable<Discovery> iter = query.iterPerPage(50);
@@ -4974,7 +4977,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<500; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).order("id");
 		Iterable<Discovery> iter = query.offset(25).iterPerPage(50);
@@ -4991,7 +4994,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<500; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> iter = query.iterPerPage(50);
@@ -5007,7 +5010,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<500; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> iter = query.iterPerPage(50);
@@ -5024,7 +5027,7 @@ public abstract class BaseTest extends TestCase {
 		for(int i=0; i<500; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs); Arrays.sort(discs);
 		
 		Query<Discovery> query = pm.createQuery(Discovery.class).stateful().order("id");
 		Iterable<Discovery> iter = query.offset(25).iterPerPage(50);
@@ -5110,6 +5113,8 @@ public abstract class BaseTest extends TestCase {
 		assertEquals(discs.length, nb);
 		res = 
 			pm.createQuery(Discovery.class).fetch();
+    Arrays.sort(discs);
+
 		int i=0;
 		for(Discovery disc:res){
 			assertEquals(discs[i++], disc);
@@ -5138,6 +5143,8 @@ public abstract class BaseTest extends TestCase {
 		assertEquals(discs.size(), nb);
 		res = 
 			pm.createQuery(Discovery.class).fetch();
+    Collections.sort(discs);
+
 		int i=0;
 		for(Discovery disc:res){
 			assertEquals(discs.get(i++), disc);
@@ -5324,6 +5331,7 @@ public abstract class BaseTest extends TestCase {
 			pm.createQuery(Discovery.class).fetch();
 		
 		assertEquals(discs.length, res.size());
+    Arrays.sort(discs);
 		int i=0;
 		for(Discovery disc:res){
 			assertEquals(discs[i++], disc);
@@ -5358,6 +5366,7 @@ public abstract class BaseTest extends TestCase {
 			pm.createQuery(Discovery.class).fetch();
 		
 		assertEquals(discs.size(), res.size());
+    Collections.sort(discs);
 		int i=0;
 		for(Discovery disc:res){
 			assertEquals(discs.get(i++), disc);
