@@ -118,6 +118,7 @@ public abstract class BaseModelTest extends TestCase {
 		
 		List<DiscoveryModel> res = future2;
 		assertEquals(200, res.size());
+    Arrays.sort(discs);
 		for(int i=0; i<200; i++){
 			assertEquals(discs[i], res.get(i));
 		}
@@ -132,6 +133,7 @@ public abstract class BaseModelTest extends TestCase {
 		
 		List<DiscoveryModel> res = futured;
 		assertEquals(200, res.size());
+    Arrays.sort(discs);
 		for(int i=0; i<200; i++){
 			assertEquals(discs[i], res.get(i));
 		}
@@ -150,6 +152,7 @@ public abstract class BaseModelTest extends TestCase {
 		
 		List<DiscoveryModel> res = qd.fetch();
 		assertEquals(200, res.size());
+    Arrays.sort(discs);
 		for(int i=0; i<200; i++){
 			assertEquals(discs[i], res.get(i));
 		}
@@ -172,6 +175,7 @@ public abstract class BaseModelTest extends TestCase {
 		
 		List<DiscoveryModel> res = futured;
 		assertEquals(200, res.size());
+    Arrays.sort(discs);
 		for(int i=0; i<200; i++){
 			assertEquals(discs[i], res.get(i));
 		}
@@ -188,6 +192,7 @@ public abstract class BaseModelTest extends TestCase {
 		
 		List<DiscoveryModel> res = futured;
 		assertEquals(50, res.size());
+    Arrays.sort(discs);
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
@@ -216,6 +221,7 @@ public abstract class BaseModelTest extends TestCase {
 		
 		List<DiscoveryModel> res = futured;
 		assertEquals(50, res.size());
+		Arrays.sort(discs);
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
@@ -244,6 +250,7 @@ public abstract class BaseModelTest extends TestCase {
 		
 		List<DiscoveryModel> res = futured;
 		assertEquals(50, res.size());
+    Arrays.sort(discs);
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
@@ -271,6 +278,7 @@ public abstract class BaseModelTest extends TestCase {
 		
 		List<DiscoveryModel> res = futured;
 		assertEquals(50, res.size());
+    Arrays.sort(discs);
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
@@ -297,6 +305,7 @@ public abstract class BaseModelTest extends TestCase {
 		
 		List<DiscoveryModel> res = futured;
 		assertEquals(50, res.size());
+    Arrays.sort(discs);
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i], res.get(i));
 		}
@@ -306,6 +315,7 @@ public abstract class BaseModelTest extends TestCase {
 		
 		res = qd.sync().nextPage().fetch();
 		assertEquals(50, res.size());
+    Arrays.sort(discs);
 		for(int i=0; i<50; i++){
 			assertEquals(discs[i+50], res.get(i));
 		}
@@ -396,6 +406,7 @@ public abstract class BaseModelTest extends TestCase {
 		List<DiscoveryModel> res = qd.paginate(200).fetch();
 
 		assertEquals(200, res.size()); 
+    Arrays.sort(discs);
 		for(int i=0; i<200; i++){
 			assertEquals(discs[i], res.get(i));
 		}
@@ -423,6 +434,7 @@ public abstract class BaseModelTest extends TestCase {
 		List<DiscoveryModel> res = qd.paginate(200).fetch();
 
 		assertEquals(200, res.size()); 
+    Arrays.sort(discs);
 		for(int i=0; i<200; i++){
 			assertEquals(discs[i], res.get(i));
 		}
@@ -451,6 +463,7 @@ public abstract class BaseModelTest extends TestCase {
 		
 		List<DiscoveryModel> res = future;
 		assertEquals(200, res.size()); 
+    Arrays.sort(discs);
 		for(int i=0; i<200; i++){
 			assertEquals(discs[i], res.get(i));
 		}
@@ -483,6 +496,7 @@ public abstract class BaseModelTest extends TestCase {
 
 		List<DiscoveryModel> res = future;
 		assertEquals(200, res.size()); 
+    Arrays.sort(discs);
 		for(int i=0; i<200; i++){
 			assertEquals(discs[i], res.get(i));
 		}
@@ -517,6 +531,7 @@ public abstract class BaseModelTest extends TestCase {
 		
 		List<DiscoveryModel> res = future;
 		assertEquals(200, res.size()); 
+    Arrays.sort(discs);
 		for(int i=0; i<200; i++){
 			assertEquals(discs[i], res.get(i));
 		}
@@ -562,7 +577,7 @@ public abstract class BaseModelTest extends TestCase {
 		mod.setPrivateField("PRIVATE_FIELD");
 		mod.type = SampleModel.Type.FOO;
 		
-		SienaFuture<Void> future = mod.async().insert();
+		mod.async().insert().get();
 		
 		List<SampleModel> res = SampleModel.all().fetch();
 		for(SampleModel m: res){

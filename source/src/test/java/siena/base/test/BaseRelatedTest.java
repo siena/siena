@@ -2,6 +2,7 @@ package siena.base.test;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -329,7 +330,7 @@ public abstract class BaseRelatedTest extends TestCase {
 		}
 		
 		RelatedManyParent godbis = Model.all(RelatedManyParent.class).filter("name", god.name).get();
-		
+		Collections.sort(adams);
 		List<RelatedManyChild> children = godbis.children.asList();
 		for(int i=0; i<100; i++){
 			assertEquals(adams.get(i), children.get(i));
