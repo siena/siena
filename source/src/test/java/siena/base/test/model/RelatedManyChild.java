@@ -5,7 +5,7 @@ import siena.Id;
 import siena.Model;
 import siena.Query;
 
-public class RelatedManyChild extends Model {
+public class RelatedManyChild extends Model implements Comparable<RelatedManyChild>{
 	@Id(Generator.AUTO_INCREMENT)
 	public Long id;
 
@@ -48,4 +48,9 @@ public class RelatedManyChild extends Model {
 	public String toString(){
 		return "id:"+id+ " - name:"+name+ " - owner:"+owner;
 	}
+
+  @Override
+  public int compareTo(RelatedManyChild o) {
+   return this.id.compareTo(o.id);
+  }
 }

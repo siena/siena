@@ -10,7 +10,7 @@ import siena.Table;
 import siena.core.batch.Batch;
 
 @Table("discoveries_model")
-public class DiscoveryModel extends Model {
+public class DiscoveryModel extends Model implements Comparable<DiscoveryModel>{
 
 	@Id(Generator.AUTO_INCREMENT)
 	public Long id;
@@ -63,4 +63,9 @@ public class DiscoveryModel extends Model {
 	public String toString() {
 		return "Discovery [ id:"+id+" - name:"+name+" - discoverer:"+discoverer+" ]";
 	}
+
+  @Override
+  public int compareTo(DiscoveryModel o) {
+    return this.id.compareTo(o.id);
+  }
 }
