@@ -44,8 +44,12 @@ public class GaeMappingUtils {
 				idVal = Util.readField(obj, idField);
 				if(idVal == null)
 					throw new SienaException("Id Field " + idField.getName() + " value null");
-				String keyVal = Util.toString(idField, idVal);				
-				entity = new Entity(info.tableName, keyVal);
+        if(Long.TYPE == type || Long.class.isAssignableFrom(type))
+          entity = new Entity(info.tableName, (Long)idVal );
+				else {
+	        String keyVal = Util.toString(idField, idVal);  
+				  entity = new Entity(info.tableName, keyVal);
+				}
 				break;
 			case AUTO_INCREMENT:
 				// manages String ID as not long!!!
@@ -104,8 +108,12 @@ public class GaeMappingUtils {
 				idVal = Util.readField(obj, idField);
 				if(idVal == null)
 					throw new SienaException("Id Field " + idField.getName() + " value null");
-				String keyVal = Util.toString(idField, idVal);				
-				entity = new Entity(getKindWithAncestorField(info, parentInfo, parentField), keyVal, parentKey);
+        if(Long.TYPE == type || Long.class.isAssignableFrom(type))
+          entity = new Entity(getKindWithAncestorField(info, parentInfo, parentField), (Long)idVal, parentKey);
+        else {
+          String keyVal = Util.toString(idField, idVal);        
+          entity = new Entity(getKindWithAncestorField(info, parentInfo, parentField), keyVal, parentKey);
+        }
 				break;
 			case AUTO_INCREMENT:
 				// manages String ID as not long!!!
@@ -141,7 +149,7 @@ public class GaeMappingUtils {
 				//idField.setAccessible(true);
 				Object val = null;
 				if (Long.TYPE==type || Long.class.isAssignableFrom(type)){
-					val = Long.parseLong((String) key.getName());
+				  val = key.getId();
 				}
 				else if (String.class.isAssignableFrom(type)){
 					val = key.getName();
@@ -198,10 +206,14 @@ public class GaeMappingUtils {
 				Id id = idField.getAnnotation(Id.class);
 				switch(id.value()) {
 				case NONE:
-					// long or string goes toString
-					return KeyFactory.createKey(
-						ClassInfo.getClassInfo(clazz).tableName,
-						value.toString());
+				  if( value instanceof Long )
+	          return KeyFactory.createKey(
+	              ClassInfo.getClassInfo(clazz).tableName,
+	              (Long)value );
+				  else
+  					return KeyFactory.createKey(
+  						ClassInfo.getClassInfo(clazz).tableName,
+  						value.toString());
 				case AUTO_INCREMENT:
 					// as a string with auto_increment can't exist, it is not cast into long
 					if (Long.TYPE == type || Long.class.isAssignableFrom(type)){
@@ -243,11 +255,16 @@ public class GaeMappingUtils {
 				Id id = idField.getAnnotation(Id.class);
 				switch(id.value()) {
 				case NONE:
-					// long or string goes toString
-					return KeyFactory.createKey(
-							parentKey,
-							getKindWithAncestorField(info, parentInfo, parentField),
-							value.toString());
+          if (Long.TYPE == type || Long.class.isAssignableFrom(type))
+            return KeyFactory.createKey(
+                parentKey,
+                getKindWithAncestorField(info, parentInfo, parentField),
+                (Long)value); 
+          else
+  					return KeyFactory.createKey(
+  							parentKey,
+  							getKindWithAncestorField(info, parentInfo, parentField),
+  							value.toString());
 				case AUTO_INCREMENT:
 					// as a string with auto_increment can't exist, it is not cast into long
 					if (Long.TYPE == type || Long.class.isAssignableFrom(type)){
@@ -289,10 +306,14 @@ public class GaeMappingUtils {
 				Id id = idField.getAnnotation(Id.class);
 				switch(id.value()) {
 				case NONE:
-					// long or string goes toString
-					return KeyFactory.createKey(
-							ClassInfo.getClassInfo(clazz).tableName,
-							idVal.toString());
+          if( idVal instanceof Long )
+            return KeyFactory.createKey(
+                ClassInfo.getClassInfo(clazz).tableName,
+                (Long)idVal );
+          else
+            return KeyFactory.createKey(
+                ClassInfo.getClassInfo(clazz).tableName,
+                idVal.toString() );
 				case AUTO_INCREMENT:
 					Class<?> type = idField.getType();
 					// as a string with auto_increment can't exist, it is not cast into long
@@ -340,15 +361,20 @@ public class GaeMappingUtils {
 			
 			if(idField.isAnnotationPresent(Id.class)){
 				Id id = idField.getAnnotation(Id.class);
+        Class<?> type = idField.getType();
 				switch(id.value()) {
 				case NONE:
-					// long or string goes toString
-					return KeyFactory.createKey(
-							parentKey,
-							getKindWithAncestorField(info, parentInfo, parentField),
-							idVal.toString());
+          if (Long.TYPE==type || Long.class.isAssignableFrom(type))
+            return KeyFactory.createKey(
+                parentKey,
+                getKindWithAncestorField(info, parentInfo, parentField),
+                (Long)idVal );
+          else
+  					return KeyFactory.createKey(
+  							parentKey,
+  							getKindWithAncestorField(info, parentInfo, parentField),
+  							idVal.toString());
 				case AUTO_INCREMENT:
-					Class<?> type = idField.getType();
 					// as a string with auto_increment can't exist, it is not cast into long
 					if (Long.TYPE==type || Long.class.isAssignableFrom(type)){
 						return KeyFactory.createKey(

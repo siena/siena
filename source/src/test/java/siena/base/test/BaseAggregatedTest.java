@@ -771,15 +771,15 @@ public abstract class BaseAggregatedTest extends TestCase {
 		adam1.aggregate(god, "child");
 		adam1.insert();
 		
-		AggregateChildManualModel adam2 = new AggregateChildManualModel(0L, "adam2");	
+		AggregateChildManualModel adam2 = new AggregateChildManualModel(1L, "adam2");	
 		adam2.aggregate(god, "children");
 		adam2.insert();
 
-		AggregateChildManualModel eve = new AggregateChildManualModel(1L, "eve");
+		AggregateChildManualModel eve = new AggregateChildManualModel(2L, "eve");
 		eve.aggregate(god, "children");
 		eve.insert();
 
-		AggregateChildManualModel bob = new AggregateChildManualModel(2L, "bob");
+		AggregateChildManualModel bob = new AggregateChildManualModel(3L, "bob");
 		bob.aggregate(god, "children");
 		bob.insert();
 
@@ -795,17 +795,17 @@ public abstract class BaseAggregatedTest extends TestCase {
 		AggregateChildManualModel adam1After2 = AggregateChildManualModel.all().aggregated(god, "child").filter("id", 123L).get();		
 		assertEquals(adam1, adam1After2);
 
-		AggregateChildManualModel eveAfter = AggregateChildManualModel.all().aggregated(god, "children").filter("id", 1L).get();		
+		AggregateChildManualModel eveAfter = AggregateChildManualModel.all().aggregated(god, "children").filter("id", 2L).get();		
 		assertEquals(eve, eveAfter);
 		
 		eveAfter.name+="_UPD";
 		eveAfter.update();
-		AggregateChildManualModel eveAfter2 = AggregateChildManualModel.all().aggregated(god, "children").filter("id", 1L).get();
+		AggregateChildManualModel eveAfter2 = AggregateChildManualModel.all().aggregated(god, "children").filter("id", 2L).get();
 		assertEquals(eveAfter, eveAfter2);
 		
 		eveAfter2.name+="_UPD2";
 		eveAfter2.save();
-		AggregateChildManualModel eveAfter3 = AggregateChildManualModel.all().aggregated(god, "children").filter("id", 1L).get();
+		AggregateChildManualModel eveAfter3 = AggregateChildManualModel.all().aggregated(god, "children").filter("id", 2L).get();
 		assertEquals(eveAfter2, eveAfter3);
 	}
 	
@@ -818,7 +818,7 @@ public abstract class BaseAggregatedTest extends TestCase {
 		adam1.aggregate(god, "child");
 		adam1.insert();
 		
-		AggregateChildManualModel adam2 = new AggregateChildManualModel(0L, "adam2");	
+		AggregateChildManualModel adam2 = new AggregateChildManualModel(4L, "adam2");	
 		adam2.aggregate(god, "children");
 		adam2.insert();
 

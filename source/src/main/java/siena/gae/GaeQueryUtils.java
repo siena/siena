@@ -93,23 +93,40 @@ public class GaeQueryUtils {
 									// long or string goes toString
 									Key key;
 									if(parentKey == null){
-										key = KeyFactory.createKey(
-											q.getKind(),
-											value.toString());
+						        if( value instanceof Long )
+	                    key = KeyFactory.createKey(
+	                        q.getKind(),
+	                        (Long)value );
+	                  else
+  										key = KeyFactory.createKey(
+  											q.getKind(),
+  											value.toString());
 									}else {
-										key = KeyFactory.createKey(
-												parentKey,
-												q.getKind(),
-												value.toString());
+                    if( value instanceof Long )
+                      key = KeyFactory.createKey(
+                          parentKey,
+                          q.getKind(),
+                          (Long)value );
+                    else
+  										key = KeyFactory.createKey(
+  												parentKey,
+  												q.getKind(),
+  												value.toString());
 									}
 									q.addFilter(Entity.KEY_RESERVED_PROPERTY, op, key);
 								}else {
 									List<Key> keys = new ArrayList<Key>();
 									for(Object val: (Collection<?>)value) {
 										if(parentKey == null){
-											keys.add(KeyFactory.createKey(q.getKind(), val.toString()));
+										  if( val instanceof Long )
+	                      keys.add(KeyFactory.createKey(q.getKind(), (Long)val));
+										  else
+										    keys.add(KeyFactory.createKey(q.getKind(), val.toString()));
 										}else {
-											keys.add(KeyFactory.createKey(parentKey, q.getKind(), val.toString()));
+                      if( val instanceof Long )
+                        keys.add(KeyFactory.createKey(parentKey, q.getKind(), (Long)val));
+                      else
+                        keys.add(KeyFactory.createKey(parentKey, q.getKind(), val.toString()));
 										}
 									}
 									q.addFilter(Entity.KEY_RESERVED_PROPERTY, op, keys);
