@@ -428,26 +428,26 @@ public class JsonSerializer {
 	
 	private static Object deserializePlain(Class<?> type, Json data) {
 		if(Boolean.class == type || boolean.class == type) {
-			return data!=null ? data.asBoolean() : 0;
+			return data!=null ? data.asBoolean() : null;
 		}
 		if(type == Byte.class || type == Byte.TYPE)    {
-			return data!=null ? data.asBoolean() : 0;
+			return data!=null ? data.asBoolean() : null;
 		}
 		else if(type == Short.class || type == Short.TYPE)   {
-			return data!=null ? data.asShort() : 0;
+			return data!=null ? data.asShort() : null;
 		}
 		else if(type == Integer.class || type == Integer.TYPE) {
 		  Object val = data!=null ? data.asInt() : null;
 			return val;
 		}
 		else if(type == Long.class || type == Long.TYPE)    {
-			return data!=null ? data.asLong() : 0;
+			return data!=null ? data.asLong() : null;
 		}
 		else if(type == Float.class || type == Float.TYPE)   {
-			return data!=null ? data.asFloat() : 0;
+			return data!=null ? data.asFloat() : null;
 		}
 		else if(type == Double.class || type == Double.TYPE)  {
-			return data!=null ? data.asDouble() : 0;
+			return data!=null ? data.asDouble() : null;
 		}
 		else if(type == String.class)  {
 			return data!=null ? data.str() : null;
