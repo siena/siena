@@ -15,6 +15,7 @@
  */
 package siena;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -188,6 +189,7 @@ public interface PersistenceManager {
 	<T> int get(Iterable<T> models);
 
 	<T> T getByKey(Class<T> clazz, Object key);
+  <T> T getByAggregatorKey(Class<T> clazz, Object aggregator, Field aggregatorField, Object key);
 
 	<T> List<T> getByKeys(Class<T> clazz, Object... keys);
 

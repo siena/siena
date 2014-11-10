@@ -401,6 +401,13 @@ public class RemotePersistenceManager extends AbstractPersistenceManager {
 		return 0;
 	}
 
+  @Override
+  public <T> T getByAggregatorKey(Class<T> clazz, Object aggregator,
+      Field aggregatorField, Object key) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 
 	
 }

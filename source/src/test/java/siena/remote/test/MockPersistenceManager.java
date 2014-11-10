@@ -17,6 +17,7 @@ package siena.remote.test;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -710,6 +711,13 @@ public class MockPersistenceManager implements PersistenceManager {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+  @Override
+  public <T> T getByAggregatorKey(Class<T> clazz, Object aggregator,
+      Field aggregatorField, Object key) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 
 }

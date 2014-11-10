@@ -1,5 +1,6 @@
 package siena.core;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -239,6 +240,13 @@ public class PersistenceManagerLifeCycleWrapper implements PersistenceManager{
 		return pm.getByKey(clazz, key);
 	}
 
+  @Override
+  public <T> T getByAggregatorKey(Class<T> clazz, Object aggregator, Field aggregatorField, Object key) {
+    return pm.getByAggregatorKey(clazz, aggregator, aggregatorField, key);
+  }
+  
+  
+
 	@Override
 	public <T> List<T> getByKeys(Class<T> clazz, Object... keys) {
 		return pm.getByKeys(clazz, keys);
@@ -325,6 +333,5 @@ public class PersistenceManagerLifeCycleWrapper implements PersistenceManager{
 	public <T> int count(Query<T> query, int limit, Object offset) {
 		return pm.count(query, limit, offset);
 	}
-	
-	
+
 }

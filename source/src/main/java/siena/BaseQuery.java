@@ -9,9 +9,12 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
+import com.google.appengine.api.datastore.Key;
+
 import siena.core.async.QueryAsync;
 import siena.core.options.QueryOption;
 import siena.embed.JsonSerializer;
+import siena.gae.GaeMappingUtils;
 
 /**
  * The base implementation of Query<T> where T is the model being queried (not necessarily inheriting siena.Model)
@@ -261,7 +264,15 @@ public class BaseQuery<T> extends BaseQueryData<T> implements Query<T> {
 	}
 
 	public T getByKey(Object key) {
-		return pm.getByKey(clazz, key);
+	    ClassInfo info = ClassInfo.getClassInfo(clazz);
+	    List<QueryAggregated> aggregs = this.getAggregatees();
+	    if(aggregs.isEmpty()){
+	      return pm.getByKey(clazz, key);
+	    }
+	    else {
+	      QueryAggregated aggreg = aggregs.get(0);
+        return pm.getByAggregatorKey(clazz, aggreg.aggregator, aggreg.field, key);
+	    }
 	}
 
 	public String dump(QueryOption... options) {

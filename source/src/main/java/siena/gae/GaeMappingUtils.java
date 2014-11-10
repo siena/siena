@@ -400,7 +400,55 @@ public class GaeMappingUtils {
 			throw new SienaException(e);
 		}
 	}
-	
+
+	 public static Key makeKeyFromParentId(ClassInfo info, Object idVal, Key parentKey, ClassInfo parentInfo, Field parentField) {
+	    try {
+	      Field idField = info.getIdField();
+	      if(idVal == null)
+	        throw new SienaException("Id Field " + idField.getName() + " value null");
+	      
+	      if(idField.isAnnotationPresent(Id.class)){
+	        Id id = idField.getAnnotation(Id.class);
+	        Class<?> type = idField.getType();
+	        switch(id.value()) {
+	        case NONE:
+	          if (Long.TYPE==type || Long.class.isAssignableFrom(type))
+	            return KeyFactory.createKey(
+	                parentKey,
+	                getKindWithAncestorField(info, parentInfo, parentField),
+	                (Long)idVal );
+	          else
+	            return KeyFactory.createKey(
+	                parentKey,
+	                getKindWithAncestorField(info, parentInfo, parentField),
+	                idVal.toString());
+	        case AUTO_INCREMENT:
+	          // as a string with auto_increment can't exist, it is not cast into long
+	          if (Long.TYPE==type || Long.class.isAssignableFrom(type)){
+	            return KeyFactory.createKey(
+	              parentKey,
+	              getKindWithAncestorField(info, parentInfo, parentField),
+	              (Long)idVal);
+	          }
+	          return KeyFactory.createKey(
+	              parentKey,
+	              getKindWithAncestorField(info, parentInfo, parentField),
+	              idVal.toString());
+	        case UUID:
+	          return KeyFactory.createKey(
+	              parentKey,
+	              getKindWithAncestorField(info, parentInfo, parentField),
+	              idVal.toString());
+	        default:
+	          throw new SienaException("Id Generator "+id.value()+ " not supported");
+	        }
+	      }
+	      else throw new SienaException("Field " + idField.getName() + " is not an @Id field");
+	    } catch (Exception e) {
+	      throw new SienaException(e);
+	    }
+	  }
+
 	public static void fillEntity(Object obj, Entity entity) {
 		Class<?> clazz = obj.getClass();
 

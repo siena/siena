@@ -182,6 +182,11 @@ public abstract class BaseAggregatedTest extends TestCase {
 		assertEquals(adam2, children.get(0));
 		assertEquals(eve, children.get(1));
 		assertEquals(bob, children.get(2));
+		
+		// test aggregated getByKey
+//    AggregateChildModel adam3 = Model.getByKey( AggregateChildModel.class, adam1.id );
+    AggregateChildModel adam3 = god.children.asQuery().getByKey(adam2.id);
+		assertEquals( adam2, adam3 );
 	}
 	
 	public void testAggregateUpdate() {

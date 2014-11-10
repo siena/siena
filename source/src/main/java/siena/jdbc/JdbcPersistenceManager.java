@@ -1745,6 +1745,13 @@ public class JdbcPersistenceManager extends AbstractPersistenceManager {
 		}
 	}
 
+  @Override
+  public <T> T getByAggregatorKey(Class<T> clazz, Object aggregator,
+      Field aggregatorField, Object key) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 
 
 	

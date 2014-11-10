@@ -224,37 +224,71 @@ public class GaePersistenceManager extends AbstractPersistenceManager {
 		}
 	}
 
-	public <T> T getByKey(Class<T> clazz, Object key) {
-		Key gKey = GaeMappingUtils.makeKeyFromId(clazz, key);
-		ClassInfo info = ClassInfo.getClassInfo(clazz);
-		try {
-			Entity entity = ds.get(gKey);
-			T obj = null;
-			if(entity != null){
-				obj = Util.createObjectInstance(clazz);
-				GaeMappingUtils.fillModelAndKey(obj, entity);
-				// related fields (Many<T> management mainly)
-				if(!info.ownedFields.isEmpty()){
-					mapOwned(obj);
-				}
-				// aggregated management
-				if(!info.aggregatedFields.isEmpty()){
-					mapAggregated(obj);
-				}
-				// join management
-				if(!info.joinFields.isEmpty()){
-					mapJoins(obj);
-				}
-			}
-			return obj;
-		} 
-		catch(EntityNotFoundException e){
-			return null;
-		}
-		catch (Exception e) {
-			throw new SienaException(e);
-		}
-	}
+  public <T> T getByKey(Class<T> clazz, Object key) {
+    Key gKey = GaeMappingUtils.makeKeyFromId(clazz, key);
+    ClassInfo info = ClassInfo.getClassInfo(clazz);
+    try {
+      Entity entity = ds.get(gKey);
+      T obj = null;
+      if(entity != null){
+        obj = Util.createObjectInstance(clazz);
+        GaeMappingUtils.fillModelAndKey(obj, entity);
+        // related fields (Many<T> management mainly)
+        if(!info.ownedFields.isEmpty()){
+          mapOwned(obj);
+        }
+        // aggregated management
+        if(!info.aggregatedFields.isEmpty()){
+          mapAggregated(obj);
+        }
+        // join management
+        if(!info.joinFields.isEmpty()){
+          mapJoins(obj);
+        }
+      }
+      return obj;
+    } 
+    catch(EntityNotFoundException e){
+      return null;
+    }
+    catch (Exception e) {
+      throw new SienaException(e);
+    }
+  }
+
+	 public <T> T getByAggregatorKey( Class<T> clazz, Object aggregator, Field aggregatorField, Object key ) {
+	    ClassInfo info = ClassInfo.getClassInfo(clazz);
+
+      Key ancestorKey = GaeMappingUtils.getKey( aggregator );
+      Key  gKey =  GaeMappingUtils.makeKeyFromParentId( info, key, ancestorKey, ClassInfo.getClassInfo( aggregator.getClass()), aggregatorField );
+	    try {
+	      Entity entity = ds.get(gKey);
+	      T obj = null;
+	      if(entity != null){
+	        obj = Util.createObjectInstance(clazz);
+	        GaeMappingUtils.fillModelAndKey(obj, entity);
+	        // related fields (Many<T> management mainly)
+	        if(!info.ownedFields.isEmpty()){
+	          mapOwned(obj);
+	        }
+	        // aggregated management
+	        if(!info.aggregatedFields.isEmpty()){
+	          mapAggregated(obj);
+	        }
+	        // join management
+	        if(!info.joinFields.isEmpty()){
+	          mapJoins(obj);
+	        }
+	      }
+	      return obj;
+	    } 
+	    catch(EntityNotFoundException e){
+	      return null;
+	    }
+	    catch (Exception e) {
+	      throw new SienaException(e);
+	    }
+	  }
 
 	public void insert(Object obj) {
 		_insertSingle(obj);
