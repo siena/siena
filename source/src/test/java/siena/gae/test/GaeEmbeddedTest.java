@@ -1,10 +1,11 @@
-package siena.base.test;
+package siena.gae.test;
 
 import java.util.List;
 
 import siena.PersistenceManager;
 import siena.PersistenceManagerFactory;
 import siena.SienaException;
+import siena.base.test.BaseEmbeddedTest;
 import siena.base.test.model.AggregateChildModel;
 import siena.base.test.model.AggregateParentModel;
 import siena.base.test.model.TransactionAccountFrom;

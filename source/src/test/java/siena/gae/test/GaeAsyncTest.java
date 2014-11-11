@@ -1,35 +1,35 @@
-package siena.base.test;
+package siena.gae.test;
 
-import java.sql.Connection;
 import java.util.Arrays;
 import java.util.List;
 
-import siena.PersistenceManager;
 import siena.Query;
 import siena.SienaException;
 import siena.SienaRestrictedApiException;
+import siena.base.test.BaseAsyncTest;
 import siena.base.test.model.Discovery;
 import siena.base.test.model.Discovery4Search;
 import siena.base.test.model.PersonUUID;
-import siena.base.test.model.TransactionAccountFrom;
-import siena.gae.GaePersistenceManager;
+import siena.core.async.PersistenceManagerAsync;
+import siena.core.async.QueryAsync;
+import siena.core.async.SienaFuture;
+import siena.gae.GaePersistenceManagerAsync;
 import siena.gae.QueryOptionGaeContext;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
-public class GaeTest extends BaseTest {
+public class GaeAsyncTest extends BaseAsyncTest {
 	private final LocalServiceTestHelper helper =
         new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 
-	private static GaePersistenceManager pm;
+	private static GaePersistenceManagerAsync pm;
 	
 	@Override
-	public PersistenceManager createPersistenceManager(List<Class<?>> classes)
+	public PersistenceManagerAsync createPersistenceManager(List<Class<?>> classes)
 			throws Exception {
-		if(pm==null){
-			pm = new GaePersistenceManager();
-			//PersistenceManagerFactory.install(pm, Discovery4GeneratorNone.class);
+		if(pm == null){
+			pm = new GaePersistenceManagerAsync();
 			pm.init(null);
 		}
 		return pm;
@@ -61,8 +61,9 @@ public class GaeTest extends BaseTest {
         super.tearDown();
         helper.tearDown();
     }
+
     
-// SPECIAL OVERRIDE    
+// SPECIFIC TESTS    
 	@Override
 	public void testJoinSortFields() {
 		try {
@@ -73,26 +74,25 @@ public class GaeTest extends BaseTest {
 		
 		fail();
 	}
-
-
-
-	
+    
 	public void testFilterWithOperatorINStateful() {
 		List<PersonUUID> l = getOrderedPersonUUIDs();
-		Query<PersonUUID> query = 
+		QueryAsync<PersonUUID> query = 
 			pm.createQuery(PersonUUID.class)
 			.filter("id IN", Arrays.asList( l.get(0).id, l.get(1).id))
 			.stateful()
 			.paginate(1);
+		List<PersonUUID> future = query.fetch();
 
-		List<PersonUUID> people = query.fetch();
+		List<PersonUUID> people = future;
 		QueryOptionGaeContext gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(people);
 		assertEquals(1, people.size());
 		assertEquals(l.get(0), people.get(0));
 		
-		people = query.nextPage().fetch();
+		future = query.nextPage().fetch();
+		people = future;
 		gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);
 		assertNotNull(people);
@@ -105,13 +105,14 @@ public class GaeTest extends BaseTest {
 		for(int i=0; i<200; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs).get();
 		
-		Query<Discovery> query = 
+		QueryAsync<Discovery> query = 
 			pm.createQuery(Discovery.class)
 			.filter("id IN", Arrays.asList( discs[48].id, discs[73].id, discs[86].id));
-		List<Discovery> people = query.fetch();
+		List<Discovery> future = query.fetch();
 
+		List<Discovery> people = future;
 		QueryOptionGaeContext gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(people);
@@ -126,14 +127,15 @@ public class GaeTest extends BaseTest {
 		for(int i=0; i<200; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs).get();
 		
-		Query<Discovery> query = 
+		QueryAsync<Discovery> query = 
 			pm.createQuery(Discovery.class)
 			.filter("id IN", Arrays.asList( discs[48].id, discs[73].id, discs[86].id))
 			.paginate(2);
-		List<Discovery> people = query.fetch();
+		List<Discovery> future = query.fetch();
 
+		List<Discovery> people = future;
 		QueryOptionGaeContext gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(people);
@@ -141,28 +143,33 @@ public class GaeTest extends BaseTest {
 		assertEquals(discs[48], people.get(0));
 		assertEquals(discs[73], people.get(1));
 		
-		people = query.nextPage().fetch();
+		future = query.nextPage().fetch();
+		people = future;
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(people);
 		assertEquals(1, people.size());
 		assertEquals(discs[86], people.get(0));
 		
-		people = query.nextPage().fetch();
+		future = query.nextPage().fetch();
+		people = future;
 		assertNotNull(people);
 		assertEquals(0, people.size());
 		
-		people = query.previousPage().fetch();
+		future = query.previousPage().fetch();
+		people = future;
 		assertNotNull(people);
 		assertEquals(1, people.size());
 		assertEquals(discs[86], people.get(0));
 		
-		people = query.previousPage().fetch();
+		future = query.previousPage().fetch();
+		people = future;
 		assertNotNull(people);
 		assertEquals(2, people.size());
 		assertEquals(discs[48], people.get(0));
 		assertEquals(discs[73], people.get(1));
 		
-		people = query.previousPage().fetch();
+		future = query.previousPage().fetch();
+		people = future;
 		assertNotNull(people);
 		assertEquals(0, people.size());
 	}
@@ -172,15 +179,16 @@ public class GaeTest extends BaseTest {
 		for(int i=0; i<200; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs).get();
 		
-		Query<Discovery> query = 
+		QueryAsync<Discovery> query = 
 			pm.createQuery(Discovery.class)
 			.filter("id IN", Arrays.asList( discs[48].id, discs[73].id, discs[86].id))
 			.stateful()
 			.paginate(2);
-		List<Discovery> people = query.fetch();
+		List<Discovery> future = query.fetch();
 
+		List<Discovery> people = future;
 		QueryOptionGaeContext gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(people);
@@ -188,50 +196,57 @@ public class GaeTest extends BaseTest {
 		assertEquals(discs[48], people.get(0));
 		assertEquals(discs[73], people.get(1));
 		
-		people = query.nextPage().fetch();
+		future = query.nextPage().fetch();
+		people = future;
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(people);
 		assertEquals(1, people.size());
 		assertEquals(discs[86], people.get(0));
 		
-		people = query.nextPage().fetch();
+		future = query.nextPage().fetch();
+		people = future;
 		assertNotNull(people);
 		assertEquals(0, people.size());
 		
-		people = query.previousPage().fetch();
+		future = query.previousPage().fetch();
+		people = future;
 		assertNotNull(people);
 		assertEquals(1, people.size());
 		assertEquals(discs[86], people.get(0));
 		
-		people = query.previousPage().fetch();
+		future = query.previousPage().fetch();
+		people = future;
 		assertNotNull(people);
 		assertEquals(2, people.size());
 		assertEquals(discs[48], people.get(0));
 		assertEquals(discs[73], people.get(1));
 		
-		people = query.previousPage().fetch();
+		future = query.previousPage().fetch();
+		people = future;
 		assertNotNull(people);
 		assertEquals(0, people.size());
 	}
 	
 	public void testFilterWithOperatorNotEqualStateful() {
 		List<PersonUUID> l = getOrderedPersonUUIDs();
-		Query<PersonUUID> query = 
+		QueryAsync<PersonUUID> query = 
 			pm.createQuery(PersonUUID.class)
 			.filter("id!=", l.get(0).id)
 			.order("id")
 			.stateful()
 			.paginate(1);
 		
-		List<PersonUUID> people = query.fetch();
+		List<PersonUUID> future = query.fetch();
 
+		List<PersonUUID> people = future;
 		QueryOptionGaeContext gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(people);
 		assertEquals(1, people.size());
 		assertEquals(l.get(1), people.get(0));
 		
-		people = query.nextPage().fetch();
+		future = query.nextPage().fetch();
+		people = future;
 
 		gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);
@@ -246,14 +261,15 @@ public class GaeTest extends BaseTest {
 		for(int i=0; i<200; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs).get();
 		
-		Query<Discovery> query = 
+		QueryAsync<Discovery> query = 
 			pm.createQuery(Discovery.class)
 			.stateful()
 			.filter("id !=", discs[48].id);
-		List<Discovery> res = query.fetch();
+		List<Discovery> future = query.fetch();
 
+		List<Discovery> res = future;
 		QueryOptionGaeContext gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(res);
@@ -268,13 +284,14 @@ public class GaeTest extends BaseTest {
 		for(int i=0; i<200; i++){
 			discs[i] = new Discovery("Disc_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs).get();
 		
-		Query<Discovery> query = 
+		QueryAsync<Discovery> query = 
 			pm.createQuery(Discovery.class)
 			.filter("id !=", discs[48].id);
-		List<Discovery> res = query.fetch();
+		List<Discovery> future = query.fetch();
 
+		List<Discovery> res = future;
 		QueryOptionGaeContext gaeCtx = (QueryOptionGaeContext)query.option(QueryOptionGaeContext.ID);
 		assertFalse(gaeCtx.useCursor);		
 		assertNotNull(res);
@@ -290,15 +307,20 @@ public class GaeTest extends BaseTest {
 			if(i%2==0) discs[i] = new Discovery4Search("even_"+i, LongAutoID_CURIE);
 			else discs[i] = new Discovery4Search("odd_"+i, LongAutoID_CURIE);
 		}
-		pm.insert((Object[])discs);
+		pm.insert((Object[])discs).get();
 		
-		Query<Discovery4Search> query = 
+		QueryAsync<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("even_4", "name").order("name");
 		
-		List<Discovery4Search> res = query.fetch();
+		List<Discovery4Search> future = query.fetch();
 
+		List<Discovery4Search> res = future;
 		assertEquals(1, res.size());
 		assertEquals(discs[4], res.get(0));
+		/*assertEquals(5, res.size());
+		for(int i=0; i<res.size();i++){
+			assertEquals(discs[2*i], res.get(i));
+		}*/		
 	}
 
 	public void testSearchSingleFieldEqualsSeveralResults() {
@@ -308,13 +330,14 @@ public class GaeTest extends BaseTest {
 		discs[2] = new Discovery4Search("gamma", LongAutoID_CURIE);
 		discs[3] = new Discovery4Search("delta", LongAutoID_CURIE);
 		discs[4] = new Discovery4Search("eta", LongAutoID_CURIE);
-		pm.insert((Object[])discs);		
+		pm.insert((Object[])discs).get();		
 		
-		Query<Discovery4Search> query = 
+		QueryAsync<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("beta eta", "name");
 		
-		List<Discovery4Search> res = query.fetch();
+		List<Discovery4Search> future = query.fetch();
 
+		List<Discovery4Search> res = future;
 		assertEquals(2, res.size());
 		assertEquals(discs[1], res.get(0));
 		assertEquals(discs[4], res.get(1));
@@ -327,13 +350,14 @@ public class GaeTest extends BaseTest {
 		discs[2] = new Discovery4Search("gamma", LongAutoID_CURIE);
 		discs[3] = new Discovery4Search("delta", LongAutoID_CURIE);
 		discs[4] = new Discovery4Search("eta", LongAutoID_CURIE);
-		pm.insert((Object[])discs);		
+		pm.insert((Object[])discs).get();		
 		
-		Query<Discovery4Search> query = 
+		QueryAsync<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("gamma*", "name");
 		
-		List<Discovery4Search>res = query.fetch();
+		List<Discovery4Search> future = query.fetch();
 
+		List<Discovery4Search> res = future;
 		assertEquals(1, res.size());
 		assertEquals(discs[2], res.get(0));
 	}
@@ -345,13 +369,14 @@ public class GaeTest extends BaseTest {
 		discs[2] = new Discovery4Search("alphagamma", LongAutoID_CURIE);
 		discs[3] = new Discovery4Search("delta", LongAutoID_CURIE);
 		discs[4] = new Discovery4Search("eta", LongAutoID_CURIE);
-		pm.insert((Object[])discs);		
+		pm.insert((Object[])discs).get();		
 		
-		Query<Discovery4Search> query = 
+		QueryAsync<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("alpha*", "name");
 		
-		List<Discovery4Search> res = query.fetch();
+		List<Discovery4Search> future = query.fetch();
 
+		List<Discovery4Search> res = future;
 		assertEquals(2, res.size());
 		assertEquals(discs[0], res.get(0));
 		assertEquals(discs[2], res.get(1));
@@ -364,13 +389,14 @@ public class GaeTest extends BaseTest {
 		discs[2] = new Discovery4Search("alphagamma", LongAutoID_CURIE);
 		discs[3] = new Discovery4Search("delta", LongAutoID_CURIE);
 		discs[4] = new Discovery4Search("eta", LongAutoID_CURIE);
-		pm.insert((Object[])discs);		
+		pm.insert((Object[])discs).get();		
 		
-		Query<Discovery4Search> query = 
+		QueryAsync<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("alpha*", "name");
 		
-		List<Discovery4Search> res = query.fetchKeys();
+		List<Discovery4Search> future = query.fetchKeys();
 
+		List<Discovery4Search> res = future;
 		assertEquals(2, res.size());
 		assertEquals(discs[0].id, res.get(0).id);
 		assertTrue(res.get(0).isOnlyIdFilled());
@@ -385,15 +411,14 @@ public class GaeTest extends BaseTest {
 		discs[2] = new Discovery4Search("alphagamma", LongAutoID_CURIE);
 		discs[3] = new Discovery4Search("delta", LongAutoID_CURIE);
 		discs[4] = new Discovery4Search("eta", LongAutoID_CURIE);
-		pm.insert((Object[])discs);		
+		pm.insert((Object[])discs).get();		
 		
-		Query<Discovery4Search> query = 
+		QueryAsync<Discovery4Search> query = 
 			pm.createQuery(Discovery4Search.class).search("alpha*", "name");
 		
-		int res = query.count();
+		int res = query.count().get();
 
 		assertEquals(2, res);
-
 	}
 	
 	public void testSearchSingleFieldEndException() {
@@ -403,9 +428,9 @@ public class GaeTest extends BaseTest {
 		discs[2] = new Discovery4Search("alphagamma", LongAutoID_CURIE);
 		discs[3] = new Discovery4Search("delta", LongAutoID_CURIE);
 		discs[4] = new Discovery4Search("eta", LongAutoID_CURIE);
-		pm.insert((Object[])discs);			
+		pm.insert((Object[])discs).get();			
 		try {
-			Query<Discovery4Search> query = 
+			QueryAsync<Discovery4Search> query = 
 				pm.createQuery(Discovery4Search.class).search("*gamma", "name");
 			query.fetch();
 		}catch(SienaException ex ){
@@ -414,322 +439,19 @@ public class GaeTest extends BaseTest {
 		fail();
 	}
 	
-	@Override
-	public void testTransactionUpdate() {
-		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
-		pm.insert(accFrom);
+// GENERIC TESTS OVERRIDE
 	
-		try {
-			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
-			accFrom.amount-=100L;
-			pm.update(accFrom);
-			pm.commitTransaction();
-		}catch(SienaException e){
-			pm.rollbackTransaction();
-			fail();
-		}finally{
-			pm.closeConnection();
-		}
-		
-		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
-		assertTrue(900L == accFromAfter.amount);
-	}
 	
-	@Override
-	public void testTransactionUpdateFailure() {
-		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
-		pm.insert(accFrom);
-	
-		try {
-			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
-			accFrom.amount-=100L;
-			pm.update(accFrom);
-			throw new SienaException("test");
-		}catch(SienaException e){
-			pm.rollbackTransaction();
-		}finally{
-			pm.closeConnection();
-		}
-		
-		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
-		assertTrue(1000L == accFromAfter.amount);
-	}
-	
-	public void testTransactionInsert() {
-		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
-	
-		try {
-			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
-			accFrom.amount=1000L;
-			pm.insert(accFrom);
-			pm.commitTransaction();
-		}catch(SienaException e){
-			pm.rollbackTransaction();
-			fail();
-		}finally{
-			pm.closeConnection();
-		}
-		
-		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
-		assertTrue(1000L == accFromAfter.amount);
-	}
-	
-	public void testTransactionInsertFailure() {
-		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
-	
-		try {
-			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
-			accFrom.amount=1000L;
-			pm.insert(accFrom);
-			throw new SienaException("test");
-		}catch(SienaException e){
-			pm.rollbackTransaction();
-		}finally{
-			pm.closeConnection();
-		}
-		
-		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
-		assertNull(accFromAfter);
-
-	}
-	
-	public void testTransactionSave() {
-		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
-		pm.insert(accFrom);
-	
-		try {
-			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
-			accFrom.amount-=100L;
-			pm.save(accFrom);
-			pm.commitTransaction();
-		}catch(SienaException e){
-			pm.rollbackTransaction();
-			fail();
-		}finally{
-			pm.closeConnection();
-		}
-		
-		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
-		assertTrue(900L == accFromAfter.amount);
-	}
-	
-	public void testTransactionSaveFailure() {
-		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
-		pm.insert(accFrom);
-	
-		try {
-			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
-			accFrom.amount-=100L;
-			pm.save(accFrom);
-			throw new SienaException("test");
-		}catch(SienaException e){
-			pm.rollbackTransaction();
-		}finally{
-			pm.closeConnection();
-		}
-		
-		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
-		assertTrue(1000L == accFromAfter.amount);
-	}
-	
-	public void testTransactionDelete() {
-		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
-		pm.insert(accFrom);
-	
-		try {
-			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
-			pm.delete(accFrom);
-			pm.commitTransaction();
-		}catch(SienaException e){
-			pm.rollbackTransaction();
-			fail();
-		}finally{
-			pm.closeConnection();
-		}
-		
-		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
-		assertNull(accFromAfter);
-	}
-	
-	public void testTransactionDeleteFailure() {
-		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
-		pm.insert(accFrom);
-	
-		try {
-			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
-			pm.delete(accFrom);
-			throw new SienaException("test");
-		}catch(SienaException e){
-			pm.rollbackTransaction();
-		}finally{
-			pm.closeConnection();
-		}
-		
-		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
-		assertTrue(1000L == accFromAfter.amount);
-	}
-	
-	public void testTransactionInsertBatch() {
-		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
-	
-		try {
-			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
-			accFrom.amount=1000L;
-			pm.insert(accFrom);
-			pm.commitTransaction();
-		}catch(SienaException e){
-			pm.rollbackTransaction();
-			fail();
-		}finally{
-			pm.closeConnection();
-		}
-		
-		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
-		assertTrue(1000L == accFromAfter.amount);
-	}
-	
-	public void testTransactionInsertBatchFailure() {
-		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
-	
-		try {
-			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
-			accFrom.amount=1000L;
-			pm.insert(accFrom);
-			throw new SienaException("test");
-		}catch(SienaException e){
-			pm.rollbackTransaction();
-		}finally{
-			pm.closeConnection();
-		}
-		
-		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
-		assertNull(accFromAfter);
-	}
-	
-	public void testTransactionDeleteBatch() {
-		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
-		pm.insert(accFrom);
-
-		try {
-			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
-			pm.delete(accFrom);
-			pm.commitTransaction();
-		}catch(SienaException e){
-			pm.rollbackTransaction();
-			fail();
-		}finally{
-			pm.closeConnection();
-		}
-		
-		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
-		assertNull(accFromAfter);
-	}
-	
-	public void testTransactionDeleteBatchFailure() {
-		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
-		pm.insert(accFrom);
-	
-		try {
-			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
-			pm.delete(accFrom);
-			throw new SienaException("test");
-		}catch(SienaException e){
-			pm.rollbackTransaction();
-		}finally{
-			pm.closeConnection();
-		}
-		
-		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
-		assertTrue(1000L == accFromAfter.amount);
-	}
-	
-	public void testTransactionUpdateBatch() {
-		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
-		pm.insert(accFrom);
-	
-		try {
-			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
-			accFrom.amount-=100L;
-			pm.update(accFrom);
-			pm.commitTransaction();
-		}catch(SienaException e){
-			pm.rollbackTransaction();
-			fail();
-		}finally{
-			pm.closeConnection();
-		}
-		
-		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
-		assertTrue(900L == accFromAfter.amount);
-	}
-	
-	public void testTransactionUpdateBatchFailure() {
-		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
-		pm.insert(accFrom);
-	
-		try {
-			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
-			accFrom.amount-=100L;
-			throw new SienaException("test");
-		}catch(SienaException e){
-			pm.rollbackTransaction();
-		}finally{
-			pm.closeConnection();
-		}
-		
-		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
-		assertTrue(1000L == accFromAfter.amount);
-	}
-	
-	public void testTransactionSaveBatch() {
-		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
-		pm.insert(accFrom);
-	
-		try {
-			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
-			accFrom.amount-=100L;
-			pm.save(accFrom);
-			pm.commitTransaction();
-		}catch(SienaException e){
-			pm.rollbackTransaction();
-			fail();
-		}finally{
-			pm.closeConnection();
-		}
-		
-		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
-		assertTrue(900L == accFromAfter.amount);
-	}
-	
-	public void testTransactionSaveBatchFailure() {
-		TransactionAccountFrom accFrom = new TransactionAccountFrom(1000L);
-		pm.insert(accFrom);
-	
-		try {
-			pm.beginTransaction(Connection.TRANSACTION_READ_COMMITTED);
-			accFrom.amount-=100L;
-			pm.save(accFrom);
-			throw new SienaException("test");
-		}catch(SienaException e){
-			pm.rollbackTransaction();
-		}finally{
-			pm.closeConnection();
-		}
-		
-		TransactionAccountFrom accFromAfter = pm.getByKey(TransactionAccountFrom.class, accFrom.id);
-		assertTrue(1000L == accFromAfter.amount);
-	}
-	// GENERIC TESTS OVERRIDE
-	@Override
-	public void testCount() {
-		// TODO Auto-generated method stub
-		super.testCount();
-	}
-
 	@Override
 	public void testFetch() {
 		// TODO Auto-generated method stub
 		super.testFetch();
+	}
+
+	@Override
+	public void testCount() {
+		// TODO Auto-generated method stub
+		super.testCount();
 	}
 
 	@Override
@@ -1045,18 +767,6 @@ public class GaeTest extends BaseTest {
 	}
 
 	@Override
-	public void testCountFilterNotEqual() {
-		// TODO Auto-generated method stub
-		super.testCountFilterNotEqual();
-	}
-
-	@Override
-	public void testCountFilterIn() {
-		// TODO Auto-generated method stub
-		super.testCountFilterIn();
-	}
-
-	@Override
 	public void testCountFilterUUID() {
 		// TODO Auto-generated method stub
 		super.testCountFilterUUID();
@@ -1111,13 +821,6 @@ public class GaeTest extends BaseTest {
 	}
 
 	@Override
-	@Deprecated
-	public void testCountLimit() {
-		// TODO Auto-generated method stub
-		super.testCountLimit();
-	}
-
-	@Override
 	public void testFetchLimitReal() {
 		// TODO Auto-generated method stub
 		super.testFetchLimitReal();
@@ -1130,41 +833,9 @@ public class GaeTest extends BaseTest {
 	}
 
 	@Override
-	public void testSearchSingle() {
-		// TODO Auto-generated method stub
-		super.testSearchSingle();
-	}
-
-
-	@Override
-	public void testSearchSingleKeysOnly() {
-		// TODO Auto-generated method stub
-		super.testSearchSingleKeysOnly();
-	}
-
-	@Override
-	public void testSearchSingleTwice() {
-		// TODO Auto-generated method stub
-		super.testSearchSingleTwice();
-	}
-
-	@Override
-	public void testSearchSingleCount() {
-		// TODO Auto-generated method stub
-		super.testSearchSingleCount();
-	}
-
-	@Override
 	public void testFetchLimitOffset() {
 		// TODO Auto-generated method stub
 		super.testFetchLimitOffset();
-	}
-
-	@Override
-	@Deprecated
-	public void testCountLimitOffset() {
-		// TODO Auto-generated method stub
-		super.testCountLimitOffset();
 	}
 
 	@Override
@@ -1195,12 +866,6 @@ public class GaeTest extends BaseTest {
 	public void testGetUUID() {
 		// TODO Auto-generated method stub
 		super.testGetUUID();
-	}
-
-	@Override
-	public void testGetNonExisting() {
-		// TODO Auto-generated method stub
-		super.testGetNonExisting();
 	}
 
 	@Override
@@ -1430,6 +1095,12 @@ public class GaeTest extends BaseTest {
 		// TODO Auto-generated method stub
 		super.testFetchPaginateStatelessNextPageToEnd();
 	}
+	
+	@Override
+	public void testFetchPaginateStatelessNextPageRealAsync() {
+		// TODO Auto-generated method stub
+		super.testFetchPaginateStatelessNextPageRealAsync();
+	}
 
 	@Override
 	public void testFetchPaginateStatelessPreviousPageFromScratch() {
@@ -1444,9 +1115,9 @@ public class GaeTest extends BaseTest {
 	}
 
 	@Override
-	public void testFetchPaginateStatelessSeveralTimes() {
+	public void testFetchPaginateStatelessPreviouPageSeveralTimes() {
 		// TODO Auto-generated method stub
-		super.testFetchPaginateStatelessSeveralTimes();
+		super.testFetchPaginateStatelessPreviouPageSeveralTimes();
 	}
 
 	@Override
@@ -1455,10 +1126,17 @@ public class GaeTest extends BaseTest {
 		super.testFetchPaginateStatefulNextPage();
 	}
 
+
 	@Override
 	public void testFetchPaginateStatefulNextPageToEnd() {
 		// TODO Auto-generated method stub
 		super.testFetchPaginateStatefulNextPageToEnd();
+	}
+
+	@Override
+	public void testFetchPaginateStatefulNextPageRealAsync() {
+		// TODO Auto-generated method stub
+		super.testFetchPaginateStatefulNextPageRealAsync();
 	}
 
 	@Override
@@ -1486,6 +1164,12 @@ public class GaeTest extends BaseTest {
 	}
 
 	@Override
+	public void testFetchKeysPaginateStatelessNextPageRealAsync() {
+		// TODO Auto-generated method stub
+		super.testFetchKeysPaginateStatelessNextPageRealAsync();
+	}
+
+	@Override
 	public void testFetchKeysPaginateStatelessPreviousPageFromScratch() {
 		// TODO Auto-generated method stub
 		super.testFetchKeysPaginateStatelessPreviousPageFromScratch();
@@ -1510,6 +1194,12 @@ public class GaeTest extends BaseTest {
 	}
 
 	@Override
+	public void testFetchKeysPaginateStatefulNextPageRealAsync() {
+		// TODO Auto-generated method stub
+		super.testFetchKeysPaginateStatefulNextPageRealAsync();
+	}
+
+	@Override
 	public void testFetchKeysPaginateStatefulPreviousPageFromScratch() {
 		// TODO Auto-generated method stub
 		super.testFetchKeysPaginateStatefulPreviousPageFromScratch();
@@ -1522,15 +1212,21 @@ public class GaeTest extends BaseTest {
 	}
 
 	@Override
-	public void testFetchKeysPaginateStatefulSeveralTimes() {
+	public void testFetchKeysPaginateStatefulPreviouPageSeveralTimes() {
 		// TODO Auto-generated method stub
-		super.testFetchKeysPaginateStatefulSeveralTimes();
+		super.testFetchKeysPaginateStatefulPreviouPageSeveralTimes();
 	}
 
 	@Override
 	public void testIterPaginateStatelessNextPage() {
 		// TODO Auto-generated method stub
 		super.testIterPaginateStatelessNextPage();
+	}
+
+	@Override
+	public void testIterPaginateStatelessNextPageRealAsync() {
+		// TODO Auto-generated method stub
+		super.testIterPaginateStatelessNextPageRealAsync();
 	}
 
 	@Override
@@ -1558,6 +1254,12 @@ public class GaeTest extends BaseTest {
 	}
 
 	@Override
+	public void testIterPaginateStatefulNextPageRealAsync() {
+		// TODO Auto-generated method stub
+		super.testIterPaginateStatefulNextPageRealAsync();
+	}
+
+	@Override
 	public void testIterPaginateStatefulPreviousPageFromScratch() {
 		// TODO Auto-generated method stub
 		super.testIterPaginateStatefulPreviousPageFromScratch();
@@ -1570,9 +1272,21 @@ public class GaeTest extends BaseTest {
 	}
 
 	@Override
+	public void testIterPaginateStatefulPreviousPageAsync() {
+		// TODO Auto-generated method stub
+		super.testIterPaginateStatefulPreviousPageAsync();
+	}
+
+	@Override
 	public void testIterPaginateStatefulPreviouPageSeveralTimes() {
 		// TODO Auto-generated method stub
 		super.testIterPaginateStatefulPreviouPageSeveralTimes();
+	}
+
+	@Override
+	public void testIterPaginateStatefulSeveralTimesRealAsync() {
+		// TODO Auto-generated method stub
+		super.testIterPaginateStatefulSeveralTimesRealAsync();
 	}
 
 	@Override
@@ -1630,9 +1344,27 @@ public class GaeTest extends BaseTest {
 	}
 
 	@Override
-	public void testFetchIterLotsOfEntitiesStatefulMixed3() {
+	public void testSearchSingle() {
 		// TODO Auto-generated method stub
-		super.testFetchIterLotsOfEntitiesStatefulMixed3();
+		super.testSearchSingle();
+	}
+
+	@Override
+	public void testSearchSingleKeysOnly() {
+		// TODO Auto-generated method stub
+		super.testSearchSingleKeysOnly();
+	}
+
+	@Override
+	public void testSearchSingleTwice() {
+		// TODO Auto-generated method stub
+		super.testSearchSingleTwice();
+	}
+
+	@Override
+	public void testSearchSingleCount() {
+		// TODO Auto-generated method stub
+		super.testSearchSingleCount();
 	}
 
 	@Override
@@ -1686,19 +1418,13 @@ public class GaeTest extends BaseTest {
 	@Override
 	public void testBatchGetByKeys() {
 		// TODO Auto-generated method stub
-		super.testBatchGetByKeysList();
+		super.testBatchGetByKeys();
 	}
 
 	@Override
 	public void testBatchGetByKeysList() {
 		// TODO Auto-generated method stub
 		super.testBatchGetByKeysList();
-	}
-
-	@Override
-	public void testBatchGetByKeysNonExisting() {
-		// TODO Auto-generated method stub
-		super.testBatchGetByKeysNonExisting();
 	}
 
 	@Override
@@ -1918,9 +1644,51 @@ public class GaeTest extends BaseTest {
 	}
 
 	@Override
+	public void testLimitStatelessRealAsync() {
+		// TODO Auto-generated method stub
+		super.testLimitStatelessRealAsync();
+	}
+
+	@Override
+	public void testLimitStatefulRealAsync() {
+		// TODO Auto-generated method stub
+		super.testLimitStatefulRealAsync();
+	}
+
+	@Override
 	public void testFetchStringAutoInc() {
 		// TODO Auto-generated method stub
 		super.testFetchStringAutoInc();
+	}
+
+	@Override
+	public void testInsertObjectWithNullJoinObject() {
+		// TODO Auto-generated method stub
+		super.testInsertObjectWithNullJoinObject();
+	}
+
+	@Override
+	public void testInsertObjectWithDoubleNullJoinObject() {
+		// TODO Auto-generated method stub
+		super.testInsertObjectWithDoubleNullJoinObject();
+	}
+
+	@Override
+	public void testJoinAnnotationDouble() {
+		// TODO Auto-generated method stub
+		super.testJoinAnnotationDouble();
+	}
+
+	@Override
+	public void testBatchUpdate() {
+		// TODO Auto-generated method stub
+		super.testBatchUpdate();
+	}
+
+	@Override
+	public void testBatchUpdateList() {
+		// TODO Auto-generated method stub
+		super.testBatchUpdateList();
 	}
 
 	@Override
@@ -1954,87 +1722,9 @@ public class GaeTest extends BaseTest {
 	}
 
 	@Override
-	public void testDumpQueryOption() {
-		// TODO Auto-generated method stub
-		super.testDumpQueryOption();
-	}
-
-	@Override
-	public void testRestoreQueryOption() {
-		// TODO Auto-generated method stub
-		super.testRestoreQueryOption();
-	}
-
-	@Override
-	public void testDumpRestoreQueryFilterSimple() {
-		// TODO Auto-generated method stub
-		super.testDumpRestoreQueryFilterSimple();
-	}
-
-	@Override
-	public void testDumpRestoreQueryFilterSearch() {
-		// TODO Auto-generated method stub
-		super.testDumpRestoreQueryFilterSearch();
-	}
-
-	@Override
-	public void testDumpRestoreQueryOrder() {
-		// TODO Auto-generated method stub
-		super.testDumpRestoreQueryOrder();
-	}
-
-	@Override
-	public void testDumpRestoreQueryJoin() {
-		// TODO Auto-generated method stub
-		super.testDumpRestoreQueryJoin();
-	}
-
-	@Override
-	public void testDumpRestoreQueryData() {
-		// TODO Auto-generated method stub
-		super.testDumpRestoreQueryData();
-	}
-
-	@Override
 	public void testIterPerPageStatefull3() {
 		// TODO Auto-generated method stub
 		super.testIterPerPageStatefull3();
-	}
-
-	@Override
-	public void testInsertObjectWithNullJoinObject() {
-		// TODO Auto-generated method stub
-		super.testInsertObjectWithNullJoinObject();
-	}
-
-	@Override
-	public void testInsertObjectWithDoubleNullJoinObject() {
-		// TODO Auto-generated method stub
-		super.testInsertObjectWithDoubleNullJoinObject();
-	}
-
-	@Override
-	public void testJoinAnnotationDouble() {
-		// TODO Auto-generated method stub
-		super.testJoinAnnotationDouble();
-	}
-
-	@Override
-	public void testBatchUpdate() {
-		// TODO Auto-generated method stub
-		super.testBatchUpdate();
-	}
-
-	@Override
-	public void testBatchUpdateList() {
-		// TODO Auto-generated method stub
-		super.testBatchUpdateList();
-	}
-	
-	@Override
-	public void testGetByKeyNonExisting() {
-		// TODO Auto-generated method stub
-		super.testGetByKeyNonExisting();
 	}
 
 	@Override
@@ -2127,72 +1817,8 @@ public class GaeTest extends BaseTest {
 		super.testNoColumnMultipleKeys();
 	}
 
-	@Override
-	public void testLifeCycleGet() {
-		// TODO Auto-generated method stub
-		super.testLifeCycleGet();
-	}
-
-	@Override
-	public void testLifeCycleGetMultiAndLifeCycleInjection() {
-		// TODO Auto-generated method stub
-		super.testLifeCycleGetMultiAndLifeCycleInjection();
-	}
-
-	@Override
-	public void testLifeCycleInsert() {
-		// TODO Auto-generated method stub
-		super.testLifeCycleInsert();
-	}
-
-	@Override
-	public void testLifeCycleDelete() {
-		// TODO Auto-generated method stub
-		super.testLifeCycleDelete();
-	}
-
-	@Override
-	public void testLifeCycleUpdate() {
-		// TODO Auto-generated method stub
-		super.testLifeCycleUpdate();
-	}
-
-	@Override
-	public void testLifeCycleSave() {
-		// TODO Auto-generated method stub
-		super.testLifeCycleSave();
-	}
-
-	@Override
-	public void testSerializeEmbeddedModel() {
-		// TODO Auto-generated method stub
-		super.testSerializeEmbeddedModel();
-	}
-
-	@Override
-	public void testBigDecimal() {
-		// TODO Auto-generated method stub
-		super.testBigDecimal();
-	}
-
-	@Override
-	public void testBigDecimalNoPrecision() {
-		// TODO Auto-generated method stub
-		super.testBigDecimalNoPrecision();
-	}
-
-	@Override
-	public void testBigDecimalString() {
-		// TODO Auto-generated method stub
-		super.testBigDecimalString();
-	}
-
-	@Override
-	public void testBigDecimalDouble() {
-		// TODO Auto-generated method stub
-		super.testBigDecimalDouble();
-	}
 
 
-	
+
+    
 }

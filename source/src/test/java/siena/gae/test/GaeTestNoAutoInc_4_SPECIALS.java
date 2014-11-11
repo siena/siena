@@ -1,4 +1,4 @@
-package siena.base.test;
+package siena.gae.test;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -12,6 +12,7 @@ import siena.PersistenceManager;
 import siena.Query;
 import siena.SienaException;
 import siena.SienaRestrictedApiException;
+import siena.base.test.BaseTestNoAutoInc_4_SPECIALS;
 import siena.base.test.model.PersonStringID;
 import siena.gae.GaePersistenceManager;
 import siena.sdb.SdbPersistenceManager;

@@ -1,8 +1,9 @@
-package siena.base.test;
+package siena.gae.test;
 
 import java.util.List;
 
 import siena.PersistenceManager;
+import siena.base.test.BaseRelatedTest;
 import siena.gae.GaePersistenceManager;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;

@@ -1,4 +1,4 @@
-package siena.base.test;
+package siena.gae.test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import siena.Model;
 import siena.PersistenceManager;
 import siena.PersistenceManagerFactory;
 import siena.SienaException;
+import siena.base.test.BaseModelTest;
 import siena.base.test.model.AggregateChildModel;
 import siena.base.test.model.AggregateParentModel;
 import siena.base.test.model.StringListModel;
