@@ -208,7 +208,7 @@ public class GaeMappingUtils {
 	      Relation rel = (Relation)Util.readField(obj, info.aggregator);
 	      if(rel != null && rel.mode == RelationMode.AGGREGATION){
 	        ClassInfo parentInfo = ClassInfo.getClassInfo(rel.target.getClass());
-	        parentKey = GaeMappingUtils.makeKey(parentInfo, rel.target);
+	        parentKey = GaeMappingUtils.getKey(rel.target);
 	        kind = getKindWithAncestorField( info,  parentInfo, (Field)rel.discriminator);
 		    }
 	    }
