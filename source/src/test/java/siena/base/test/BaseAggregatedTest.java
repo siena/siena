@@ -156,8 +156,7 @@ public abstract class BaseAggregatedTest extends TestCase {
 		assertNotNull(god.id);
 		assertNotNull(god.child.get().id);
 		
-		AggregateParentModel god1 = 
-			Model.getByKey(AggregateParentModel.class, god.id);
+		AggregateParentModel god1 = Model.getByKey(AggregateParentModel.class, god.id);
 		
 		assertNotNull(god1);
 		assertEquals(adam1, god1.child.get());
@@ -184,9 +183,24 @@ public abstract class BaseAggregatedTest extends TestCase {
 		assertEquals(bob, children.get(2));
 		
 		// test aggregated getByKey
-//    AggregateChildModel adam3 = Model.getByKey( AggregateChildModel.class, adam1.id );
     AggregateChildModel adam3 = god.children.asQuery().getByKey(adam2.id);
 		assertEquals( adam2, adam3 );
+		
+		List<AggregateChildModel> l = god.children.asQuery().fetchKeys();
+    assertNotNull(l);
+    assertEquals( 3, l.size());
+
+    assertEquals( adam2.id, l.get(0).id);
+    assertEquals( eve.id, l.get(1).id);
+    assertEquals( bob.id, l.get(2).id);
+    
+    int ls = god.children.asBatch().get(l);
+    assertEquals( 3, ls );
+    assertEquals( adam2.name, l.get(0).name);
+    assertEquals( eve.name, l.get(1).name);
+    assertEquals( bob.name, l.get(2).name);
+    
+//  god.children.asBatch().get(adam2, eve, bob);
 	}
 	
 	public void testAggregateUpdate() {

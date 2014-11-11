@@ -91,7 +91,8 @@ public class GaeMappingUtils {
 	}
 	
 	public static String getKindWithAncestorField(ClassInfo childInfo, ClassInfo parentInfo, Field field){
-		return childInfo.tableName + ":" + parentInfo.tableName + ":" + ClassInfo.getSingleColumnName(field);
+  return childInfo.tableName + ":" + parentInfo.tableName + ":" + ClassInfo.getSingleColumnName(field);
+//	  return childInfo.tableName;
 	}
 	
 	public static Entity createEntityInstanceFromParent(
@@ -201,33 +202,43 @@ public class GaeMappingUtils {
 			if(value == null) return null;
 			
 			Class<?> type = idField.getType();
-			
+			String kind = ClassInfo.getClassInfo(clazz).tableName;
+			Key parentKey = null;
+	    if(info.hasAggregator){
+	      Relation rel = (Relation)Util.readField(obj, info.aggregator);
+	      if(rel != null && rel.mode == RelationMode.AGGREGATION){
+	        ClassInfo parentInfo = ClassInfo.getClassInfo(rel.target.getClass());
+	        parentKey = GaeMappingUtils.makeKey(parentInfo, rel.target);
+	        kind = getKindWithAncestorField( info,  parentInfo, (Field)rel.discriminator);
+		    }
+	    }
+		      
 			if(idField.isAnnotationPresent(Id.class)){
 				Id id = idField.getAnnotation(Id.class);
 				switch(id.value()) {
 				case NONE:
 				  if( value instanceof Long )
-	          return KeyFactory.createKey(
-	              ClassInfo.getClassInfo(clazz).tableName,
+	          return KeyFactory.createKey( parentKey,
+	              kind,
 	              (Long)value );
 				  else
-  					return KeyFactory.createKey(
-  						ClassInfo.getClassInfo(clazz).tableName,
+  					return KeyFactory.createKey( parentKey,
+  						kind,
   						value.toString());
 				case AUTO_INCREMENT:
 					// as a string with auto_increment can't exist, it is not cast into long
 					if (Long.TYPE == type || Long.class.isAssignableFrom(type)){
-						return KeyFactory.createKey(
-							ClassInfo.getClassInfo(clazz).tableName,
+						return KeyFactory.createKey( parentKey,
+							kind,
 							(Long)value);
 					}
-					return KeyFactory.createKey(
-						ClassInfo.getClassInfo(clazz).tableName,
+					return KeyFactory.createKey( parentKey,
+						kind,
 						value.toString());
 					
 				case UUID:
-					return KeyFactory.createKey(
-						ClassInfo.getClassInfo(clazz).tableName,
+					return KeyFactory.createKey( parentKey,
+						kind,
 						value.toString());
 				default:
 					throw new SienaException("Id Generator "+id.value()+ " not supported");
