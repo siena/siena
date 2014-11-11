@@ -271,7 +271,10 @@ public class BaseQuery<T> extends BaseQueryData<T> implements Query<T> {
 	    }
 	    else {
 	      QueryAggregated aggreg = aggregs.get(0);
-        return pm.getByAggregatorKey(clazz, aggreg.aggregator, aggreg.field, key);
+        T t = pm.getByAggregatorKey(clazz, aggreg.aggregator, aggreg.field, key);
+        // maps model relations to be able to associate children to aggregators
+        GaeMappingUtils.mapRelation(this, t, info);
+        return t;
 	    }
 	}
 
