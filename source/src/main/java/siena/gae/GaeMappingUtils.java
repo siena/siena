@@ -77,7 +77,7 @@ public class GaeMappingUtils {
 	}
 	
 	public static Entity createEntityInstanceForUpdate(ClassInfo info, Object obj){
-		Key key = makeKey(info, obj);
+		Key key = getKey(obj);
 		Entity entity = new Entity(key);
 		
 		return entity;
@@ -350,19 +350,6 @@ public class GaeMappingUtils {
 		}
 	}
 	
-	public static Key makeKey(Object object) {
-		return makeKey(ClassInfo.getClassInfo(object.getClass()), object);
-	}
-	
-	public static Key makeKey(ClassInfo info, Object object) {
-		Field idField = info.getIdField();
-		Object idVal = Util.readField(object, idField);
-		if(idVal == null)
-			throw new SienaException("Id Field " + idField.getName() + " value null");
-
-		return makeKeyFromId(object.getClass(), idVal);
-	}
-
 	public static Key makeKeyFromParent(ClassInfo info, Object object, Key parentKey, ClassInfo parentInfo, Field parentField) {
 		try {
 			Field idField = info.getIdField();

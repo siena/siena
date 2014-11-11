@@ -113,7 +113,7 @@ public class GaePersistenceManager extends AbstractPersistenceManager {
 			Relation rel = (Relation)Util.readField(obj, info.aggregator);
 			if(rel != null && rel.mode == RelationMode.AGGREGATION){
 				ClassInfo parentInfo = ClassInfo.getClassInfo(rel.target.getClass());
-				Key parentKey = GaeMappingUtils.makeKey(parentInfo, rel.target);
+				Key parentKey = GaeMappingUtils.getKey(rel.target);
 				_deleteSingle(obj, keys, parentKey, parentInfo, (Field)rel.discriminator);
 			}else {
 				_deleteSingle(obj, keys, null, null, null);
@@ -302,7 +302,7 @@ public class GaePersistenceManager extends AbstractPersistenceManager {
 			Relation rel = (Relation)Util.readField(obj, info.aggregator);
 			if(rel != null && rel.mode == RelationMode.AGGREGATION){
 				ClassInfo parentInfo = ClassInfo.getClassInfo(rel.target.getClass());
-				Key parentKey = GaeMappingUtils.makeKey(parentInfo, rel.target);
+				Key parentKey = GaeMappingUtils.getKey(rel.target);
 				_insertSingle(obj, parentKey, rel.target, parentInfo, (Field)rel.discriminator);
 			}else {
 				_insertSingle(obj, null, null, null, null);
@@ -362,7 +362,7 @@ public class GaePersistenceManager extends AbstractPersistenceManager {
 				Relation rel = (Relation)Util.readField(obj, info.aggregator);
 				if(rel != null && rel.mode == RelationMode.AGGREGATION){
 					ClassInfo parentInfo = ClassInfo.getClassInfo(rel.target.getClass());
-					Key parentKey = GaeMappingUtils.makeKey(parentInfo, rel.target);
+					Key parentKey = GaeMappingUtils.getKey(rel.target);
 					_insertAddEntity(entities, obj, info, parentKey, parentInfo, (Field)rel.discriminator);
 				}else {
 					_insertAddEntity(entities, obj, info, null, null, null);
@@ -542,7 +542,7 @@ public class GaePersistenceManager extends AbstractPersistenceManager {
 			Relation rel = (Relation)Util.readField(obj, info.aggregator);
 			if(rel != null && rel.mode == RelationMode.AGGREGATION){
 				ClassInfo parentInfo = ClassInfo.getClassInfo(rel.target.getClass());
-				Key parentKey = GaeMappingUtils.makeKey(parentInfo, rel.target);
+				Key parentKey = GaeMappingUtils.getKey(rel.target);
 				if(!info.hasAggregatedFields && !info.hasOwnedFields){
 					_updateSimple(obj, info, parentKey, parentInfo, (Field)rel.discriminator);
 				}
@@ -665,7 +665,7 @@ public class GaePersistenceManager extends AbstractPersistenceManager {
 				Relation rel = (Relation)Util.readField(obj, info.aggregator);
 				if(rel != null && rel.mode == RelationMode.AGGREGATION){
 					ClassInfo parentInfo = ClassInfo.getClassInfo(rel.target.getClass());
-					Key parentKey = GaeMappingUtils.makeKey(parentInfo, rel.target);
+					Key parentKey = GaeMappingUtils.getKey(rel.target);
 					_updateBuildMaps(entitiesMap, objectsMap, keysMap, 
 							obj, parentKey, parentInfo, (Field)rel.discriminator);
 				}else {
