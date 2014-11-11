@@ -1,6 +1,7 @@
 package siena.core;
 
 import siena.Query;
+import siena.core.batch.Batch;
 
 
 /**
@@ -18,4 +19,5 @@ import siena.Query;
 public interface Many<T>  {
 	SyncList<T> asList();
 	Query<T> asQuery();
+  Batch<T> asBatch();
 }

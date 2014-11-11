@@ -528,6 +528,11 @@ public abstract class Model {
 		public Query<T> asQuery() {
 			return createMany().asQuery();
 		}
+		
+    @Override
+    public Batch<T> asBatch() {
+      return createMany().asBatch();
+    }
 
 		public List<T> asList2Remove() {
 			return ((Many4PM<T>)createMany()).asList2Remove();

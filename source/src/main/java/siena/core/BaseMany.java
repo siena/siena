@@ -15,6 +15,7 @@ import siena.ClassInfo;
 import siena.PersistenceManager;
 import siena.Query;
 import siena.Util;
+import siena.core.batch.Batch;
 
 /**
  * @author mandubian <pascal.voitot@mandubian.org>
@@ -30,12 +31,14 @@ public class BaseMany<T> implements Many4PM<T>{
 	
 	transient protected ProxyList<T> list;	
 	transient protected Query<T> query;
+	transient protected Batch<T> batch;
 	
 	public BaseMany(PersistenceManager pm, Class<T> clazz){
 		this.pm = pm;
 		this.clazz = clazz;
 		list = new ProxyList<T>(this);
 		this.query = pm.createQuery(clazz);
+		this.batch = pm.createBatch(clazz);
 	}
 	
 	public BaseMany(PersistenceManager pm, Class<T> clazz, RelationMode mode, Object obj, String fieldName) {
@@ -61,7 +64,11 @@ public class BaseMany<T> implements Many4PM<T>{
 	public Query<T> asQuery() {
 		return query;
 	}
-	
+
+	 public Batch<T> asBatch() {
+	  return batch;
+	}
+
 	public Many4PM<T> setSync(boolean isSync) {
 		list.isSync = isSync;
 		return this;
