@@ -200,7 +200,27 @@ public abstract class BaseAggregatedTest extends TestCase {
     assertEquals( eve.name, l.get(1).name);
     assertEquals( bob.name, l.get(2).name);
     
-//  god.children.asBatch().get(adam2, eve, bob);
+    l = god.children.asQuery().fetchKeys();
+    int ls2 = god.children.asBatch().get( l.get(0), l.get(1), l.get(2) );
+    assertEquals( 3, ls2 );
+    assertEquals( adam2.name, l.get(0).name);
+    assertEquals( eve.name, l.get(1).name);
+    assertEquals( bob.name, l.get(2).name);
+
+    l = god.children.asQuery().fetchKeys();
+    int ls3 = Model.batch(AggregateChildModel.class).get( l.get(0), l.get(1), l.get(2) );
+    assertEquals( 3, ls3 );
+    assertEquals( adam2.name, l.get(0).name);
+    assertEquals( eve.name, l.get(1).name);
+    assertEquals( bob.name, l.get(2).name);
+
+    List<AggregateChildModel> l3 = Model.batch(AggregateChildModel.class).async().get( l.get(0), l.get(1), l.get(2) );
+    assertEquals( 3, l3.size() );
+    assertEquals( adam2.name, l3.get(0).name);
+    assertEquals( eve.name, l3.get(1).name);
+    assertEquals( bob.name, l3.get(2).name);
+
+    //  god.children.asBatch().get();
 	}
 	
 	public void testAggregateUpdate() {
