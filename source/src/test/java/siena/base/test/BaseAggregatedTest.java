@@ -52,8 +52,7 @@ public abstract class BaseAggregatedTest extends TestCase {
 		assertNotNull(adam1.id);
 		assertNotNull(adam1.getRelation());
 
-		AggregateParentModel god1 = 
-			Model.getByKey(AggregateParentModel.class, god.id);
+		AggregateParentModel god1 = Model.getByKey(AggregateParentModel.class, god.id);
 		assertNotNull(god1);
 		assertEquals(adam1, god1.child.get());
 		
@@ -76,8 +75,7 @@ public abstract class BaseAggregatedTest extends TestCase {
 		god1.child.set(adam2);
 		god1.update();
 
-		AggregateParentModel god2 = 
-			Model.getByKey(AggregateParentModel.class, god1.id);
+		AggregateParentModel god2 = Model.getByKey(AggregateParentModel.class, god1.id);
 		assertNotNull(god2);
 		assertEquals(adam2, god2.child.get());
 		
@@ -134,6 +132,14 @@ public abstract class BaseAggregatedTest extends TestCase {
 		assertEquals(adam2, children.get(0));
 		assertEquals(eve, children.get(1));
 		assertEquals(bob, children.get(2));
+		
+		assertNotNull( adam2.getRelation() );
+    
+		// this one fails for mysterious reasons
+//		assertEquals( god1, adam2.getRelation().target );
+		assertEquals( god1.id, ((AggregateParentModel)(adam2.getRelation().target)).id );
+    assertNotNull( children.get(0).getRelation() );
+    assertEquals( god1, children.get(0).getRelation().target );
 		
 		eve.delete();
 		children = god1.children.asList().forceSync();
