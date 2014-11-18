@@ -2,6 +2,7 @@ package siena.embed;
 
 import static siena.Json.list;
 import static siena.Json.map;
+import static siena.Json.sortedMap;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
@@ -35,7 +36,7 @@ public class JsonSerializer {
 		//if(obj instanceof Map<?, ?>) {
 		if(Map.class.isAssignableFrom(clazz)){
 			Map<?, ?> map = (Map<?, ?>) obj;
-			Json result = map();
+			Json result = sortedMap();
 			for (Map.Entry<?, ?> entry : map.entrySet()) {
 				String key = entry.getKey().toString();
 				Json value = serialize(entry.getValue(), null);
