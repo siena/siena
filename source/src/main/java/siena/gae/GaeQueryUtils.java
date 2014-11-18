@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -34,15 +35,15 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class GaeQueryUtils {
-	public static final Map<String, FilterOperator> operators = new HashMap<String, FilterOperator>() {
+	public static final Map<String, FilterOperator> operators = new LinkedHashMap<String, FilterOperator>() {
 		private static final long serialVersionUID = 1L;
 		{
+      put("<=", FilterOperator.LESS_THAN_OR_EQUAL);
+      put(">=", FilterOperator.GREATER_THAN_OR_EQUAL);
+      put("!=", FilterOperator.NOT_EQUAL);
 			put("=", FilterOperator.EQUAL);
-			put("!=", FilterOperator.NOT_EQUAL);
 			put("<", FilterOperator.LESS_THAN);
 			put(">", FilterOperator.GREATER_THAN);
-			put("<=", FilterOperator.LESS_THAN_OR_EQUAL);
-			put(">=", FilterOperator.GREATER_THAN_OR_EQUAL);
 			put(" IN", FilterOperator.IN);
 		}
 	};
