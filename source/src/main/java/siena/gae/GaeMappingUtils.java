@@ -91,7 +91,7 @@ public class GaeMappingUtils {
 	}
 	
 	public static String getKindWithAncestorField(ClassInfo childInfo, ClassInfo parentInfo, Field field){
-  return childInfo.tableName + ":" + parentInfo.tableName + ":" + ClassInfo.getSingleColumnName(field);
+	  return childInfo.tableName + ":" + parentInfo.tableName + ":" + ClassInfo.getSingleColumnName(field);
 //	  return childInfo.tableName;
 	}
 	
@@ -610,10 +610,12 @@ public class GaeMappingUtils {
 
 		for (Field field : info.updateFields) {
 			String property = ClassInfo.getColumnNames(field)[0];
+			
 			try {
 				fieldClass = field.getType();
-				if (ClassInfo.isModel(fieldClass) 
-						&& !ClassInfo.isEmbedded(field)) {
+				if (ClassInfo.isModel(fieldClass) && !ClassInfo.isEmbedded(field)) {
+  		      if( entity.getProperty(property) == null )
+  		        continue;
 					/*if(!ClassInfo.isAggregated(field)){*/
 						key = (Key) entity.getProperty(property);
 						if (key != null) {
@@ -625,8 +627,7 @@ public class GaeMappingUtils {
 					/*}*/
 				} 
 				else if(ClassInfo.isEmbedded(field) && field.getAnnotation(Embedded.class).mode() == Embedded.Mode.NATIVE){
-					Object value = GaeNativeSerializer.unembed(
-								field.getType(), ClassInfo.getSingleColumnName(field), entity, 0);
+					Object value = GaeNativeSerializer.unembed(field.getType(), ClassInfo.getSingleColumnName(field), entity, 0);
 					Util.setField(obj, field, value);
 				}
 				/*else if(ClassInfo.isAggregated(field)){
@@ -636,6 +637,9 @@ public class GaeMappingUtils {
 					// does nothing for the time being
 				}*/
 				else {
+          if( entity.getProperty(property) == null )
+            continue;
+
 					setFromObject(obj, field, entity.getProperty(property));
 				}
 			} catch (Exception e) {
