@@ -4849,8 +4849,7 @@ public abstract class BaseTest extends TestCase {
 		Json dump = opt.dump();
 		String str = JsonSerializer.serialize(dump).toString();
 		assertNotNull(str);
-		assertEquals("{\"type\": \""+QueryOptionPage.class.getName()+"\", \"value\": {\"pageType\": \"TEMPORARY\", \"pageSize\": 0, \"state\": \"PASSIVE\", \"type\": 1}}", str);
-		
+		assertEquals("{\"value\": {\"pageType\": \"TEMPORARY\", \"state\": \"PASSIVE\", \"pageSize\": 0, \"type\": 1}, \"type\": \"siena.core.options.QueryOptionPage\"}", str);
 	}
 	
 	public void testRestoreQueryOption() {
