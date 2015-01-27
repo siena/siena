@@ -233,10 +233,6 @@
 			<url>https://repository.apache.org/content/repositories/snapshots</url>
 			<snapshots><enabled>true</enabled></snapshots>
 		</repository>
-		<repository>
-            <id>objectify-appengine</id>
-            <url>http://objectify-appengine.googlecode.com/svn/maven</url>
-        </repository>
 	</repositories>
 
 
@@ -370,11 +366,11 @@
 		</dependency-->
 		
 		<!-- Objectify dependencies -->
-        <dependency>
-            <groupId>com.googlecode.objectify</groupId>
-            <artifactId>objectify</artifactId>
-            <version>5.0.3</version>
-        </dependency>
+		<dependency>
+		    <groupId>com.googlecode.objectify</groupId>
+		    <artifactId>objectify</artifactId>
+		    <version>5.1.4</version>
+		</dependency>
 	</dependencies>
 
 	<profiles>
