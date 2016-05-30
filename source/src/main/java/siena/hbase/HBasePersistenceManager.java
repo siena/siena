@@ -533,8 +533,11 @@ public class HBasePersistenceManager extends AbstractPersistenceManager {
 			return null;
 		}
 
-
-
+    @Override
+    public Query<T> keyOnly() {
+      // FIXME Auto-generated method stub
+      return null;
+    }
 	}
 
 	@Override

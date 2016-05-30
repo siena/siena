@@ -56,6 +56,8 @@ public interface Query<T> extends QueryData<T>{
 	List<T> fetchKeys(int limit);
 	List<T> fetchKeys(int limit, Object offset);
 
+	Query<T> keyOnly();
+	
 	Iterable<T> iter();
 	Iterable<T> iter(int limit);
 	Iterable<T> iter(int limit, Object offset);

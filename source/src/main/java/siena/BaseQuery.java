@@ -13,6 +13,7 @@ import com.google.appengine.api.datastore.Key;
 
 import siena.core.async.QueryAsync;
 import siena.core.options.QueryOption;
+import siena.core.options.QueryOptionFetchType;
 import siena.embed.JsonSerializer;
 import siena.gae.GaeMappingUtils;
 
@@ -110,6 +111,12 @@ public class BaseQuery<T> extends BaseQueryData<T> implements Query<T> {
 		return this;
 	}
 	
+  @Override
+  public Query<T> keyOnly() {
+    ((QueryOptionFetchType)this.option(QueryOptionFetchType.ID)).fetchType=QueryOptionFetchType.Type.KEYS_ONLY;
+    return this;
+  }
+
 	public T get() {
 		return pm.get(this);
 	}
@@ -316,5 +323,5 @@ public class BaseQuery<T> extends BaseQueryData<T> implements Query<T> {
 		
 		return (Query<T>)JsonSerializer.deserialize(BaseQuery.class, Json.loads(sb.toString()));
 	}
-		
+
 }

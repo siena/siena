@@ -483,6 +483,10 @@ public abstract class Model {
 			return createQuery().restore(dump, options);
 		}
 
+    @Override
+    public Query<T> keyOnly() {
+      return createQuery().keyOnly();
+    }
 		
 	}
 

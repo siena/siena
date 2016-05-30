@@ -424,10 +424,11 @@ public class MockPersistenceManager implements PersistenceManager {
 			return null;
 		}
 
-
-
-
-
+    @Override
+    public Query<T> keyOnly() {
+      // FIXME Auto-generated method stub
+      return null;
+    }
 	}
 
 	@Override
