@@ -122,7 +122,10 @@ public class BaseQuery<T> extends BaseQueryData<T> implements Query<T> {
 	}
 
 	public List<T> fetch() {
-		return pm.fetch(this);
+	  List<T> l = pm.fetchKeys(this);
+	  if( l.size()>0)
+	    pm.createBatch(this.getQueriedClass()).get(l);
+	  return l;
 	}
 
 	public List<T> fetch(int limit) {
