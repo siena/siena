@@ -1301,27 +1301,27 @@ public class Base64
      * @throws NullPointerException if dataToEncode is null
      * @since 2.1
      */
-    public static void encodeToFile( byte[] dataToEncode, String filename )
-    throws java.io.IOException {
-        
-        if( dataToEncode == null ){
-            throw new NullPointerException( "Data to encode was null." );
-        }   // end iff
-        
-        Base64.OutputStream bos = null;
-        try {
-            bos = new Base64.OutputStream( 
-                  new java.io.FileOutputStream( filename ), Base64.ENCODE );
-            bos.write( dataToEncode );
-        }   // end try
-        catch( java.io.IOException e ) {
-            throw e; // Catch and throw to execute finally{} block
-        }   // end catch: java.io.IOException
-        finally {
-            try{ bos.close(); } catch( Exception e ){}
-        }   // end finally
-        
-    }   // end encodeToFile
+//    public static void encodeToFile( byte[] dataToEncode, String filename )
+//    throws java.io.IOException {
+//        
+//        if( dataToEncode == null ){
+//            throw new NullPointerException( "Data to encode was null." );
+//        }   // end iff
+//        
+//        Base64.OutputStream bos = null;
+//        try {
+//            bos = new Base64.OutputStream( 
+//                  new java.io.FileOutputStream( filename ), Base64.ENCODE );
+//            bos.write( dataToEncode );
+//        }   // end try
+//        catch( java.io.IOException e ) {
+//            throw e; // Catch and throw to execute finally{} block
+//        }   // end catch: java.io.IOException
+//        finally {
+//            try{ bos.close(); } catch( Exception e ){}
+//        }   // end finally
+//        
+//    }   // end encodeToFile
     
     
     /**
@@ -1337,26 +1337,23 @@ public class Base64
      * @throws java.io.IOException if there is an error
      * @since 2.1
      */
-    public static void decodeToFile( String dataToDecode, String filename )
-    throws java.io.IOException {
-        
-        Base64.OutputStream bos = null;
-        try{
-            bos = new Base64.OutputStream( 
-                      new java.io.FileOutputStream( filename ), Base64.DECODE );
-            bos.write( dataToDecode.getBytes( PREFERRED_ENCODING ) );
-        }   // end try
-        catch( java.io.IOException e ) {
-            throw e; // Catch and throw to execute finally{} block
-        }   // end catch: java.io.IOException
-        finally {
-                try{ bos.close(); } catch( Exception e ){}
-        }   // end finally
-        
-    }   // end decodeToFile
-    
-    
-    
+//    public static void decodeToFile( String dataToDecode, String filename )
+//    throws java.io.IOException {
+//        
+//        Base64.OutputStream bos = null;
+//        try{
+//            bos = new Base64.OutputStream( 
+//                      new java.io.FileOutputStream( filename ), Base64.DECODE );
+//            bos.write( dataToDecode.getBytes( PREFERRED_ENCODING ) );
+//        }   // end try
+//        catch( java.io.IOException e ) {
+//            throw e; // Catch and throw to execute finally{} block
+//        }   // end catch: java.io.IOException
+//        finally {
+//                try{ bos.close(); } catch( Exception e ){}
+//        }   // end finally
+//        
+//    }   // end decodeToFile
     
     /**
      * Convenience method for reading a base64-encoded
@@ -1478,24 +1475,24 @@ public class Base64
      * @throws java.io.IOException if there is an error
      * @since 2.2
      */
-    public static void encodeFileToFile( String infile, String outfile )
-    throws java.io.IOException {
-        
-        String encoded = Base64.encodeFromFile( infile );
-        java.io.OutputStream out = null;
-        try{
-            out = new java.io.BufferedOutputStream(
-                  new java.io.FileOutputStream( outfile ) );
-            out.write( encoded.getBytes("US-ASCII") ); // Strict, 7-bit output.
-        }   // end try
-        catch( java.io.IOException e ) {
-            throw e; // Catch and release to execute finally{}
-        }   // end catch
-        finally {
-            try { out.close(); }
-            catch( Exception ex ){}
-        }   // end finally    
-    }   // end encodeFileToFile
+//    public static void encodeFileToFile( String infile, String outfile )
+//    throws java.io.IOException {
+//        
+//        String encoded = Base64.encodeFromFile( infile );
+//        java.io.OutputStream out = null;
+//        try{
+//            out = new java.io.BufferedOutputStream(
+//                  new java.io.FileOutputStream( outfile ) );
+//            out.write( encoded.getBytes("US-ASCII") ); // Strict, 7-bit output.
+//        }   // end try
+//        catch( java.io.IOException e ) {
+//            throw e; // Catch and release to execute finally{}
+//        }   // end catch
+//        finally {
+//            try { out.close(); }
+//            catch( Exception ex ){}
+//        }   // end finally    
+//    }   // end encodeFileToFile
 
 
     /**
@@ -1506,24 +1503,24 @@ public class Base64
      * @throws java.io.IOException if there is an error
      * @since 2.2
      */
-    public static void decodeFileToFile( String infile, String outfile )
-    throws java.io.IOException {
-        
-        byte[] decoded = Base64.decodeFromFile( infile );
-        java.io.OutputStream out = null;
-        try{
-            out = new java.io.BufferedOutputStream(
-                  new java.io.FileOutputStream( outfile ) );
-            out.write( decoded );
-        }   // end try
-        catch( java.io.IOException e ) {
-            throw e; // Catch and release to execute finally{}
-        }   // end catch
-        finally {
-            try { out.close(); }
-            catch( Exception ex ){}
-        }   // end finally    
-    }   // end decodeFileToFile
+//    public static void decodeFileToFile( String infile, String outfile )
+//    throws java.io.IOException {
+//        
+//        byte[] decoded = Base64.decodeFromFile( infile );
+//        java.io.OutputStream out = null;
+//        try{
+//            out = new java.io.BufferedOutputStream(
+//                  new java.io.FileOutputStream( outfile ) );
+//            out.write( decoded );
+//        }   // end try
+//        catch( java.io.IOException e ) {
+//            throw e; // Catch and release to execute finally{}
+//        }   // end catch
+//        finally {
+//            try { out.close(); }
+//            catch( Exception ex ){}
+//        }   // end finally    
+//    }   // end decodeFileToFile
     
     
     /* ********  I N N E R   C L A S S   I N P U T S T R E A M  ******** */
