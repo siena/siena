@@ -87,12 +87,6 @@
 		</developer>
 	</developers>
 
-	<issueManagement>
-		<system>Gooble issues tracker</system>
-		<url>http://code.google.com/p/siena/issues</url>
-	</issueManagement>
-
-
 	<reporting>
 		<plugins>
 
@@ -123,15 +117,15 @@
 			</plugin>
 
 
-			<plugin>
-				<!--  >groupId>org.apache.maven.plugins</groupId-->
+			<!--plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<configuration>
 					<show>private</show>
 					<source>1.5</source>
 					<aggregate>true</aggregate>
 
-					<!-- >doclet>
+					<doclet>
 						gr.spinellis.umlgraph.doclet.UmlGraphDoc
 						</doclet>
 						
@@ -147,7 +141,7 @@
 						-postfixpackage -nodefontsize 9
 						-nodefontpackagesize 7
 						
-						</additionalparam -->
+						</additionalparam>
 
 					<links>
 						<link>
@@ -163,18 +157,19 @@
 					</links>
 
 				</configuration>
-			</plugin>
+			</plugin!-->
 		</plugins>
 	</reporting>
 
 	<properties>
 		<mysql.version>5.1.6</mysql.version>
-		<gae.version>1.8.6</gae.version>
+		<gae.version>1.9.34</gae.version>
 		<hbase.version>0.21.0-SNAPSHOT</hbase.version>
 		<postgres.version>8.4-702.jdbc4</postgres.version>
 		<drizzle.version>1.0</drizzle.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <jackson-2-version>2.1.0</jackson-2-version>
 	</properties>
 
 	<build>
@@ -185,8 +180,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 			<!-- Check code style -->
@@ -238,12 +233,12 @@
 
 
 	<dependencies>
-		<!-->dependency>
+		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>1.6.1</version>
 			<scope>compile</scope>
-		</dependency-->
+		</dependency>
 
 		<!-- Test -->
 		<dependency>
@@ -371,6 +366,22 @@
 		    <artifactId>objectify</artifactId>
 		    <version>5.1.4</version>
 		</dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson-2-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson-2-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-2-version}</version>
+        </dependency>
+		
 	</dependencies>
 
 	<profiles>
