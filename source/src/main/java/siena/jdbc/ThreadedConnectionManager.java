@@ -51,8 +51,8 @@ public class ThreadedConnectionManager extends AbstractConnectionManager {
 			}
 		} else {
 			try {
-				InitialContext ctx = new InitialContext();
-				dataSource = (DataSource) ctx.lookup(jndi);
+//				InitialContext ctx = new InitialContext();
+//				dataSource = (DataSource) ctx.lookup(jndi);
 			} catch (Exception e) {
 				throw new SienaException("Error while looking up for JNDI resource: "+jndi, e);
 			}

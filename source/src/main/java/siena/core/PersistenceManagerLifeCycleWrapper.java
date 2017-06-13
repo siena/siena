@@ -334,4 +334,10 @@ public class PersistenceManagerLifeCycleWrapper implements PersistenceManager{
 		return pm.count(query, limit, offset);
 	}
 
+  @Override
+  public <T> String toString(Query<T> query) {
+    // FIXME Auto-generated method stub
+    return null;
+  }
+
 }

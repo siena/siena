@@ -60,30 +60,30 @@ import com.googlecode.objectify.cache.CachingDatastoreServiceFactory;
 import com.googlecode.objectify.cache.EntityMemcache;
 
 public class GaeCachingPersistenceManager extends GaePersistenceManager {
-    
-    protected EntityMemcache entityMemcache;
 
-    public GaeCachingPersistenceManager() {
-        super();
+  protected EntityMemcache entityMemcache;
+
+  public GaeCachingPersistenceManager() {
+    super();
+  }
+
+  public GaeCachingPersistenceManager(EntityMemcache em) {
+    super();
+    entityMemcache = em;
+  }
+
+  @Override
+  public void init(Properties p) {
+    ds = entityMemcache == null ? CachingDatastoreServiceFactory.getDatastoreService() : CachingDatastoreServiceFactory.getDatastoreService(entityMemcache);
+    props = p;
+  }
+
+  @Override
+  public <T> PersistenceManagerAsync async() {
+    if (asyncPm == null) {
+      asyncPm = new GaeCachingPersistenceManagerAsync(entityMemcache);
+      asyncPm.init(props);
     }
-    
-    public GaeCachingPersistenceManager(EntityMemcache em) {
-        super();
-        entityMemcache = em;
-    }
-
-    @Override
-	public void init(Properties p) {
-		ds = entityMemcache == null ? CachingDatastoreServiceFactory.getDatastoreService() : CachingDatastoreServiceFactory.getDatastoreService(entityMemcache);
-		props = p;
-	}
-
-    @Override
-	public <T> PersistenceManagerAsync async() {
-		if(asyncPm==null){
-			asyncPm = new GaeCachingPersistenceManagerAsync(entityMemcache);
-			asyncPm.init(props);
-		}
-		return asyncPm;		
-	}
+    return asyncPm;
+  }
 }

@@ -2267,4 +2267,9 @@ public class GaePersistenceManager extends AbstractPersistenceManager {
     return supportedOperators;
   }
 
+  @Override
+  public <T> String toString(Query<T> query) {
+    return null;
+  }
+
 }

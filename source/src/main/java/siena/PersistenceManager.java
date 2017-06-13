@@ -242,4 +242,6 @@ public interface PersistenceManager {
 	<T> int count(Query<T> query, int limit);
 	@Deprecated
 	<T> int count(Query<T> query, int limit, Object offset);
+
+	<T> String toString(Query<T> query);
 }

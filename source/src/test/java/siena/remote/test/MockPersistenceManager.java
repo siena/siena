@@ -720,5 +720,11 @@ public class MockPersistenceManager implements PersistenceManager {
     return null;
   }
 
+  @Override
+  public <T> String toString(Query<T> query) {
+    // FIXME Auto-generated method stub
+    return null;
+  }
+
 
 }
